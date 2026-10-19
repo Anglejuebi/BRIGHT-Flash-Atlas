@@ -6,7 +6,7 @@
   <meta name="color-scheme" content="light">
   <meta name="description" content="BRIGHT-Flash 交互式计算效率 × 精度图谱：1007、Pipeline、EAGLE、BRIGHT 与五个 20× 基础编码器在 20 项临床任务上的比较。">
   <title>BRIGHT-Flash · 计算效率 × 精度图谱</title>
-  <link rel="stylesheet" href="styles.css?v=20261019-sngp">
+  <link rel="stylesheet" href="styles.css?v=20261019-naming">
 </head>
 <body>
   <div id="progress" aria-hidden="true"></div>
@@ -85,7 +85,7 @@
               1007 <span class="tag">单次前向</span>
             </div>
             <div class="path-flow">
-              <div class="node"><b>5× Student</b><small>1536 维 · ep6</small></div>
+              <div class="node"><b>BRIGHT-Flash</b><small>5× · 1536 维 · ep6</small></div>
               <div class="path-arrow">→</div>
               <div class="node"><b>ABMIL</b><small>20 个任务头</small></div>
             </div>
@@ -101,11 +101,11 @@
               Pipeline <span class="tag">级联</span>
             </div>
             <div class="path-flow">
-              <div class="node"><b>5× Student</b><small>ep3</small></div>
+              <div class="node"><b>BRIGHT-Flash</b><small>5× · ep3</small></div>
               <div class="path-arrow">→</div>
               <div class="node accent"><b>S2 SNGP</b><small>Top-20</small></div>
               <div class="path-arrow">→</div>
-              <div class="node accent"><b>20× Teacher</b><small>4×4 · ≤320</small></div>
+              <div class="node accent"><b>BRIGHT</b><small>20× · 4×4 · ≤320</small></div>
               <div class="path-arrow">→</div>
               <div class="node"><b>ABMIL</b><small>2560 维</small></div>
             </div>
@@ -194,7 +194,7 @@
             <div class="flow-vlink" aria-hidden="true"><i class="flow-particle"></i><i class="flow-particle" style="animation-delay:-.8s"></i></div>
             <div class="trunk-node">
               <span class="trunk-index">02</span>
-              <div><b>5× Student</b><small>DINOv2 ViT-B/14 · 1536-D · ep6/ep3</small></div>
+              <div><b>BRIGHT-Flash</b><small>5× · DINOv2 ViT-B/14 · 1536-D · ep6/ep3</small></div>
             </div>
             <div class="trunk-foot">输出：同一组 5× tile 特征</div>
           </div>
@@ -221,7 +221,7 @@
               <div class="flow-track">
                 <div class="flow-step flow-node" data-delay="760">
                   <div class="flow-step-top"><span class="flow-index">A1</span><span class="flow-tag">全部 tiles</span></div>
-                  <h3>5× 特征袋</h3>
+                  <h3>BRIGHT-Flash 特征袋</h3>
                   <p>全部 5× tile 进入 slide-level bag。</p>
                   <div class="bag-grid" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
                   <div class="flow-meta"><span>1536-D</span><span>无路由</span></div>
@@ -275,9 +275,9 @@
                 </div>
                 <div class="flow-hlink" aria-hidden="true"><i class="flow-particle"></i><i class="flow-particle" style="animation-delay:-.7s"></i></div>
                 <div class="flow-step flow-node" data-delay="1260">
-                  <div class="flow-step-top"><span class="flow-index">P3</span><span class="flow-tag">Teacher</span></div>
-                  <h3>20× Teacher</h3>
-                  <p>ViT-Huge/14 + rank-8 LoRA，逐 tile 编码。</p>
+                  <div class="flow-step-top"><span class="flow-index">P3</span><span class="flow-tag">20×</span></div>
+                  <h3>BRIGHT</h3>
+                  <p>20× · ViT-Huge/14 + rank-8 LoRA，逐 tile 编码。</p>
                   <div class="flow-meta"><span>2560-D</span><span>LoRA</span></div>
                 </div>
                 <div class="flow-hlink" aria-hidden="true"><i class="flow-particle"></i><i class="flow-particle" style="animation-delay:-.7s"></i></div>
@@ -303,7 +303,7 @@
                   <div class="result-meta">20 任务 · 6.23 s</div>
                 </div>
               </div>
-              <div class="flow-lane-foot">5× 初筛 + 路由 + 20× Teacher；端到端 8.66 s。</div>
+              <div class="flow-lane-foot">5× 初筛 + 路由 + BRIGHT（20×）；端到端 8.66 s。</div>
             </div>
           </div>
         </div>
@@ -390,7 +390,7 @@
         <div class="section-kicker"><span class="num">03</span> 模型体积</div>
         <h2>模型体积与显存。</h2>
         <p class="lede">
-          20× Teacher 的权重是 5× Student 的 7.3×；峰值显存还受批处理与切片流水线影响。
+          BRIGHT（20×）的权重是 BRIGHT-Flash（5×）的 7.3×；峰值显存还受批处理与切片流水线影响。
         </p>
       </div>
 
@@ -573,7 +573,7 @@
         <div class="strengthen">
           <b>复现建议</b>
           <ul>
-            <li>用同一 Student checkpoint 比较 5× 单尺度与级联，避免 ep6/ep3 混淆。</li>
+            <li>用同一 BRIGHT-Flash checkpoint 比较 5× 单尺度与级联，避免 ep6/ep3 混淆。</li>
             <li>实测 1007 的时延，并报告 bootstrap 置信区间。</li>
           </ul>
         </div>
@@ -607,7 +607,7 @@
             <h4>权重与显存</h4>
             <p>
               权重为 <code>model_paths.py</code> 中登记文件的体积。峰值显存在 batch 1 下逐模型测量。
-              1007 的 ep6 checkpoint 不在工作区；这里用 ep3 Student 文件作同架构代理。
+              1007 的 ep6 checkpoint 不在工作区；这里用 ep3 BRIGHT-Flash 文件作同架构代理。
             </p>
           </div>
         </div>
@@ -656,7 +656,7 @@
 
   <div class="tooltip" id="tooltip" role="status" aria-live="polite"></div>
 
-  <script src="data.js?v=20261019-sngp"></script>
-  <script src="app.js?v=20261019-sngp"></script>
+  <script src="data.js?v=20261019-naming"></script>
+  <script src="app.js?v=20261019-naming"></script>
 </body>
 </html>

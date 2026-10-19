@@ -44,24 +44,24 @@
     'CHIEF': '#be123c'
   };
   const MODEL_FULL_ZH = {
-    'BRIGHT': 'BRIGHT（20× Teacher）',
-    'BRIGHT-Flash-1007': 'BRIGHT-Flash-1007（5× Student ep6）',
+    'BRIGHT': 'BRIGHT（20×）',
+    'BRIGHT-Flash-1007': 'BRIGHT-Flash-1007（ep6）',
     'BRIGHT-Flash-pipeline': 'BRIGHT-Flash-pipeline（5× → 20× 级联）',
     'EAGLE': 'EAGLE（高效级联基线）',
     'Virchow2': 'Virchow2（20× 基础编码器）',
-    'BRIGHT-Flash': 'BRIGHT-Flash（5× Student ep3）',
+    'BRIGHT-Flash': 'BRIGHT-Flash（ep3）',
     'UNIv2': 'UNIv2（20× 基础编码器）',
     'Prov-Gigapath': 'Prov-Gigapath（20× 基础编码器）',
     'Conchv1.5': 'Conchv1.5（20× 基础编码器）',
     'CHIEF': 'CHIEF（20× 基础编码器）'
   };
   const ROLE_ZH = {
-    '20x Teacher + ABMIL': '20× Teacher + ABMIL',
-    '5x Student ep6 + ABMIL': '5× Student ep6 + ABMIL',
-    '5x → S2 → 20x Teacher → ABMIL': '5× → S2 → 20× Teacher → ABMIL',
+    'BRIGHT 20× + ABMIL': 'BRIGHT（20×）+ ABMIL',
+    'BRIGHT-Flash ep6 + ABMIL': 'BRIGHT-Flash ep6 + ABMIL',
+    'BRIGHT-Flash 5× → S2 → BRIGHT 20× → ABMIL': 'BRIGHT-Flash 5× → S2 → BRIGHT（20×）→ ABMIL',
     '5x CTransPath → CHIEF top-25 → Virchow2': '5× CTransPath → CHIEF Top-25 → Virchow2',
     '20x foundation encoder + ABMIL': '20× 基础编码器 + ABMIL',
-    '5x Student ep3 + ABMIL': '5× Student ep3 + ABMIL',
+    'BRIGHT-Flash ep3 + ABMIL': 'BRIGHT-Flash ep3 + ABMIL',
     '20x CTransPath + ABMIL': '20× CTransPath + ABMIL'
   };
   Object.entries(MODELS).forEach(([id, model]) => {
@@ -575,7 +575,7 @@
 
     const cap = $('#weights-caption');
     if (cap) {
-      cap.innerHTML = `Pipeline 为 <b>${MODELS['BRIGHT-Flash-pipeline'].weights.gib.toFixed(2)} GiB</b>（1007 的 <b>${(MODELS['BRIGHT-Flash-pipeline'].weights.gib / MODELS['BRIGHT-Flash-1007'].weights.gib).toFixed(1)}×</b>），20× Teacher 占主导。† 1007 以 ep3 文件作同架构代理。`;
+      cap.innerHTML = `Pipeline 为 <b>${MODELS['BRIGHT-Flash-pipeline'].weights.gib.toFixed(2)} GiB</b>（1007 的 <b>${(MODELS['BRIGHT-Flash-pipeline'].weights.gib / MODELS['BRIGHT-Flash-1007'].weights.gib).toFixed(1)}×</b>），BRIGHT（20×）占主导。† 1007 以 ep3 文件作同架构代理。`;
     }
   }
 
@@ -735,7 +735,7 @@
       const a = MODELS['BRIGHT-Flash-1007'];
       const p = MODELS['BRIGHT-Flash-pipeline'];
       if (state.timeMode === 'model') {
-        cap.innerHTML = `Pipeline：I/O <b>${p.timing.io.toFixed(2)} s</b> + Teacher <b>${p.timing.infer.toFixed(2)} s</b> + 路由 <b>${p.timing.s2.toFixed(2)} s</b>；1007 合计 <b>${a.timing.modelTotal.toFixed(2)} s</b>，差距 <b>${(p.timing.modelTotal / a.timing.modelTotal).toFixed(1)}×</b>。`;
+        cap.innerHTML = `Pipeline：I/O <b>${p.timing.io.toFixed(2)} s</b> + BRIGHT <b>${p.timing.infer.toFixed(2)} s</b> + 路由 <b>${p.timing.s2.toFixed(2)} s</b>；1007 合计 <b>${a.timing.modelTotal.toFixed(2)} s</b>，差距 <b>${(p.timing.modelTotal / a.timing.modelTotal).toFixed(1)}×</b>。`;
       } else {
         cap.innerHTML = `共享预处理 <b>${a.timing.prepare.toFixed(2)} s</b>；端到端 1007 <b>${a.timing.endToEnd.toFixed(2)} s</b>，Pipeline <b>${p.timing.endToEnd.toFixed(2)} s</b>，差距 <b>${(p.timing.endToEnd / a.timing.endToEnd).toFixed(1)}×</b>。`;
       }
@@ -771,11 +771,11 @@
       {
         cls: 'cyan',
         title: 'Pipeline · 三项额外成本',
-        body: `I/O <b>${p.timing.io.toFixed(2)} s</b>、Teacher <b>${p.timing.infer.toFixed(2)} s</b>、S2 <b>${p.timing.s2.toFixed(2)} s</b>；${modeLabel} <b>${fmt(timeOf(p), 2)} s</b>。`
+        body: `I/O <b>${p.timing.io.toFixed(2)} s</b>、BRIGHT <b>${p.timing.infer.toFixed(2)} s</b>、S2 <b>${p.timing.s2.toFixed(2)} s</b>；${modeLabel} <b>${fmt(timeOf(p), 2)} s</b>。`
       },
       {
         cls: 'violet',
-        title: 'BRIGHT · Teacher 单独运行',
+        title: 'BRIGHT · 单独运行',
         body: `推理 <b>${b.timing.infer.toFixed(2)} s</b> + I/O <b>${b.timing.io.toFixed(2)} s</b>；${modeLabel} <b>${fmt(timeOf(b), 2)} s</b>。`
       },
       {
