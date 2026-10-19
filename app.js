@@ -1455,6 +1455,7 @@
     };
     const play = () => {
       clear();
+      board.classList.add('is-flowing');
       if (STATIC_MODE || reduce) {
         steps.forEach((step) => step.classList.add('is-lit'));
         return;
@@ -1467,6 +1468,7 @@
     if (replay) replay.addEventListener('click', play);
     if (STATIC_MODE || reduce) {
       steps.forEach((step) => step.classList.add('is-lit'));
+      board.classList.add('is-flowing');
       return;
     }
     if ('IntersectionObserver' in window) {
