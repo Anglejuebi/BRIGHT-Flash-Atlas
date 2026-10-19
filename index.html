@@ -6,7 +6,7 @@
   <meta name="color-scheme" content="light">
   <meta name="description" content="BRIGHT-Flash 交互式计算效率 × 精度图谱：1007、Pipeline、EAGLE、BRIGHT 与五个 20× 基础编码器在 20 项临床任务上的比较。">
   <title>BRIGHT-Flash · 计算效率 × 精度图谱</title>
-  <link rel="stylesheet" href="styles.css?v=20261019-light-final">
+  <link rel="stylesheet" href="styles.css?v=20261019-chart-first">
 </head>
 <body>
   <div id="progress" aria-hidden="true"></div>
@@ -22,7 +22,7 @@
         <a href="#footprint">体积</a>
         <a href="#latency">时延</a>
         <a href="#scoreboard">性能</a>
-        <a href="#evidence">证据</a>
+        <a href="#evidence">结论</a>
       </div>
       <div class="nav-badge"><span class="live-dot" aria-hidden="true"></span> 交互图表</div>
     </nav>
@@ -31,14 +31,14 @@
       <div class="hero-grid">
         <div class="hero-copy">
           <div class="eyebrow"><span class="dot" aria-hidden="true"></span> 计算效率 × 精度图谱 / 2026</div>
-          <h1>同一张切片，<br>两种<em>读法。</em></h1>
+          <h1>同一张切片，<br>两条<em>计算路径。</em></h1>
           <p class="hero-sub">
-            1007 仅进行一次 5× 扫描；Pipeline 先做 5×，再由路由器选出 Top-20 区域进行
-            20× 放大。二者共享 20 项临床任务，但计算代价完全不同。
+            1007 单次 5× 扫描；Pipeline 在 5× 之上由 SNGP 选择 Top-20 区域做 20× 放大。
+            两者共享 20 项临床任务头。
           </p>
           <div class="hero-actions">
             <a class="btn primary" href="#efficiency">查看效率前沿 <span class="arrow">↘</span></a>
-            <a class="btn ghost" href="#evidence">阅读结论边界 <span class="arrow">→</span></a>
+            <a class="btn ghost" href="#evidence">查看口径 <span class="arrow">→</span></a>
           </div>
 
           <div class="hero-stats">
@@ -115,8 +115,7 @@
           </div>
 
           <div class="path-note">
-            * 1007 的时延与阶段拆分沿用 BRIGHT-Flash 的声明式假设，并非本次实测；
-            1007 使用 Student ep6，Pipeline 使用 ep3，因此不是同 checkpoint 消融。
+            * 1007 时延为沿用值；1007 用 ep6，Pipeline 用 ep3，非同 checkpoint 消融。
           </div>
         </aside>
       </div>
@@ -163,17 +162,17 @@
         <div class="section-kicker"><span class="num">01</span> 计算效率</div>
         <h2>效率前沿。</h2>
         <p class="lede">
-          每个点代表一个模型。越靠左越便宜，越靠上越准确；气泡面积表示登记权重大小。
-          浅色带为五个 20× 基础编码器。<strong>1007 位于最左侧，Pipeline 位于基础模型组上方。</strong>
+          横轴为单张模型耗时（对数），纵轴为任务平均 AUC，气泡面积为 checkpoint 体积。
+          阴影带为五个 20× 基础编码器。
         </p>
       </div>
 
-      <div class="split-2">
+      <div class="chart-stack">
         <div class="panel chart-panel reveal">
           <div class="panel-head">
             <div>
               <span class="panel-kicker">单张耗时与平均 AUC</span>
-              <h3>效率前沿</h3>
+              <h3>精度—效率平面</h3>
               <p class="panel-sub" id="scatter-sub">20 任务均值 · 仅模型耗时 · 对数横轴</p>
             </div>
             <div class="panel-actions">
@@ -187,8 +186,8 @@
           <p class="chart-caption" id="scatter-caption"></p>
         </div>
 
-        <aside class="panel notes-panel reveal">
-          <span class="panel-kicker">关键观察</span>
+        <aside class="panel notes-panel notes-strip reveal">
+          <span class="panel-kicker">读图要点</span>
           <div class="note-list" id="efficiency-notes"></div>
         </aside>
       </div>
@@ -198,10 +197,9 @@
     <section class="section" id="footprint">
       <div class="section-head reveal">
         <div class="section-kicker"><span class="num">02</span> 模型体积</div>
-        <h2>模型要花多少？</h2>
+        <h2>模型体积与显存。</h2>
         <p class="lede">
-          权重只是成本的一部分。级联中的 20× Teacher 是 <strong>5× Student 的 7.3×</strong>；
-          峰值显存则讲述另一个故事，因为批处理和切片流水线的开销并不随权重数量线性增长。
+          20× Teacher 的权重是 5× Student 的 7.3×；峰值显存还受批处理与切片流水线影响。
         </p>
       </div>
 
@@ -243,14 +241,14 @@
     <section class="section" id="latency">
       <div class="section-head reveal">
         <div class="section-kicker"><span class="num">03</span> 推理时延</div>
-        <h2>时间花在哪里。</h2>
+        <h2>时延构成。</h2>
         <p class="lede">
-          所有模型都要支付 <strong>2.43 s</strong> 的共享切片预处理。此后，级联还要支付
-          一次 5× 前向、一次路由，以及最多 320 个 20× 切片；1007 在 5× 前向之后即结束。
+          共享预处理固定为 2.43 s。Pipeline 随后支付 5× 前向、S2 路由与最多 320 个 20× 切片；
+          1007 在 5× 前向结束。
         </p>
       </div>
 
-      <div class="split-2">
+      <div class="chart-stack">
         <div class="panel chart-panel reveal">
           <div class="panel-head">
             <div>
@@ -267,8 +265,8 @@
           <p class="chart-caption" id="latency-caption"></p>
         </div>
 
-        <aside class="panel notes-panel reveal">
-          <span class="panel-kicker">如何读这张图</span>
+        <aside class="panel notes-panel notes-strip reveal">
+          <span class="panel-kicker">读图要点</span>
           <div class="note-list" id="latency-notes"></div>
         </aside>
       </div>
@@ -280,8 +278,7 @@
         <div class="section-kicker"><span class="num">04</span> 多任务性能</div>
         <h2>性能总览。</h2>
         <p class="lede">
-          20 项共同任务上的 macro OVR AUC。<strong>17 任务视图</strong>移除三个样本量很小的
-          NAT 队列；它是敏感性分析，不是主结论。排名的翻转同样重要。
+          20 项共同任务的 macro OVR AUC；17 任务视图移除三个小样本 NAT 队列，作为敏感性分析。
         </p>
       </div>
 
@@ -362,9 +359,7 @@
           </table>
         </div>
         <p class="table-note">
-          * 1007 耗时沿用 BRIGHT-Flash，并非本次实测。
-          † 1007 权重以 ep3 Student 文件作同架构代理；ep6 文件不在当前工作区。
-          AUC 均为点估计。
+          * 1007 耗时沿用；† 权重为 ep3 同架构代理；AUC 为点估计。
         </p>
       </details>
     </section>
@@ -372,30 +367,26 @@
     <!-- 05 -->
     <section class="section" id="evidence">
       <div class="section-head reveal">
-        <div class="section-kicker"><span class="num">05</span> 证据台账</div>
-        <h2>这些数字支持什么。</h2>
+        <div class="section-kicker"><span class="num">05</span> 结论与边界</div>
+        <h2>结论与边界。</h2>
         <p class="lede">
-          四条主张，每条都附证据与边界。页面的目标是让比较可读，而不是隐藏竞争。
+          四条结论对应上方图表；详细口径、限制与复现建议见折叠区。
         </p>
       </div>
 
       <div class="claims-grid" id="claims-grid"></div>
 
-      <div class="context-banner reveal">
-        <span class="context-label">竞争语境</span>
-        <p id="context-text"></p>
-      </div>
-
-      <div class="caveat-grid" id="caveat-grid"></div>
-
-      <div class="strengthen reveal">
-        <b>怎样让结论更稳健。</b>
-        <ul>
-          <li>让 Pipeline 使用 <b>ep6 Student</b>，或让 1007 使用 ep3，从而把架构比较变成同 checkpoint 消融。</li>
-          <li>实测 1007 自己的时延与阶段拆分；当前 2.08 s / 4.51 s 为沿用值。</li>
-          <li>同时报告两个模型的 held-out 测试均值，并给出 bootstrap 置信区间，而不是混用验证集与测试集列。</li>
-        </ul>
-      </div>
+      <details class="panel method-panel limits-panel reveal">
+        <summary>口径与限制 <span class="tag">6 项</span></summary>
+        <div class="caveat-grid" id="caveat-grid"></div>
+        <div class="strengthen">
+          <b>复现建议</b>
+          <ul>
+            <li>用同一 Student checkpoint 比较 5× 单尺度与级联，避免 ep6/ep3 混淆。</li>
+            <li>实测 1007 的时延，并报告 bootstrap 置信区间。</li>
+          </ul>
+        </div>
+      </details>
 
       <details class="panel method-panel reveal">
         <summary>方法与数据来源 <span class="tag">引用前请阅读</span></summary>
@@ -474,7 +465,7 @@
 
   <div class="tooltip" id="tooltip" role="status" aria-live="polite"></div>
 
-  <script src="data.js?v=20261019-light-final"></script>
-  <script src="app.js?v=20261019-light-final"></script>
+  <script src="data.js?v=20261019-chart-first"></script>
+  <script src="app.js?v=20261019-chart-first"></script>
 </body>
 </html>

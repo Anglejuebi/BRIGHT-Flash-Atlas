@@ -490,23 +490,23 @@
     const notes = [
       {
         cls: 'coral',
-        title: '1007 · 最快路径',
-        body: `<b>${fmt(timeOf(a), 2)} s*</b>，平均 AUC <b>${fmt(meanOf(a))}</b>。比 BRIGHT 快 <b>${(timeOf(b) / timeOf(a)).toFixed(1)}×</b>，AUC 差 <b>${signed(meanOf(a) - meanOf(b))}</b>。`
+        title: '1007 · 最低计算成本',
+        body: `<b>${fmt(timeOf(a), 2)} s*</b>，AUC <b>${fmt(meanOf(a))}</b>；比 BRIGHT 快 <b>${(timeOf(b) / timeOf(a)).toFixed(1)}×</b>，AUC 低 <b>${Math.abs(meanOf(a) - meanOf(b)).toFixed(4)}</b>。`
       },
       {
         cls: 'cyan',
-        title: 'Pipeline · 位于基础模型组之上',
-        body: `在 <b>${fmt(timeOf(p), 2)} s</b> 下，其平均 AUC 高于每一个 20× 基础编码器，并快 <b>${minRatio}–${maxRatio}×</b>；但它不比 EAGLE 或 1007 快。`
+        title: 'Pipeline · 基础模型组之上',
+        body: `<b>${fmt(timeOf(p), 2)} s</b>，AUC <b>${fmt(meanOf(p))}</b>；快于五个 20× 基础编码器 <b>${minRatio}–${maxRatio}×</b>。`
       },
       {
         cls: 'amber',
-        title: 'EAGLE · 效率对手',
-        body: `<b>${e.timing.modelTime.toFixed(2)} s</b>，20 任务 <b>${fmt(e.mean20)}</b>，17 任务 <b>${fmt(e.mean17)}</b>。比 Pipeline 快 <b>${(timeOf(p) / timeOf(e)).toFixed(1)}×</b>，17 任务均值略高。`
+        title: 'EAGLE · 效率参照',
+        body: `<b>${fmt(timeOf(e), 2)} s</b>，20 任务 <b>${fmt(e.mean20)}</b>，17 任务 <b>${fmt(e.mean17)}</b>；比 Pipeline 快 <b>${(timeOf(p) / timeOf(e)).toFixed(1)}×</b>。`
       },
       {
         cls: 'violet',
         title: 'BRIGHT · 精度上界',
-        body: `<b>${b.timing.modelTime.toFixed(2)} s</b>，<b>${fmt(b.mean20)}</b> / <b>${fmt(b.mean17)}</b>。均值最高，但比 1007 慢 <b>${(timeOf(b) / timeOf(a)).toFixed(1)}×</b>，比 Pipeline 慢 <b>${(timeOf(b) / timeOf(p)).toFixed(1)}×</b>。`
+        body: `<b>${fmt(timeOf(b), 2)} s</b>，<b>${fmt(b.mean20)}</b> / <b>${fmt(b.mean17)}</b>；比 1007 慢 <b>${(timeOf(b) / timeOf(a)).toFixed(1)}×</b>，比 Pipeline 慢 <b>${(timeOf(b) / timeOf(p)).toFixed(1)}×</b>。`
       }
     ];
     wrap.innerHTML = notes.map((note) => `
@@ -575,7 +575,7 @@
 
     const cap = $('#weights-caption');
     if (cap) {
-      cap.innerHTML = `Pipeline 的权重体积是 1007 的 <b>${(MODELS['BRIGHT-Flash-pipeline'].weights.gib / MODELS['BRIGHT-Flash-1007'].weights.gib).toFixed(1)}×</b>；BRIGHT 是 1007 的 <b>${(MODELS.BRIGHT.weights.gib / MODELS['BRIGHT-Flash-1007'].weights.gib).toFixed(1)}×</b>。20× Teacher 占据主导。† 1007 以 ep3 Student 文件作同架构代理；ep6 文件不在当前工作区。`;
+      cap.innerHTML = `Pipeline 为 <b>${MODELS['BRIGHT-Flash-pipeline'].weights.gib.toFixed(2)} GiB</b>（1007 的 <b>${(MODELS['BRIGHT-Flash-pipeline'].weights.gib / MODELS['BRIGHT-Flash-1007'].weights.gib).toFixed(1)}×</b>），20× Teacher 占主导。† 1007 以 ep3 文件作同架构代理。`;
     }
   }
 
@@ -642,7 +642,7 @@
 
     const cap = $('#gpu-caption');
     if (cap) {
-      cap.innerHTML = `Pipeline 峰值 <b>${MODELS['BRIGHT-Flash-pipeline'].timing.gpuPeakGB.toFixed(2)} GB</b>；1007 峰值 <b>${MODELS['BRIGHT-Flash-1007'].timing.gpuPeakGB.toFixed(2)} GB</b>，尽管权重仅 <b>${MODELS['BRIGHT-Flash-1007'].weights.gib.toFixed(2)} GiB</b>。激活值与切片批处理开销占主导。`;
+      cap.innerHTML = `Pipeline 峰值 <b>${MODELS['BRIGHT-Flash-pipeline'].timing.gpuPeakGB.toFixed(2)} GB</b>；1007 为 <b>${MODELS['BRIGHT-Flash-1007'].timing.gpuPeakGB.toFixed(2)} GB</b>，权重仅 <b>${MODELS['BRIGHT-Flash-1007'].weights.gib.toFixed(2)} GiB</b>。峰值由激活与切片批处理主导。`;
     }
   }
 
@@ -735,9 +735,9 @@
       const a = MODELS['BRIGHT-Flash-1007'];
       const p = MODELS['BRIGHT-Flash-pipeline'];
       if (state.timeMode === 'model') {
-        cap.innerHTML = `Pipeline 在 I/O 上花 <b>${p.timing.io.toFixed(2)} s</b>，Teacher 推理 <b>${p.timing.infer.toFixed(2)} s</b>，路由 <b>${p.timing.s2.toFixed(2)} s</b>。1007 在 <b>${a.timing.modelTotal.toFixed(2)} s</b> 后结束。仅模型口径的差距为 <b>${(p.timing.modelTotal / a.timing.modelTotal).toFixed(1)}×</b>。`;
+        cap.innerHTML = `Pipeline：I/O <b>${p.timing.io.toFixed(2)} s</b> + Teacher <b>${p.timing.infer.toFixed(2)} s</b> + 路由 <b>${p.timing.s2.toFixed(2)} s</b>；1007 合计 <b>${a.timing.modelTotal.toFixed(2)} s</b>，差距 <b>${(p.timing.modelTotal / a.timing.modelTotal).toFixed(1)}×</b>。`;
       } else {
-        cap.innerHTML = `两者都要支付 <b>${a.timing.prepare.toFixed(2)} s</b> 的共享预处理。端到端口径下，1007 为 <b>${a.timing.endToEnd.toFixed(2)} s</b>，Pipeline 为 <b>${p.timing.endToEnd.toFixed(2)} s</b>，差距 <b>${(p.timing.endToEnd / a.timing.endToEnd).toFixed(1)}×</b>，小于仅模型口径的 <b>${(p.timing.modelTotal / a.timing.modelTotal).toFixed(1)}×</b>。`;
+        cap.innerHTML = `共享预处理 <b>${a.timing.prepare.toFixed(2)} s</b>；端到端 1007 <b>${a.timing.endToEnd.toFixed(2)} s</b>，Pipeline <b>${p.timing.endToEnd.toFixed(2)} s</b>，差距 <b>${(p.timing.endToEnd / a.timing.endToEnd).toFixed(1)}×</b>。`;
       }
     }
   }
@@ -760,26 +760,28 @@
     const p = MODELS['BRIGHT-Flash-pipeline'];
     const b = MODELS['BRIGHT'];
     const e = MODELS['EAGLE'];
+    const modeLabel = state.timeMode === 'model' ? '仅模型' : '端到端';
+    const prepNote = state.timeMode === 'model' ? '' : '（含预处理 2.43 s）';
     const notes = [
       {
         cls: 'coral',
         title: '1007 · 一次 5× 前向',
-        body: `I/O <b>${a.timing.io.toFixed(2)} s</b> + 计算 <b>${(a.timing.modelTotal - a.timing.io).toFixed(2)} s</b>。没有 20× 推理，也没有路由。`
+        body: `I/O <b>${a.timing.io.toFixed(2)} s</b> + 计算 <b>${(a.timing.modelTotal - a.timing.io).toFixed(2)} s</b>；${modeLabel} <b>${fmt(timeOf(a), 2)} s</b>${prepNote}。`
       },
       {
         cls: 'cyan',
         title: 'Pipeline · 三项额外成本',
-        body: `<b>${p.timing.io.toFixed(2)} s</b> I/O、<b>${p.timing.infer.toFixed(2)} s</b> Teacher 推理、<b>${p.timing.s2.toFixed(2)} s</b> S2 路由。20× 放大是细节的代价。`
+        body: `I/O <b>${p.timing.io.toFixed(2)} s</b>、Teacher <b>${p.timing.infer.toFixed(2)} s</b>、S2 <b>${p.timing.s2.toFixed(2)} s</b>；${modeLabel} <b>${fmt(timeOf(p), 2)} s</b>。`
       },
       {
         cls: 'violet',
-        title: 'BRIGHT · 单独的 Teacher',
-        body: `<b>${b.timing.infer.toFixed(2)} s</b> 推理 + <b>${b.timing.io.toFixed(2)} s</b> I/O。它既是精度上界，也是成本上界。`
+        title: 'BRIGHT · Teacher 单独运行',
+        body: `推理 <b>${b.timing.infer.toFixed(2)} s</b> + I/O <b>${b.timing.io.toFixed(2)} s</b>；${modeLabel} <b>${fmt(timeOf(b), 2)} s</b>。`
       },
       {
         cls: 'amber',
-        title: 'EAGLE · 最接近的对手',
-        body: `<b>${e.timing.modelTotal.toFixed(2)} s</b>（仅模型）。比 Pipeline 快 <b>${(p.timing.modelTotal / e.timing.modelTotal).toFixed(1)}×</b>，时延是它的主要优势。`
+        title: 'EAGLE · 效率参照',
+        body: `${modeLabel} <b>${fmt(timeOf(e), 2)} s</b>；比 Pipeline 快 <b>${(timeOf(p) / timeOf(e)).toFixed(1)}×</b>。`
       }
     ];
     wrap.innerHTML = notes.map((note) => `
@@ -870,7 +872,7 @@
       const aRank = MODELS['BRIGHT-Flash-1007'][state.taskSet === '20' ? 'rank20' : 'rank17'];
       const pRank = MODELS['BRIGHT-Flash-pipeline'][state.taskSet === '20' ? 'rank20' : 'rank17'];
       const eRank = MODELS.EAGLE[state.taskSet === '20' ? 'rank20' : 'rank17'];
-      cap.innerHTML = `${state.taskSet} 任务：1007 第 <b>${aRank}</b>，Pipeline 第 <b>${pRank}</b>，EAGLE 第 <b>${eRank}</b>。${state.taskSet === '17' ? '移除三个 NAT 任务后，1007 落到 Pipeline 之后；20 任务的优势不是普遍的 17 任务优势。' : '20 任务主表是主结论；切换到 17 任务查看敏感性。'}`;
+      cap.innerHTML = `${state.taskSet} 任务：1007 第 <b>${aRank}</b>，Pipeline 第 <b>${pRank}</b>，EAGLE 第 <b>${eRank}</b>。`;
     }
   }
 
@@ -1013,12 +1015,12 @@
         const natBright = MODELS.BRIGHT.auc20[natTask].auc;
         const natPipe = MODELS['BRIGHT-Flash-pipeline'].auc20[natTask].auc;
         cap.innerHTML = state.taskSet === '20'
-          ? `Δ 相对 BRIGHT。<b>青色</b>格优于 BRIGHT，<b>红色</b>格低于 BRIGHT。NAT-TNBC 是离群项：1007 比 BRIGHT 高 <b>${signed(natA - natBright, 3)}</b>，比 Pipeline 高 <b>${signed(natA - natPipe, 3)}</b>，n=29；其 held-out 测试 AUC 为 0.7167。`
-          : `Δ 相对 BRIGHT。<b>青色</b>格优于 BRIGHT，<b>红色</b>格低于 BRIGHT。17 任务视图已移除三个 NAT 队列；悬停查看 n、最佳 epoch 与置信区间。`;
+          ? `Δ 相对 BRIGHT：<b>青色</b>优于，<b>红色</b>低于。NAT-TNBC 为离群项：1007 比 BRIGHT 高 <b>${signed(natA - natBright, 3)}</b>，比 Pipeline 高 <b>${signed(natA - natPipe, 3)}</b>（n=29）。`
+          : `Δ 相对 BRIGHT：<b>青色</b>优于，<b>红色</b>低于。17 任务视图已移除三个 NAT 队列。`;
       } else {
         cap.innerHTML = state.taskSet === '20'
-          ? `绝对 macro OVR AUC。20 任务均值掩盖了较大的逐任务差异：NAT 队列与 PR 是排名分歧的主要来源。悬停任意格查看 n、最佳 epoch 与可用时的置信区间。`
-          : `绝对 macro OVR AUC（17 任务，已排除三个 NAT 队列）。悬停任意格查看 n、最佳 epoch 与可用时的置信区间。`;
+          ? `绝对 macro OVR AUC；悬停查看 n、最佳 epoch 与置信区间。`
+          : `绝对 macro OVR AUC（17 任务，已排除三个 NAT 队列）。`;
       }
     }
   }
@@ -1135,9 +1137,9 @@
     const capEl = $('#delta-caption');
     if (capEl) {
       if (state.taskSet === '20') {
-        capEl.innerHTML = `1007 胜 <b>${wins20}</b> 项，Pipeline 胜 <b>${losses20}</b> 项；平均 Δ 为 <b>${signed(delta20, 4)}</b>。正的均值主要由 <b>NAT-TNBC +0.2389（n=29）</b>贡献；该条形截断在 ±0.07，以便其余任务可读。1007 的 held-out 测试 NAT-TNBC 为 <b>0.7167</b>。`;
+        capEl.innerHTML = `1007 胜 <b>${wins20}</b> 项，Pipeline 胜 <b>${losses20}</b> 项；平均 Δ <b>${signed(delta20, 4)}</b>。NAT-TNBC <b>+0.2389</b>（n=29）主导正均值；该条截断在 ±0.07。`;
       } else {
-        capEl.innerHTML = `移除三个 NAT 任务后，1007 胜 <b>${wins17}</b> 项，Pipeline 胜 <b>${losses17}</b> 项；平均 Δ 为 <b>${signed(delta17, 4)}</b>。符号翻转：20 任务的 1007 优势不是普遍的 17 任务优势。`;
+        capEl.innerHTML = `移除三个 NAT 任务：1007 胜 <b>${wins17}</b>，Pipeline 胜 <b>${losses17}</b>，平均 Δ <b>${signed(delta17, 4)}</b>。`;
       }
     }
   }
@@ -1165,30 +1167,30 @@
       {
         cls: 'coral',
         index: '主张 01',
-        title: '1007 是接近精度上界的最便宜路径。',
-        body: `仅模型耗时 <b>${a.timing.modelTime.toFixed(2)} s*</b>，20 任务均值 <b>${fmt(a.mean20)}</b>，权重 <b>${a.weights.gib.toFixed(2)} GiB†</b>。比 BRIGHT 快 <b>${(b.timing.modelTime / a.timing.modelTime).toFixed(1)}×</b>，AUC 差 <b>${signed(a.mean20 - b.mean20)}</b>。`,
-        foot: '边界：1007 的耗时为沿用值；AUC 为最佳验证 epoch。held-out 测试均值为 0.8577，而非 0.8622。',
+        title: '1007：最低计算成本，接近精度上界。',
+        body: `仅模型 <b>${a.timing.modelTime.toFixed(2)} s*</b>，20 任务均值 <b>${fmt(a.mean20)}</b>，权重 <b>${a.weights.gib.toFixed(2)} GiB†</b>；比 BRIGHT 快 <b>${(b.timing.modelTime / a.timing.modelTime).toFixed(1)}×</b>，AUC 低 <b>${Math.abs(a.mean20 - b.mean20).toFixed(4)}</b>。`,
+        foot: 'held-out 测试均值 0.8577；2.08 s 为沿用值。',
       },
       {
         cls: 'cyan',
         index: '主张 02',
-        title: 'Pipeline 在精度与速度两个轴上都优于 20× 基础模型组。',
-        body: `耗时 <b>${p.timing.modelTime.toFixed(2)} s</b>、均值 <b>${fmt(p.mean20)}</b>；五个 20× 基础编码器为 <b>${minFoundationTime}–${maxFoundationTime} s</b>、<b>${fmt(MODELS[worstFoundation].mean20)}–${fmt(MODELS[bestFoundation].mean20)}</b>。Pipeline 快 <b>${minRatio}–${maxRatio}×</b>。`,
-        foot: '边界：这不是全局 Pareto 主张。1007 与 EAGLE 更快；BRIGHT 更准确。',
+        title: 'Pipeline：优于 20× 基础模型组的效率前沿。',
+        body: `仅模型 <b>${p.timing.modelTime.toFixed(2)} s</b>，均值 <b>${fmt(p.mean20)}</b>；五个 20× 基础编码器为 <b>${minFoundationTime}–${maxFoundationTime} s</b>、<b>${fmt(MODELS[worstFoundation].mean20)}–${fmt(MODELS[bestFoundation].mean20)}</b>。`,
+        foot: '不是全局 Pareto：1007/EAGLE 更快，BRIGHT 更准。',
       },
       {
         cls: 'amber',
         index: '主张 03',
-        title: 'Pipeline 是更稳定的一致级联。',
-        body: `Top-2 任务数为 <b>${p.top2_20}/20</b>，1007 为 <b>${a.top2_20}/20</b>。17 任务均值 <b>${fmt(p.mean17)}</b> 对 <b>${fmt(a.mean17)}</b>；级联换来的是稳定性，而不只是均值。`,
-        foot: '边界：1007 的 held-out 测试 17 任务均值为 0.8749，低于 Pipeline 表内值 0.8768。这不是同口径测试比较，但方向一致。',
+        title: 'Pipeline：更稳定的任务级表现。',
+        body: `Top-2 <b>${p.top2_20}/20</b> 对 <b>${a.top2_20}/20</b>；17 任务均值 <b>${fmt(p.mean17)}</b> 对 <b>${fmt(a.mean17)}</b>。`,
+        foot: '1007 held-out 17 任务 0.8749，低于 Pipeline 表内 0.8768；非同口径。',
       },
       {
         cls: 'violet',
         index: '主张 04',
-        title: '1007 的优势来自一个很小的队列。',
-        body: `20 任务均值 Δ 为 <b>${signed(delta20, 4)}</b>，但 NAT-TNBC 一项贡献 <b>${signed(natDelta, 4)}</b>，n=<b>29</b>。移除三个 NAT 任务后，17 任务 Δ 为 <b>${signed(delta17, 4)}</b>——符号翻转。`,
-        foot: '边界：1007 的验证集 NAT-TNBC AUC 为 0.9000；held-out 测试 AUC 为 0.7167。不要把 0.9000 当作测试结果引用。',
+        title: '1007 的均值优势集中于 NAT-TNBC。',
+        body: `20 任务 Δ <b>${signed(delta20, 4)}</b>；NAT-TNBC 贡献 <b>${signed(natDelta, 4)}</b>（n=29）；17 任务 Δ <b>${signed(delta17, 4)}</b>。`,
+        foot: '验证集 0.9000，held-out 0.7167；不要引用 0.9000 作为测试结果。',
       }
     ];
     wrap.innerHTML = claims.map((claim) => `
@@ -1212,27 +1214,27 @@
     const caveats = [
       {
         title: '1007 的耗时是沿用值，不是实测。',
-        body: `2.08 s 模型耗时与 4.51 s 端到端数字按明确说明沿用 BRIGHT-Flash；阶段拆分也是复制的。`
+        body: `2.08 s / 4.51 s 沿用 BRIGHT-Flash，阶段拆分亦同。`
       },
       {
         title: '1007 的 AUC 是 best_validation，不是测试。',
-        body: `0.8622 是验证集最佳 epoch。held-out 测试：20 任务 <b>0.8577</b>，17 任务 <b>0.8749</b>。`
+        body: `0.8622 为验证集最佳 epoch；held-out 为 <b>0.8577</b>（20）/ <b>0.8749</b>（17）。`
       },
       {
-        title: '1007 vs Pipeline 是 ep6 vs ep3。',
-        body: `1007 使用 Student ep6；Pipeline 的 S1 注册权重指向 <b>encoder_ep_3.pth</b>。这不是同 checkpoint 消融。`
+        title: '1007 与 Pipeline 是 ep6 对 ep3。',
+        body: `1007 用 ep6；Pipeline S1 为 <b>encoder_ep_3.pth</b>；非同 checkpoint 消融。`
       },
       {
         title: 'NAT-TNBC 只有 29 张切片。',
-        body: `验证集 AUC 为 0.9000，但 held-out 测试 AUC 为 <b>0.7167</b>。20 任务均值对这一格敏感；17 任务视图使 1007/Pipeline 的符号翻转。`
+        body: `验证集 0.9000，held-out <b>0.7167</b>；该格主导 20 任务均值，移除后符号翻转。`
       },
       {
         title: '我们的模型行没有 CI 或 p 值。',
-        body: `源表中的基线行带 95% CI。请把我们的模型差异视为点估计，而不是已建立的统计效应。`
+        body: `基线行带 95% CI；我们的模型差异仅为点估计。`
       },
       {
         title: '排名随任务集变化。',
-        body: `20 任务：1007 第 2，Pipeline 第 3。17 任务：EAGLE 第 2，Pipeline 第 3，1007 第 5。两个都引用，或注明任务集。`
+        body: `20 任务：1007 第 2，Pipeline 第 3。17 任务：EAGLE 第 2，Pipeline 第 3，1007 第 5。`
       }
     ];
     wrap.innerHTML = caveats.map((caveat, index) => `
@@ -1274,7 +1276,7 @@
     if (scatterSub) scatterSub.textContent = `${state.taskSet} 任务平均 AUC · ${state.timeMode === 'model' ? '仅模型' : '端到端'}耗时 · 对数横轴`;
     const scatterCap = $('#scatter-caption');
     if (scatterCap) {
-      scatterCap.innerHTML = `x = ${state.timeMode === 'model' ? '仅模型' : '端到端'}耗时（秒，对数轴）；y = ${state.taskSet} 任务平均 AUC；气泡面积 = 登记的 checkpoint 体积。1007 的耗时沿用 BRIGHT-Flash。阴影带为五个 20× 基础编码器；虚线为其中最好的 20× 基础模型均值（Virchow2，0.854）。Pipeline 同时位于两者之上。`;
+      scatterCap.innerHTML = `横轴：${state.timeMode === 'model' ? '仅模型' : '端到端'}耗时（秒，对数）；纵轴：${state.taskSet} 任务平均 AUC；气泡：checkpoint 体积。虚线为五个 20× 基础编码器中的最高均值（Virchow2，0.854）。1007 耗时沿用 BRIGHT-Flash。`;
     }
     const latencySub = $('#latency-sub');
     if (latencySub) latencySub.textContent = `${state.timeMode === 'model' ? '仅模型' : '端到端'}耗时，按阶段堆叠`;

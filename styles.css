@@ -1288,3 +1288,87 @@ footer { color: var(--dim); }
     letter-spacing: 0.04em;
   }
 }
+
+/* ============================================================
+   CHART-FIRST COMPACT LAYOUT
+   ============================================================ */
+.chart-stack {
+  display: grid;
+  gap: 16px;
+}
+.notes-strip {
+  padding: 16px 20px;
+}
+.notes-strip .panel-kicker {
+  margin-bottom: 12px;
+}
+.notes-strip .note-list {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+}
+.notes-strip .note {
+  padding: 0 16px;
+  border-bottom: 0;
+  border-right: 1px solid #edf2f7;
+}
+.notes-strip .note:first-child {
+  padding-left: 0;
+}
+.notes-strip .note:last-child {
+  padding-right: 0;
+  border-right: 0;
+}
+.notes-strip .note .note-title {
+  font-size: 11.5px;
+}
+.notes-strip .note .note-body {
+  font-size: 10.8px;
+  line-height: 1.55;
+}
+.claims-grid {
+  gap: 12px;
+}
+.claim {
+  padding: 18px;
+}
+.claim h3 {
+  font-size: 16px;
+}
+.claim p {
+  font-size: 11.2px;
+  line-height: 1.6;
+}
+.claim-foot {
+  margin-top: 10px;
+  padding-top: 9px;
+  font-size: 9.5px;
+}
+.limits-panel {
+  margin-top: 16px;
+}
+.limits-panel .caveat-grid {
+  margin-top: 0;
+  padding: 0 20px 4px;
+}
+.limits-panel .strengthen {
+  margin: 0 20px 20px;
+}
+@media (max-width: 900px) {
+  .notes-strip .note-list {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .notes-strip .note {
+    padding: 0;
+    border-right: 0;
+  }
+}
+@media (max-width: 640px) {
+  .notes-strip .note-list {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .claim {
+    padding: 16px;
+  }
+}
