@@ -1447,6 +1447,28 @@
     const steps = $$('.flow-step', board).sort((a, b) => parseFloat(a.dataset.delay || 0) - parseFloat(b.dataset.delay || 0));
     const replay = $('#flow-replay');
     const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const laneA = $('.flow-lane-1007', board);
+    const laneB = $('.flow-lane-pipeline', board);
+    const forkUp = document.getElementById('fork-up');
+    const forkDown = document.getElementById('fork-down');
+    const updateFork = () => {
+      if (!laneA || !laneB || !forkUp || !forkDown || window.innerWidth <= 900) return;
+      const stage = $('.flow-stage', board);
+      if (!stage) return;
+      const rect = stage.getBoundingClientRect();
+      if (!rect.height) return;
+      const center = (node) => {
+        const r = node.getBoundingClientRect();
+        return (r.top - rect.top + r.height / 2) / rect.height * 100;
+      };
+      const top = Math.max(10, Math.min(46, center(laneA)));
+      const bottom = Math.max(54, Math.min(90, center(laneB)));
+      forkUp.setAttribute('d', `M0,50 C36,50 36,${top} 72,${top}`);
+      forkDown.setAttribute('d', `M0,50 C36,50 36,${bottom} 72,${bottom}`);
+    };
+    updateFork();
+    window.requestAnimationFrame(updateFork);
+    window.addEventListener('resize', updateFork);
     let timers = [];
     const clear = () => {
       timers.forEach((timer) => window.clearTimeout(timer));

@@ -6,7 +6,7 @@
   <meta name="color-scheme" content="light">
   <meta name="description" content="BRIGHT-Flash 交互式计算效率 × 精度图谱：1007、Pipeline、EAGLE、BRIGHT 与五个 20× 基础编码器在 20 项临床任务上的比较。">
   <title>BRIGHT-Flash · 计算效率 × 精度图谱</title>
-  <link rel="stylesheet" href="styles.css?v=20261019-routing">
+  <link rel="stylesheet" href="styles.css?v=20261019-sngp">
 </head>
 <body>
   <div id="progress" aria-hidden="true"></div>
@@ -256,10 +256,13 @@
               <div class="flow-lane-head"><span>Pipeline</span><b>自适应 · 20× 放大</b><em>0.856 AUC · 6.23 s</em></div>
               <div class="flow-track">
                 <div class="flow-step flow-node flow-router" data-delay="760">
-                  <div class="flow-step-top"><span class="flow-index">P1</span><span class="flow-tag">Top-20</span></div>
+                  <div class="flow-step-top"><span class="flow-index">P1</span><span class="flow-tag">SNGP · Top-20</span></div>
                   <h3>S2 SNGP 路由</h3>
-                  <p>冻结 SNGP 对 5× 父块打分，选 Top-20。</p>
-                  <div class="route-grid" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                  <p>冻结 scorer 逐父块打分，按 class-margin 与不确定性取 Top-20。</p>
+                  <div class="route-mini" aria-hidden="true">
+                    <div class="route-tiles"><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i></i><i></i><i></i><i></i></div>
+                    <span class="route-scan"></span>
+                  </div>
                   <div class="flow-meta"><span>20 父块</span><span>0.19 s</span></div>
                 </div>
                 <div class="flow-hlink heavy" aria-hidden="true"><i class="flow-particle"></i><i class="flow-particle" style="animation-delay:-.45s"></i><i class="flow-particle" style="animation-delay:-.9s"></i></div>
@@ -303,6 +306,36 @@
               <div class="flow-lane-foot">5× 初筛 + 路由 + 20× Teacher；端到端 8.66 s。</div>
             </div>
           </div>
+        </div>
+
+        <div class="route-detail" aria-label="S2 SNGP 路由细节">
+          <div class="route-detail-head">
+            <div class="route-detail-title"><span class="flow-index">P1</span><b>S2 SNGP：从父块打分到 Top-20</b></div>
+            <span class="route-detail-note">24 个父块为示意；实际父块数随切片面积变化</span>
+          </div>
+          <div class="route-detail-grid">
+            <div class="route-stage">
+              <span class="route-step">01 · 父块池</span>
+              <div class="route-big-tiles" aria-hidden="true"><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i class="sel"></i><i></i><i></i><i></i><i></i></div>
+              <p>5× 父块特征进入冻结 SNGP，得到每个父块的 logits 与不确定性。</p>
+            </div>
+            <div class="route-stage">
+              <span class="route-step">02 · 打分</span>
+              <div class="route-equations"><code>m = z<sub>y</sub> − max<sub>j≠y</sub> z<sub>j</sub></code><code>s = m − λ·log(1+σ²)</code></div>
+              <p>y 为 bag 预测类；class-margin 减去不确定性惩罚，λ 控制路由的保守程度。</p>
+            </div>
+            <div class="route-stage">
+              <span class="route-step">03 · 排序</span>
+              <div class="route-big-rank" aria-hidden="true"><i class="sel" style="--h:96%"></i><i class="sel" style="--h:91%"></i><i class="sel" style="--h:87%"></i><i class="sel" style="--h:82%"></i><i class="sel" style="--h:78%"></i><i class="sel" style="--h:74%"></i><i class="sel" style="--h:70%"></i><i class="sel" style="--h:66%"></i><i class="sel" style="--h:62%"></i><i class="sel" style="--h:58%"></i><i class="sel" style="--h:54%"></i><i class="sel" style="--h:50%"></i><i class="sel" style="--h:46%"></i><i class="sel" style="--h:42%"></i><i class="sel" style="--h:38%"></i><i class="sel" style="--h:34%"></i><i class="sel" style="--h:30%"></i><i class="sel" style="--h:26%"></i><i class="sel" style="--h:22%"></i><i class="sel" style="--h:18%"></i><i style="--h:15%"></i><i style="--h:12%"></i><i style="--h:9%"></i><i style="--h:6%"></i></div>
+              <p>按 s 降序排列；前 20 个父块入选，其余不进入 20× 放大。</p>
+            </div>
+            <div class="route-stage route-stage-out">
+              <span class="route-step">04 · 放大</span>
+              <div class="route-out-tiles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+              <p>Top-20 父块各切 4×4，共 ≤320 个 20× tiles。</p>
+            </div>
+          </div>
+          <div class="route-detail-foot"><span class="route-stream" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>SNGP 路由开销 0.19 s</span><span class="route-detail-tag">Top-20 / N</span></div>
         </div>
 
         <div class="flow-output">
@@ -623,7 +656,7 @@
 
   <div class="tooltip" id="tooltip" role="status" aria-live="polite"></div>
 
-  <script src="data.js?v=20261019-routing"></script>
-  <script src="app.js?v=20261019-routing"></script>
+  <script src="data.js?v=20261019-sngp"></script>
+  <script src="app.js?v=20261019-sngp"></script>
 </body>
 </html>
