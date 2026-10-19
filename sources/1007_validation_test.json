@@ -1,0 +1,343 @@
+{
+  "model": "BRIGHT-Flash-1007",
+  "description": "5x Student ep6 + ABMIL; 20 clinical tasks; validation-best epoch selected per task.",
+  "feature_source": "5x",
+  "feature_dim": 1536,
+  "tasks": 20,
+  "epochs": 20,
+  "metric": "best_validation.macro_ovr_auc",
+  "mean_auc": {
+    "tasks20_validation": 0.8622426385790309,
+    "tasks20_test": 0.8577092943398806,
+    "tasks17_validation": 0.874010987768088,
+    "tasks17_test": 0.8748948372726769
+  },
+  "notes": [
+    "Internal run directories and absolute NAS paths were removed before publication.",
+    "1007 timing (2.08 s model-only / 4.51 s end-to-end) is inherited from BRIGHT-Flash, not a new measurement.",
+    "The 0.32 GiB weight figure uses the ep3 Student checkpoint as an architecture-equivalent proxy; the ep6 file is not in the workspace.",
+    "No confidence intervals or p-values are available for this model in the source table."
+  ],
+  "task_results": [
+    {
+      "task": "ER",
+      "best_epoch": 6,
+      "validation": {
+        "auc": 0.9273751862891207,
+        "accuracy": 0.8753180661577609,
+        "macro_f1": 0.8213520358464835,
+        "n": 786
+      },
+      "test": {
+        "auc": 0.9206219312602292,
+        "accuracy": 0.8627700127064803,
+        "macro_f1": 0.8015966386554622,
+        "n": 787
+      }
+    },
+    {
+      "task": "PR",
+      "best_epoch": 8,
+      "validation": {
+        "auc": 0.856735112936345,
+        "accuracy": 0.795425667090216,
+        "macro_f1": 0.7800626621883164,
+        "n": 787
+      },
+      "test": {
+        "auc": 0.8975633127994525,
+        "accuracy": 0.8487928843710292,
+        "macro_f1": 0.8376709253934166,
+        "n": 787
+      }
+    },
+    {
+      "task": "NAT-pCR (all)",
+      "best_epoch": 20,
+      "validation": {
+        "auc": 0.7431594860166288,
+        "accuracy": 0.7472527472527473,
+        "macro_f1": 0.6638231042421431,
+        "n": 273
+      },
+      "test": {
+        "auc": 0.7786848072562358,
+        "accuracy": 0.7472527472527473,
+        "macro_f1": 0.619953596287703,
+        "n": 273
+      }
+    },
+    {
+      "task": "NAT-pCR (HR+)",
+      "best_epoch": 13,
+      "validation": {
+        "auc": 0.7435064935064936,
+        "accuracy": 0.8333333333333334,
+        "macro_f1": 0.6640294953529456,
+        "n": 162
+      },
+      "test": {
+        "auc": 0.7856221792392005,
+        "accuracy": 0.8159509202453987,
+        "macro_f1": 0.6567939359910163,
+        "n": 163
+      }
+    },
+    {
+      "task": "NAT-pCR (TNBC)",
+      "best_epoch": 10,
+      "validation": {
+        "auc": 0.9,
+        "accuracy": 0.8275862068965517,
+        "macro_f1": 0.8043184885290149,
+        "n": 29
+      },
+      "test": {
+        "auc": 0.7166666666666667,
+        "accuracy": 0.7241379310344828,
+        "macro_f1": 0.6777777777777778,
+        "n": 29
+      }
+    },
+    {
+      "task": "pTNM-stage",
+      "best_epoch": 15,
+      "validation": {
+        "auc": 0.6964997019972833,
+        "accuracy": 0.6006519967400163,
+        "macro_f1": 0.47956561287177,
+        "n": 1227
+      },
+      "test": {
+        "auc": 0.6865098183879369,
+        "accuracy": 0.5836734693877551,
+        "macro_f1": 0.4650947288565326,
+        "n": 1225
+      }
+    },
+    {
+      "task": "Molecular Subtyping",
+      "best_epoch": 16,
+      "validation": {
+        "auc": 0.8583781091707832,
+        "accuracy": 0.6302395209580839,
+        "macro_f1": 0.6293234248299496,
+        "n": 668
+      },
+      "test": {
+        "auc": 0.8701080424623316,
+        "accuracy": 0.6437125748502994,
+        "macro_f1": 0.649319638644623,
+        "n": 668
+      }
+    },
+    {
+      "task": "N-stage",
+      "best_epoch": 12,
+      "validation": {
+        "auc": 0.7009004482469057,
+        "accuracy": 0.6911554921540656,
+        "macro_f1": 0.6271191854269205,
+        "n": 1402
+      },
+      "test": {
+        "auc": 0.6846354336656192,
+        "accuracy": 0.675231977159172,
+        "macro_f1": 0.6057931167546969,
+        "n": 1401
+      }
+    },
+    {
+      "task": "HER2(2)",
+      "best_epoch": 19,
+      "validation": {
+        "auc": 0.8603089979327603,
+        "accuracy": 0.8049490538573508,
+        "macro_f1": 0.767083291164862,
+        "n": 687
+      },
+      "test": {
+        "auc": 0.8497007942552497,
+        "accuracy": 0.7918486171761281,
+        "macro_f1": 0.7544864986442414,
+        "n": 687
+      }
+    },
+    {
+      "task": "HER2(3)",
+      "best_epoch": 11,
+      "validation": {
+        "auc": 0.7630684714403366,
+        "accuracy": 0.6031976744186046,
+        "macro_f1": 0.5861665361486726,
+        "n": 688
+      },
+      "test": {
+        "auc": 0.7925888504932712,
+        "accuracy": 0.6322674418604651,
+        "macro_f1": 0.6172300372318906,
+        "n": 688
+      }
+    },
+    {
+      "task": "Ki-67",
+      "best_epoch": 7,
+      "validation": {
+        "auc": 0.9027391760854796,
+        "accuracy": 0.8342036553524804,
+        "macro_f1": 0.8096730583744676,
+        "n": 766
+      },
+      "test": {
+        "auc": 0.8882712618121178,
+        "accuracy": 0.8107049608355091,
+        "macro_f1": 0.7817513730190699,
+        "n": 766
+      }
+    },
+    {
+      "task": "AR",
+      "best_epoch": 17,
+      "validation": {
+        "auc": 0.9292355371900827,
+        "accuracy": 0.9454545454545454,
+        "macro_f1": 0.8072659658156333,
+        "n": 770
+      },
+      "test": {
+        "auc": 0.8892757360842467,
+        "accuracy": 0.940337224383917,
+        "macro_f1": 0.7585375816993465,
+        "n": 771
+      }
+    },
+    {
+      "task": "EGFR",
+      "best_epoch": 4,
+      "validation": {
+        "auc": 0.8515144723360656,
+        "accuracy": 0.8095238095238095,
+        "macro_f1": 0.767947887179837,
+        "n": 756
+      },
+      "test": {
+        "auc": 0.8839091316598361,
+        "accuracy": 0.832010582010582,
+        "macro_f1": 0.8013518797832523,
+        "n": 756
+      }
+    },
+    {
+      "task": "CK5/6",
+      "best_epoch": 13,
+      "validation": {
+        "auc": 0.9182118035104253,
+        "accuracy": 0.9182630906768838,
+        "macro_f1": 0.8392238392238391,
+        "n": 783
+      },
+      "test": {
+        "auc": 0.9195184967704052,
+        "accuracy": 0.9044585987261147,
+        "macro_f1": 0.813640118890482,
+        "n": 785
+      }
+    },
+    {
+      "task": "Histopathological Subtyping (3)",
+      "best_epoch": 13,
+      "validation": {
+        "auc": 0.8872007294971397,
+        "accuracy": 0.8998422712933754,
+        "macro_f1": 0.7101554933582123,
+        "n": 1268
+      },
+      "test": {
+        "auc": 0.8599767026016871,
+        "accuracy": 0.8919558359621451,
+        "macro_f1": 0.6939103665735166,
+        "n": 1268
+      }
+    },
+    {
+      "task": "Histopathological Subtyping (6)",
+      "best_epoch": 8,
+      "validation": {
+        "auc": 0.8868885372439803,
+        "accuracy": 0.8721389108129439,
+        "macro_f1": 0.5676869053467121,
+        "n": 1267
+      },
+      "test": {
+        "auc": 0.8976387777162899,
+        "accuracy": 0.8602999210734017,
+        "macro_f1": 0.5318686576631516,
+        "n": 1267
+      }
+    },
+    {
+      "task": "Histological Diagnosis (10)",
+      "best_epoch": 13,
+      "validation": {
+        "auc": 0.9838493628584916,
+        "accuracy": 0.9060131379484588,
+        "macro_f1": 0.651547273205049,
+        "n": 1979
+      },
+      "test": {
+        "auc": 0.974052108159194,
+        "accuracy": 0.898433552299141,
+        "macro_f1": 0.6171620879373946,
+        "n": 1979
+      }
+    },
+    {
+      "task": "Histological Diagnosis (2)",
+      "best_epoch": 1,
+      "validation": {
+        "auc": 0.9909985783682902,
+        "accuracy": 0.9689223057644111,
+        "macro_f1": 0.9466509438845048,
+        "n": 1995
+      },
+      "test": {
+        "auc": 0.9908936155868672,
+        "accuracy": 0.9603811434302909,
+        "macro_f1": 0.9319399528626948,
+        "n": 1994
+      }
+    },
+    {
+      "task": "Nottingham Grading",
+      "best_epoch": 9,
+      "validation": {
+        "auc": 0.8993541011532339,
+        "accuracy": 0.7961165048543689,
+        "macro_f1": 0.7093218400808529,
+        "n": 927
+      },
+      "test": {
+        "auc": 0.9088790138645798,
+        "accuracy": 0.7976318622174381,
+        "macro_f1": 0.7135286150367747,
+        "n": 929
+      }
+    },
+    {
+      "task": "TILs",
+      "best_epoch": 3,
+      "validation": {
+        "auc": 0.9449284658007733,
+        "accuracy": 0.960431654676259,
+        "macro_f1": 0.765162132585866,
+        "n": 1112
+      },
+      "test": {
+        "auc": 0.9590692060561955,
+        "accuracy": 0.956989247311828,
+        "macro_f1": 0.7705080969925456,
+        "n": 1116
+      }
+    }
+  ]
+}
