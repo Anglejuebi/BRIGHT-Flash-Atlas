@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="BRIGHT-Flash 交互式计算效率 × 精度图谱：1007、Pipeline、EAGLE、BRIGHT 与五个 20× 基础编码器在 20 项临床任务上的比较。">
+  <title>BRIGHT-Flash · 计算效率 × 精度图谱</title>
+  <link rel="stylesheet" href="styles.css?v=20261019-light-final">
+</head>
+<body>
+  <div id="progress" aria-hidden="true"></div>
+
+  <header class="hero" id="top">
+    <nav class="nav" aria-label="主导航">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        BRIGHT-Flash <span class="brand-sub">/ 图谱</span>
+      </a>
+      <div class="nav-links">
+        <a href="#efficiency">效率</a>
+        <a href="#footprint">体积</a>
+        <a href="#latency">时延</a>
+        <a href="#scoreboard">性能</a>
+        <a href="#evidence">证据</a>
+      </div>
+      <div class="nav-badge"><span class="live-dot" aria-hidden="true"></span> 交互图表</div>
+    </nav>
+
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="dot" aria-hidden="true"></span> 计算效率 × 精度图谱 / 2026</div>
+          <h1>同一张切片，<br>两种<em>读法。</em></h1>
+          <p class="hero-sub">
+            1007 仅进行一次 5× 扫描；Pipeline 先做 5×，再由路由器选出 Top-20 区域进行
+            20× 放大。二者共享 20 项临床任务，但计算代价完全不同。
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#efficiency">查看效率前沿 <span class="arrow">↘</span></a>
+            <a class="btn ghost" href="#evidence">阅读结论边界 <span class="arrow">→</span></a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="hero-stat coral">
+              <div class="stat-top"><span>1007</span><span class="tag">单尺度</span></div>
+              <div class="stat-value" id="hero-1007-auc">0.862</div>
+              <div class="stat-label hero-auc-label">20 任务平均 AUC</div>
+              <div class="stat-meta">
+                <span class="accent" id="hero-1007-time">2.08s*</span>
+                <span id="hero-1007-size">0.32 GiB</span>
+              </div>
+            </div>
+            <div class="hero-stat cyan">
+              <div class="stat-top"><span>Pipeline</span><span class="tag">自适应放大</span></div>
+              <div class="stat-value" id="hero-pipe-auc">0.856</div>
+              <div class="stat-label hero-auc-label">20 任务平均 AUC</div>
+              <div class="stat-meta">
+                <span class="accent" id="hero-pipe-time">6.23s</span>
+                <span id="hero-pipe-size">2.74 GiB</span>
+              </div>
+            </div>
+            <div class="hero-stat violet">
+              <div class="stat-top"><span>BRIGHT</span><span class="tag">精度上界</span></div>
+              <div class="stat-value" id="hero-bright-auc">0.865</div>
+              <div class="stat-label hero-auc-label">20 任务平均 AUC</div>
+              <div class="stat-meta">
+                <span class="accent" id="hero-bright-time">32.97s</span>
+                <span id="hero-bright-size">2.36 GiB</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-label="1007 与 Pipeline 的计算路径">
+          <div class="path-head">
+            <span>计算路径</span>
+            <span>共享 20 个任务头</span>
+          </div>
+
+          <div class="path-row coral">
+            <div class="path-label">
+              <span class="dot" aria-hidden="true"></span>
+              1007 <span class="tag">单次前向</span>
+            </div>
+            <div class="path-flow">
+              <div class="node"><b>5× Student</b><small>1536 维 · ep6</small></div>
+              <div class="path-arrow">→</div>
+              <div class="node"><b>ABMIL</b><small>20 个任务头</small></div>
+            </div>
+            <div class="path-meta">
+              <span id="path-1007-time">2.08 s*</span>
+              <span id="path-1007-speed">比 BRIGHT 快 15.9×</span>
+            </div>
+          </div>
+
+          <div class="path-row cyan">
+            <div class="path-label">
+              <span class="dot" aria-hidden="true"></span>
+              Pipeline <span class="tag">级联</span>
+            </div>
+            <div class="path-flow">
+              <div class="node"><b>5× Student</b><small>ep3</small></div>
+              <div class="path-arrow">→</div>
+              <div class="node accent"><b>S2 SNGP</b><small>Top-20</small></div>
+              <div class="path-arrow">→</div>
+              <div class="node accent"><b>20× Teacher</b><small>4×4 · ≤320</small></div>
+              <div class="path-arrow">→</div>
+              <div class="node"><b>ABMIL</b><small>2560 维</small></div>
+            </div>
+            <div class="path-meta">
+              <span id="path-pipe-time">6.23 s</span>
+              <span id="path-pipe-speed">比 BRIGHT 快 5.3×</span>
+            </div>
+          </div>
+
+          <div class="path-note">
+            * 1007 的时延与阶段拆分沿用 BRIGHT-Flash 的声明式假设，并非本次实测；
+            1007 使用 Student ep6，Pipeline 使用 ep3，因此不是同 checkpoint 消融。
+          </div>
+        </aside>
+      </div>
+
+      <div class="hero-foot">
+        <span>10 个模型 · 20 项任务 · 150 张计时切片 · 点估计</span>
+        <span class="scroll-cue"><span class="line" aria-hidden="true"></span> 向下滚动查看</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="explorer" id="explorer">
+    <div class="explorer-inner">
+      <div class="control-group">
+        <span class="control-label">任务集</span>
+        <div class="seg" id="task-set" role="group" aria-label="任务集">
+          <button type="button" data-value="20" class="active" aria-pressed="true">20 任务</button>
+          <button type="button" data-value="17" aria-pressed="false">17 任务</button>
+        </div>
+      </div>
+      <div class="control-group">
+        <span class="control-label">计时口径</span>
+        <div class="seg" id="time-mode" role="group" aria-label="计时口径">
+          <button type="button" data-value="model" class="active" aria-pressed="true">仅模型</button>
+          <button type="button" data-value="e2e" aria-pressed="false">端到端</button>
+        </div>
+      </div>
+      <div class="control-group grow">
+        <span class="control-label">模型</span>
+        <div class="chips" id="model-chips" aria-label="模型选择"></div>
+      </div>
+      <div class="control-actions">
+        <button type="button" class="mini" id="focus-ours">本文模型</button>
+        <button type="button" class="mini" id="focus-all">全部</button>
+        <button type="button" class="mini ghost" id="reset">重置</button>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <!-- 01 -->
+    <section class="section" id="efficiency">
+      <div class="section-head reveal">
+        <div class="section-kicker"><span class="num">01</span> 计算效率</div>
+        <h2>效率前沿。</h2>
+        <p class="lede">
+          每个点代表一个模型。越靠左越便宜，越靠上越准确；气泡面积表示登记权重大小。
+          浅色带为五个 20× 基础编码器。<strong>1007 位于最左侧，Pipeline 位于基础模型组上方。</strong>
+        </p>
+      </div>
+
+      <div class="split-2">
+        <div class="panel chart-panel reveal">
+          <div class="panel-head">
+            <div>
+              <span class="panel-kicker">单张耗时与平均 AUC</span>
+              <h3>效率前沿</h3>
+              <p class="panel-sub" id="scatter-sub">20 任务均值 · 仅模型耗时 · 对数横轴</p>
+            </div>
+            <div class="panel-actions">
+              <span class="tag">气泡 = 权重</span>
+            </div>
+          </div>
+          <div class="chart-scroll">
+            <svg id="scatter" class="chart" viewBox="0 0 980 560" role="img"
+                 aria-label="模型耗时与平均 AUC 的散点图，气泡大小表示权重大小"></svg>
+          </div>
+          <p class="chart-caption" id="scatter-caption"></p>
+        </div>
+
+        <aside class="panel notes-panel reveal">
+          <span class="panel-kicker">关键观察</span>
+          <div class="note-list" id="efficiency-notes"></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 02 -->
+    <section class="section" id="footprint">
+      <div class="section-head reveal">
+        <div class="section-kicker"><span class="num">02</span> 模型体积</div>
+        <h2>模型要花多少？</h2>
+        <p class="lede">
+          权重只是成本的一部分。级联中的 20× Teacher 是 <strong>5× Student 的 7.3×</strong>；
+          峰值显存则讲述另一个故事，因为批处理和切片流水线的开销并不随权重数量线性增长。
+        </p>
+      </div>
+
+      <div class="split-2 wide-left">
+        <div class="panel chart-panel reveal">
+          <div class="panel-head">
+            <div>
+              <span class="panel-kicker">登记权重</span>
+              <h3>权重体积</h3>
+              <p class="panel-sub">各模型 GiB，按组件堆叠</p>
+            </div>
+            <div class="panel-actions"><span class="tag">† 1007 以 ep3 作代理</span></div>
+          </div>
+          <div class="chart-scroll">
+            <svg id="weights-chart" class="chart" viewBox="0 0 980 430" role="img"
+                 aria-label="各模型权重体积的堆叠水平条形图"></svg>
+          </div>
+          <p class="chart-caption" id="weights-caption"></p>
+        </div>
+
+        <div class="panel chart-panel reveal">
+          <div class="panel-head">
+            <div>
+              <span class="panel-kicker">峰值显存</span>
+              <h3>GPU 占用</h3>
+              <p class="panel-sub">150 张切片运行中的峰值保留量（GB）</p>
+            </div>
+          </div>
+          <div class="chart-scroll">
+            <svg id="gpu-chart" class="chart narrow" viewBox="0 0 520 430" role="img"
+                 aria-label="各模型峰值显存水平条形图"></svg>
+          </div>
+          <p class="chart-caption" id="gpu-caption"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 -->
+    <section class="section" id="latency">
+      <div class="section-head reveal">
+        <div class="section-kicker"><span class="num">03</span> 推理时延</div>
+        <h2>时间花在哪里。</h2>
+        <p class="lede">
+          所有模型都要支付 <strong>2.43 s</strong> 的共享切片预处理。此后，级联还要支付
+          一次 5× 前向、一次路由，以及最多 320 个 20× 切片；1007 在 5× 前向之后即结束。
+        </p>
+      </div>
+
+      <div class="split-2">
+        <div class="panel chart-panel reveal">
+          <div class="panel-head">
+            <div>
+              <span class="panel-kicker">单张时延</span>
+              <h3>时延构成</h3>
+              <p class="panel-sub" id="latency-sub">仅模型耗时，按阶段堆叠</p>
+            </div>
+            <div class="panel-actions"><span class="tag" id="latency-mode-tag">仅模型</span></div>
+          </div>
+          <div class="chart-scroll">
+            <svg id="latency-chart" class="chart" viewBox="0 0 980 520" role="img"
+                 aria-label="单张切片时延按阶段堆叠的水平条形图"></svg>
+          </div>
+          <p class="chart-caption" id="latency-caption"></p>
+        </div>
+
+        <aside class="panel notes-panel reveal">
+          <span class="panel-kicker">如何读这张图</span>
+          <div class="note-list" id="latency-notes"></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 04 -->
+    <section class="section" id="scoreboard">
+      <div class="section-head reveal">
+        <div class="section-kicker"><span class="num">04</span> 多任务性能</div>
+        <h2>性能总览。</h2>
+        <p class="lede">
+          20 项共同任务上的 macro OVR AUC。<strong>17 任务视图</strong>移除三个样本量很小的
+          NAT 队列；它是敏感性分析，不是主结论。排名的翻转同样重要。
+        </p>
+      </div>
+
+      <div class="panel chart-panel reveal">
+        <div class="panel-head">
+          <div>
+            <span class="panel-kicker">平均 AUC 排名</span>
+            <h3>谁领先，领先多少</h3>
+            <p class="panel-sub" id="ranking-sub">20 任务平均 AUC · 按排名排序</p>
+          </div>
+          <div class="panel-actions"><span class="tag" id="ranking-ceiling-tag">上界 = BRIGHT</span></div>
+        </div>
+        <div class="chart-scroll">
+          <svg id="ranking-chart" class="chart" viewBox="0 0 980 470" role="img"
+               aria-label="各模型平均 AUC 排名"></svg>
+        </div>
+        <p class="chart-caption" id="ranking-caption"></p>
+      </div>
+
+      <div class="panel chart-panel reveal" style="margin-top:18px">
+        <div class="panel-head">
+          <div>
+            <span class="panel-kicker">任务级矩阵</span>
+            <h3>均值从哪里来</h3>
+            <p class="panel-sub" id="heatmap-sub">各任务 AUC · 选中模型</p>
+          </div>
+          <div class="panel-actions">
+            <div class="seg" id="heatmap-mode" role="group" aria-label="热图模式">
+              <button type="button" data-value="delta" class="active" aria-pressed="true">Δ 相对 BRIGHT</button>
+              <button type="button" data-value="absolute" aria-pressed="false">绝对 AUC</button>
+            </div>
+          </div>
+        </div>
+        <div class="chart-scroll" id="heatmap-scroll">
+          <svg id="heatmap" class="chart" viewBox="0 0 980 700" role="img"
+               aria-label="任务级 AUC 或相对 BRIGHT 差值热图"></svg>
+        </div>
+        <div id="heatmap-legend" class="heatmap-legend" aria-hidden="true"></div>
+        <p class="chart-caption" id="heatmap-caption"></p>
+      </div>
+
+      <div class="panel chart-panel reveal" style="margin-top:18px">
+        <div class="panel-head">
+          <div>
+            <span class="panel-kicker">正面对比</span>
+            <h3>1007 与 Pipeline 的逐任务差异</h3>
+            <p class="panel-sub" id="delta-sub">正值 = 1007 更好 · 负值 = Pipeline 更好</p>
+          </div>
+          <div class="panel-actions"><span class="tag" id="delta-task-tag">20 任务</span></div>
+        </div>
+        <div class="delta-summary" id="delta-summary"></div>
+        <div class="chart-scroll">
+          <svg id="delta-chart" class="chart" viewBox="0 0 980 600" role="img"
+               aria-label="1007 与 Pipeline 各任务 AUC 差值发散条形图"></svg>
+        </div>
+        <p class="chart-caption" id="delta-caption"></p>
+      </div>
+
+      <details class="panel table-panel reveal">
+        <summary>完整成绩表 <span class="tag">精确值</span></summary>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>排名</th>
+                <th>模型</th>
+                <th>20 任务均值</th>
+                <th>17 任务均值</th>
+                <th>模型耗时</th>
+                <th>端到端</th>
+                <th>权重</th>
+                <th>GPU 峰值</th>
+                <th>Top-2（20）</th>
+                <th>Top-2（17）</th>
+              </tr>
+            </thead>
+            <tbody id="model-table-body"></tbody>
+          </table>
+        </div>
+        <p class="table-note">
+          * 1007 耗时沿用 BRIGHT-Flash，并非本次实测。
+          † 1007 权重以 ep3 Student 文件作同架构代理；ep6 文件不在当前工作区。
+          AUC 均为点估计。
+        </p>
+      </details>
+    </section>
+
+    <!-- 05 -->
+    <section class="section" id="evidence">
+      <div class="section-head reveal">
+        <div class="section-kicker"><span class="num">05</span> 证据台账</div>
+        <h2>这些数字支持什么。</h2>
+        <p class="lede">
+          四条主张，每条都附证据与边界。页面的目标是让比较可读，而不是隐藏竞争。
+        </p>
+      </div>
+
+      <div class="claims-grid" id="claims-grid"></div>
+
+      <div class="context-banner reveal">
+        <span class="context-label">竞争语境</span>
+        <p id="context-text"></p>
+      </div>
+
+      <div class="caveat-grid" id="caveat-grid"></div>
+
+      <div class="strengthen reveal">
+        <b>怎样让结论更稳健。</b>
+        <ul>
+          <li>让 Pipeline 使用 <b>ep6 Student</b>，或让 1007 使用 ep3，从而把架构比较变成同 checkpoint 消融。</li>
+          <li>实测 1007 自己的时延与阶段拆分；当前 2.08 s / 4.51 s 为沿用值。</li>
+          <li>同时报告两个模型的 held-out 测试均值，并给出 bootstrap 置信区间，而不是混用验证集与测试集列。</li>
+        </ul>
+      </div>
+
+      <details class="panel method-panel reveal">
+        <summary>方法与数据来源 <span class="tag">引用前请阅读</span></summary>
+        <div class="method-grid">
+          <div class="method-block">
+            <h4>任务集</h4>
+            <p>
+              20 任务主表取我们的模型评估与基线表的交集。17 任务敏感性视图移除
+              <code>NAT-ALL</code>、<code>NAT-HR+</code> 与 <code>NAT-TNBC</code>。
+              基线模型有 26 项任务；我们的模型未覆盖 <code>DFS</code>、<code>OS</code>、
+              <code>BRACS</code>、<code>NIT</code> 或 <code>PD-L1</code>，因此这些任务在所有比较中均被排除。
+            </p>
+            <h4>指标</h4>
+            <p>
+              Macro one-vs-rest AUC。1007 的表内取值为
+              <code>best_validation.macro_ovr_auc</code>；其 held-out 测试均值在注意事项中单独列出。
+              源表中的基线 AUC 带 95% 置信区间；我们的模型行没有。
+            </p>
+          </div>
+          <div class="method-block">
+            <h4>计时</h4>
+            <p>
+              “仅模型”指单张切片的模型流水线：特征 I/O + 计算（Pipeline 另含 S2 路由）。
+              “端到端”再加入共享的 2.43 s 预处理（其中分割 1.33 s）。计时来自 150 张切片的基准。
+              1007 是声明式共享 profile，不是新跑的结果。
+            </p>
+            <h4>权重与显存</h4>
+            <p>
+              权重为 <code>model_paths.py</code> 中登记文件的体积。峰值显存在 batch 1 下逐模型测量。
+              1007 的 ep6 checkpoint 不在工作区；这里用 ep3 Student 文件作同架构代理。
+            </p>
+          </div>
+        </div>
+        <div class="method-grid">
+          <div class="method-block">
+            <h4>数据来源</h4>
+            <div class="source-list">
+              <a href="sources/20_task_auc.csv"><span>20 任务 AUC 表</span><span>CSV</span></a>
+              <a href="sources/17_task_auc.csv"><span>17 任务 AUC 表</span><span>CSV</span></a>
+              <a href="sources/time_auc_summary.csv"><span>耗时 / AUC 汇总</span><span>CSV</span></a>
+              <a href="sources/time_per_slide_breakdown.csv"><span>时延拆分</span><span>CSV</span></a>
+              <a href="sources/model_summary.csv"><span>GPU / 吞吐汇总</span><span>CSV</span></a>
+              <a href="sources/1007_validation_test.json"><span>1007 验证与测试</span><span>JSON</span></a>
+            </div>
+          </div>
+          <div class="method-block">
+            <h4>生成数据包</h4>
+            <p>
+              页面读取由 <code>build_data.py</code> 生成的 <code>data.js</code>。
+              构建脚本逐格校验模型/任务数据，并以 1e-6 精度核对 20/17 任务均值与发布表。
+              页面不使用外部库、字体或网络请求。
+            </p>
+            <h4>交互</h4>
+            <p>
+              任务集与计时口径切换会更新所有图表。模型标签控制热图列，并高亮其他视图。
+              悬停或聚焦图元可查看精确值。所有图表均为内联 SVG，可离线使用。
+            </p>
+          </div>
+        </div>
+      </details>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <div class="footer-brand"><span class="brand-mark" aria-hidden="true"></span> BRIGHT-Flash / 计算效率 × 精度图谱</div>
+      <div>由仓库数据生成 · 无外部依赖 · <span id="generated-at">2026</span></div>
+    </div>
+    <div class="footer-meta">
+      <a href="#top">返回顶部 ↑</a>
+      <span>10 个模型</span>
+      <span>20 项任务</span>
+      <span>150 张计时切片</span>
+    </div>
+  </footer>
+
+  <div class="tooltip" id="tooltip" role="status" aria-live="polite"></div>
+
+  <script src="data.js?v=20261019-light-final"></script>
+  <script src="app.js?v=20261019-light-final"></script>
+</body>
+</html>
