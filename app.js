@@ -1439,6 +1439,50 @@
     sections.forEach((section) => observer.observe(section));
   }
 
+
+  /* ---------- detailed flow animation ---------- */
+  function initFlow() {
+    const board = $('#flow-board');
+    if (!board) return;
+    const steps = $$('.flow-step', board).sort((a, b) => parseFloat(a.dataset.delay || 0) - parseFloat(b.dataset.delay || 0));
+    const replay = $('#flow-replay');
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let timers = [];
+    const clear = () => {
+      timers.forEach((timer) => window.clearTimeout(timer));
+      timers = [];
+      steps.forEach((step) => step.classList.remove('is-lit'));
+    };
+    const play = () => {
+      clear();
+      if (STATIC_MODE || reduce) {
+        steps.forEach((step) => step.classList.add('is-lit'));
+        return;
+      }
+      steps.forEach((step) => {
+        const delay = parseFloat(step.dataset.delay || 0);
+        timers.push(window.setTimeout(() => step.classList.add('is-lit'), delay));
+      });
+    };
+    if (replay) replay.addEventListener('click', play);
+    if (STATIC_MODE || reduce) {
+      steps.forEach((step) => step.classList.add('is-lit'));
+      return;
+    }
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          play();
+          observer.disconnect();
+        });
+      }, { threshold: 0.18 });
+      observer.observe(board);
+    } else {
+      play();
+    }
+  }
+
   /* ---------- boot ---------- */
   function boot() {
     renderChips();
@@ -1450,6 +1494,7 @@
     if (PARAMS.has('open')) document.querySelectorAll('details').forEach((node) => { node.open = true; });
     initReveal();
     initProgress();
+    initFlow();
     initNav();
     if (SECTION_PARAM) {
       window.setTimeout(() => {

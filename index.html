@@ -6,7 +6,7 @@
   <meta name="color-scheme" content="light">
   <meta name="description" content="BRIGHT-Flash 交互式计算效率 × 精度图谱：1007、Pipeline、EAGLE、BRIGHT 与五个 20× 基础编码器在 20 项临床任务上的比较。">
   <title>BRIGHT-Flash · 计算效率 × 精度图谱</title>
-  <link rel="stylesheet" href="styles.css?v=20261019-chart-first">
+  <link rel="stylesheet" href="styles.css?v=20261019-flow">
 </head>
 <body>
   <div id="progress" aria-hidden="true"></div>
@@ -18,6 +18,7 @@
         BRIGHT-Flash <span class="brand-sub">/ 图谱</span>
       </a>
       <div class="nav-links">
+        <a href="#flow">流程</a>
         <a href="#efficiency">效率</a>
         <a href="#footprint">体积</a>
         <a href="#latency">时延</a>
@@ -37,8 +38,8 @@
             两者共享 20 项临床任务头。
           </p>
           <div class="hero-actions">
-            <a class="btn primary" href="#efficiency">查看效率前沿 <span class="arrow">↘</span></a>
-            <a class="btn ghost" href="#evidence">查看口径 <span class="arrow">→</span></a>
+            <a class="btn primary" href="#flow">查看计算流程 <span class="arrow">↘</span></a>
+            <a class="btn ghost" href="#efficiency">查看效率前沿 <span class="arrow">→</span></a>
           </div>
 
           <div class="hero-stats">
@@ -156,10 +157,141 @@
   </div>
 
   <main>
-    <!-- 01 -->
+    <!-- 01 FLOW -->
+    <section class="section flow-section" id="flow">
+      <div class="section-head reveal">
+        <div class="section-kicker"><span class="num">01</span> 计算流程</div>
+        <h2>两条路径，逐级展开。</h2>
+        <p class="lede">
+          同一张 WSI 先经 S1 分割与 5× Student；1007 直接汇聚全部 5× 特征，
+          Pipeline 再由 SNGP 选择 Top-20 父块做 20× 放大。
+        </p>
+      </div>
+
+      <div class="panel flow-panel reveal" id="flow-board" aria-label="1007 与 Pipeline 的详细计算流程">
+        <div class="flow-toolbar">
+          <div class="flow-legend">
+            <span><i class="flow-swatch shared"></i>共享</span>
+            <span><i class="flow-swatch single"></i>1007</span>
+            <span><i class="flow-swatch cascade"></i>Pipeline</span>
+            <span class="flow-note">数字为单张模型耗时；1007 为沿用值。</span>
+          </div>
+          <button type="button" class="flow-replay" id="flow-replay">重播流程</button>
+        </div>
+
+        <div class="flow-row flow-row-shared">
+          <div class="flow-row-label"><span>共享输入</span><b>一次 5× 扫描</b></div>
+          <div class="flow-steps">
+            <div class="flow-step" data-delay="0">
+              <div class="flow-step-top"><span class="flow-index">01</span><span class="flow-tag">输入</span></div>
+              <h3>WSI</h3>
+              <p>全片 H&amp;E 图像与组织区域。</p>
+              <div class="flow-meta"><span>原生分辨率</span><span>全片</span></div>
+            </div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step" data-delay="260">
+              <div class="flow-step-top"><span class="flow-index">02</span><span class="flow-tag">共享</span></div>
+              <h3>S1 分割 + 5× 切片</h3>
+              <p>GrandQC 组织分割，生成 5× tile 坐标。</p>
+              <div class="flow-meta"><span>预处理 2.43 s</span><span>全片 tiles</span></div>
+            </div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step" data-delay="520">
+              <div class="flow-step-top"><span class="flow-index">03</span><span class="flow-tag">共享</span></div>
+              <h3>5× Student</h3>
+              <p>DINOv2 ViT-B/14，逐 5× tile 编码。</p>
+              <div class="flow-meta"><span>1536-D</span><span>ep6 / ep3</span></div>
+              <div class="flow-dots" aria-hidden="true"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flow-branch-label"><span>同一 5× 特征</span><b>两条汇聚路径</b></div>
+
+        <div class="flow-row flow-row-1007">
+          <div class="flow-row-label"><span>1007</span><b>单尺度 · 直接汇聚</b></div>
+          <div class="flow-steps">
+            <div class="flow-step" data-delay="920">
+              <div class="flow-step-top"><span class="flow-index">A1</span><span class="flow-tag">全部 tiles</span></div>
+              <h3>5× 特征袋</h3>
+              <p>全部 5× tile 特征进入 slide-level bag。</p>
+              <div class="flow-meta"><span>1536-D</span><span>无路由</span></div>
+              <div class="flow-dots" aria-hidden="true"></div>
+            </div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step" data-delay="1180">
+              <div class="flow-step-top"><span class="flow-index">A2</span><span class="flow-tag">汇聚</span></div>
+              <h3>ABMIL</h3>
+              <p>attention pooling，输出 slide embedding。</p>
+              <div class="flow-meta"><span>20 头共享</span><span>slide-level</span></div>
+            </div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step" data-delay="1440">
+              <div class="flow-step-top"><span class="flow-index">A3</span><span class="flow-tag">输出</span></div>
+              <h3>20 任务头</h3>
+              <p>20 项临床任务独立线性头。</p>
+              <div class="flow-meta"><span>2.08 s*</span><span>0.32 GiB</span></div>
+            </div>
+          </div>
+          <div class="flow-row-foot">一次 5× 前向，无 20× 推理与路由；耗时沿用 BRIGHT-Flash。</div>
+        </div>
+
+        <div class="flow-row flow-row-pipeline">
+          <div class="flow-row-label"><span>Pipeline</span><b>自适应 · 20× 放大</b></div>
+          <div class="flow-steps">
+            <div class="flow-step" data-delay="920">
+              <div class="flow-step-top"><span class="flow-index">B1</span><span class="flow-tag">Top-20</span></div>
+              <h3>S2 SNGP 路由</h3>
+              <p>冻结 SNGP 对 5× 父块打分，选 Top-20。</p>
+              <div class="flow-meta"><span>20 父块</span><span>0.19 s</span></div>
+            </div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step" data-delay="1180">
+              <div class="flow-step-top"><span class="flow-index">B2</span><span class="flow-tag">4×4</span></div>
+              <h3>20× 切片</h3>
+              <p>每个父块切 4×4 个 20× tile。</p>
+              <div class="flow-meta"><span>≤320 tiles</span><span>20×</span></div>
+              <div class="flow-dots route" aria-hidden="true"></div>
+            </div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step" data-delay="1440">
+              <div class="flow-step-top"><span class="flow-index">B3</span><span class="flow-tag">Teacher</span></div>
+              <h3>20× Teacher</h3>
+              <p>ViT-Huge/14 + rank-8 LoRA，逐 tile 编码。</p>
+              <div class="flow-meta"><span>2560-D</span><span>LoRA</span></div>
+              <div class="flow-dots dense" aria-hidden="true"></div>
+            </div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step" data-delay="1700">
+              <div class="flow-step-top"><span class="flow-index">B4</span><span class="flow-tag">汇聚</span></div>
+              <h3>ABMIL</h3>
+              <p>20× tile 特征池化，输出 slide embedding。</p>
+              <div class="flow-meta"><span>20 头共享</span><span>slide-level</span></div>
+            </div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step" data-delay="1960">
+              <div class="flow-step-top"><span class="flow-index">B5</span><span class="flow-tag">输出</span></div>
+              <h3>20 任务头</h3>
+              <p>与 1007 相同的 20 项临床任务。</p>
+              <div class="flow-meta"><span>6.23 s</span><span>2.74 GiB</span></div>
+            </div>
+          </div>
+          <div class="flow-row-foot">5× 初筛 + 一次路由 + 20× Teacher；端到端 8.66 s。</div>
+        </div>
+
+        <div class="flow-output">
+          <span class="flow-output-dot" aria-hidden="true"></span>
+          <div><b>同一组 20 项临床任务</b><p>两条路径最终都进入 20 个任务头；差异只在特征尺度与计算量。</p></div>
+          <span class="flow-output-tag">AUC 点估计</span>
+        </div>
+        <p class="flow-mobile-hint">左右滑动查看完整流程</p>
+      </div>
+    </section>
+
+    <!-- 02 -->
     <section class="section" id="efficiency">
       <div class="section-head reveal">
-        <div class="section-kicker"><span class="num">01</span> 计算效率</div>
+        <div class="section-kicker"><span class="num">02</span> 计算效率</div>
         <h2>效率前沿。</h2>
         <p class="lede">
           横轴为单张模型耗时（对数），纵轴为任务平均 AUC，气泡面积为 checkpoint 体积。
@@ -196,7 +328,7 @@
     <!-- 02 -->
     <section class="section" id="footprint">
       <div class="section-head reveal">
-        <div class="section-kicker"><span class="num">02</span> 模型体积</div>
+        <div class="section-kicker"><span class="num">03</span> 模型体积</div>
         <h2>模型体积与显存。</h2>
         <p class="lede">
           20× Teacher 的权重是 5× Student 的 7.3×；峰值显存还受批处理与切片流水线影响。
@@ -240,7 +372,7 @@
     <!-- 03 -->
     <section class="section" id="latency">
       <div class="section-head reveal">
-        <div class="section-kicker"><span class="num">03</span> 推理时延</div>
+        <div class="section-kicker"><span class="num">04</span> 推理时延</div>
         <h2>时延构成。</h2>
         <p class="lede">
           共享预处理固定为 2.43 s。Pipeline 随后支付 5× 前向、S2 路由与最多 320 个 20× 切片；
@@ -275,7 +407,7 @@
     <!-- 04 -->
     <section class="section" id="scoreboard">
       <div class="section-head reveal">
-        <div class="section-kicker"><span class="num">04</span> 多任务性能</div>
+        <div class="section-kicker"><span class="num">05</span> 多任务性能</div>
         <h2>性能总览。</h2>
         <p class="lede">
           20 项共同任务的 macro OVR AUC；17 任务视图移除三个小样本 NAT 队列，作为敏感性分析。
@@ -367,7 +499,7 @@
     <!-- 05 -->
     <section class="section" id="evidence">
       <div class="section-head reveal">
-        <div class="section-kicker"><span class="num">05</span> 结论与边界</div>
+        <div class="section-kicker"><span class="num">06</span> 结论与边界</div>
         <h2>结论与边界。</h2>
         <p class="lede">
           四条结论对应上方图表；详细口径、限制与复现建议见折叠区。
@@ -465,7 +597,7 @@
 
   <div class="tooltip" id="tooltip" role="status" aria-live="polite"></div>
 
-  <script src="data.js?v=20261019-chart-first"></script>
-  <script src="app.js?v=20261019-chart-first"></script>
+  <script src="data.js?v=20261019-flow"></script>
+  <script src="app.js?v=20261019-flow"></script>
 </body>
 </html>
