@@ -6,7 +6,7 @@
   <meta name="color-scheme" content="light">
   <meta name="description" content="BRIGHT-Flash 交互式计算效率 × 精度图谱：1007、Pipeline、EAGLE、BRIGHT 与五个 20× 基础编码器在 20 项临床任务上的比较。">
   <title>BRIGHT-Flash · 计算效率 × 精度图谱</title>
-  <link rel="stylesheet" href="styles.css?v=20261020-editorial">
+  <link rel="stylesheet" href="styles.css?v=20261019-naming">
 </head>
 <body>
   <div id="progress" aria-hidden="true"></div>
@@ -29,11 +29,6 @@
     </nav>
 
     <div class="wrap">
-      <div class="cover-meta" aria-hidden="true">
-        <span>VOL. 01 · ATLAS / 2026</span>
-        <span>COMPUTE × ACCURACY</span>
-        <span>10 MODELS · 20 TASKS · 150 SLIDES</span>
-      </div>
       <div class="hero-grid">
         <div class="hero-copy">
           <div class="eyebrow"><span class="dot" aria-hidden="true"></span> 计算效率 × 精度图谱 / 2026</div>
@@ -80,7 +75,7 @@
 
         <aside class="hero-card" aria-label="1007 与 Pipeline 的计算路径">
           <div class="path-head">
-            <span>图 00 · 计算路径</span>
+            <span>计算路径</span>
             <span>共享 20 个任务头</span>
           </div>
 
@@ -164,7 +159,7 @@
   <main>
     <!-- 01 FLOW -->
     <section class="section flow-section" id="flow">
-      <div class="section-head reveal" data-fig="图 01 · 流程">
+      <div class="section-head reveal">
         <div class="section-kicker"><span class="num">01</span> 计算流程</div>
         <h2>一张切片，两条路径。</h2>
         <p class="lede">
@@ -354,7 +349,7 @@
 
     <!-- 02 -->
     <section class="section" id="efficiency">
-      <div class="section-head reveal" data-fig="图 02 · 效率">
+      <div class="section-head reveal">
         <div class="section-kicker"><span class="num">02</span> 计算效率</div>
         <h2>效率前沿。</h2>
         <p class="lede">
@@ -391,7 +386,7 @@
 
     <!-- 02 -->
     <section class="section" id="footprint">
-      <div class="section-head reveal" data-fig="图 03 · 体积">
+      <div class="section-head reveal">
         <div class="section-kicker"><span class="num">03</span> 模型体积</div>
         <h2>模型体积与显存。</h2>
         <p class="lede">
@@ -435,7 +430,7 @@
 
     <!-- 03 -->
     <section class="section" id="latency">
-      <div class="section-head reveal" data-fig="图 04 · 时延">
+      <div class="section-head reveal">
         <div class="section-kicker"><span class="num">04</span> 推理时延</div>
         <h2>时延构成。</h2>
         <p class="lede">
@@ -470,7 +465,7 @@
 
     <!-- 04 -->
     <section class="section" id="scoreboard">
-      <div class="section-head reveal" data-fig="图 05 · 性能">
+      <div class="section-head reveal">
         <div class="section-kicker"><span class="num">05</span> 多任务性能</div>
         <h2>性能总览。</h2>
         <p class="lede">
@@ -562,44 +557,18 @@
 
     <!-- 05 -->
     <section class="section" id="evidence">
-      <div class="section-head reveal evidence-head" data-fig="图 06 · 证据">
-        <div class="section-kicker"><span class="num">06</span> 证据台账</div>
-        <div class="evidence-heading">
-          <h2>结论，连同它的边界。</h2>
-          <div class="evidence-stamp">
-            <span>10 模型 · 20 任务</span>
-            <span>2026-10-19</span>
-          </div>
-        </div>
+      <div class="section-head reveal">
+        <div class="section-kicker"><span class="num">06</span> 结论与边界</div>
+        <h2>结论与边界。</h2>
         <p class="lede">
-          四条结论，每条给出支持它的数字、不能越过的边界，以及下一步该补的证据。
+          四条结论对应上方图表；详细口径、限制与复现建议见折叠区。
         </p>
       </div>
 
-      <div class="evidence-overview reveal">
-        <div>
-          <span class="overview-label">一句话判断</span>
-          <p>1007 是成本最低的 5× 路径；Pipeline 是<span class="nowrap">跨过</span> 20× 基础模型组效率前沿的级联；EAGLE 是最接近的效率对手；BRIGHT 仍是精度上界。</p>
-        </div>
-        <div class="evidence-scale" aria-label="证据等级说明">
-          <div><span class="verdict-dot strong"></span><b>支持</b><small>点估计成立</small></div>
-          <div><span class="verdict-dot bounded"></span><b>有条件</b><small>依赖口径</small></div>
-          <div><span class="verdict-dot sensitive"></span><b>敏感性</b><small>小队列驱动</small></div>
-        </div>
-      </div>
-
-      <div class="evidence-ledger" id="claims-grid"></div>
-
-      <div class="evidence-boundary-rail reveal">
-        <div class="boundary-rail-head">
-          <span class="panel-kicker">三条不能省略的边界</span>
-          <span class="boundary-rail-note">读结论前，先读这里</span>
-        </div>
-        <div class="boundary-rail-grid" id="boundary-rail"></div>
-      </div>
+      <div class="claims-grid" id="claims-grid"></div>
 
       <details class="panel method-panel limits-panel reveal">
-        <summary>完整口径与限制 <span class="tag">6 项</span></summary>
+        <summary>口径与限制 <span class="tag">6 项</span></summary>
         <div class="caveat-grid" id="caveat-grid"></div>
         <div class="strengthen">
           <b>复现建议</b>
@@ -687,7 +656,7 @@
 
   <div class="tooltip" id="tooltip" role="status" aria-live="polite"></div>
 
-  <script src="data.js?v=20261020-editorial"></script>
-  <script src="app.js?v=20261020-editorial"></script>
+  <script src="data.js?v=20261019-naming"></script>
+  <script src="app.js?v=20261019-naming"></script>
 </body>
 </html>

@@ -1165,91 +1165,45 @@
     const natDelta = a.auc20['NAT-TNBC (2)'].auc - p.auc20['NAT-TNBC (2)'].auc;
     const claims = [
       {
-        verdict: 'strong',
-        label: '支持',
-        scope: '20 任务 · 点估计',
-        index: '01',
+        cls: 'coral',
+        index: '主张 01',
         title: '1007：最低计算成本，接近精度上界。',
         body: `仅模型 <b>${a.timing.modelTime.toFixed(2)} s*</b>，20 任务均值 <b>${fmt(a.mean20)}</b>，权重 <b>${a.weights.gib.toFixed(2)} GiB†</b>；比 BRIGHT 快 <b>${(b.timing.modelTime / a.timing.modelTime).toFixed(1)}×</b>，AUC 低 <b>${Math.abs(a.mean20 - b.mean20).toFixed(4)}</b>。`,
-        metrics: [
-          { value: fmt(a.mean20), label: '20 任务均值' },
-          { value: `${a.timing.modelTime.toFixed(2)} s*`, label: '模型耗时' },
-          { value: `${(b.timing.modelTime / a.timing.modelTime).toFixed(1)}×`, label: '快于 BRIGHT' }
-        ],
-        boundary: 'held-out 0.8577；2.08 s 为沿用值；AUC 为 best_validation。'
+        foot: 'held-out 测试均值 0.8577；2.08 s 为沿用值。',
       },
       {
-        verdict: 'bounded',
-        label: '有条件',
-        scope: '20 任务 · 五个 20× 基础模型',
-        index: '02',
-        title: 'Pipeline：跨过 20× 基础模型组的效率前沿。',
-        body: `仅模型 <b>${p.timing.modelTime.toFixed(2)} s</b>，均值 <b>${fmt(p.mean20)}</b>；五个 20× 基础编码器为 <b><span class="nowrap">${minFoundationTime}–${maxFoundationTime} s</span></b>、<b><span class="nowrap">${fmt(MODELS[worstFoundation].mean20)}–${fmt(MODELS[bestFoundation].mean20)}</span></b>。`,
-        metrics: [
-          { value: `${p.timing.modelTime.toFixed(2)} s`, label: '模型耗时' },
-          { value: fmt(p.mean20), label: '20 任务均值' },
-          { value: `${minRatio}–${maxRatio}×`, label: '快于基础组' }
-        ],
-        boundary: '不是全局 Pareto：1007 / EAGLE 更快，BRIGHT 更准。'
+        cls: 'cyan',
+        index: '主张 02',
+        title: 'Pipeline：优于 20× 基础模型组的效率前沿。',
+        body: `仅模型 <b>${p.timing.modelTime.toFixed(2)} s</b>，均值 <b>${fmt(p.mean20)}</b>；五个 20× 基础编码器为 <b>${minFoundationTime}–${maxFoundationTime} s</b>、<b>${fmt(MODELS[worstFoundation].mean20)}–${fmt(MODELS[bestFoundation].mean20)}</b>。`,
+        foot: '不是全局 Pareto：1007/EAGLE 更快，BRIGHT 更准。',
       },
       {
-        verdict: 'strong',
-        label: '支持',
-        scope: '20 / 17 任务 · 表内',
-        index: '03',
+        cls: 'amber',
+        index: '主张 03',
         title: 'Pipeline：更稳定的任务级表现。',
-        body: `Top-2 任务 <b>${p.top2_20}/20</b> 对 <b>${a.top2_20}/20</b>；17 任务均值 <b>${fmt(p.mean17)}</b> 对 <b>${fmt(a.mean17)}</b>。`,
-        metrics: [
-          { value: `${p.top2_20}/20`, label: 'Top-2 任务' },
-          { value: fmt(p.mean17), label: '17 任务均值' },
-          { value: fmt(a.mean17), label: '1007 对照' }
-        ],
-        boundary: '1007 held-out 17 任务 0.8749，低于 Pipeline 表内 0.8768；非同口径。'
+        body: `Top-2 <b>${p.top2_20}/20</b> 对 <b>${a.top2_20}/20</b>；17 任务均值 <b>${fmt(p.mean17)}</b> 对 <b>${fmt(a.mean17)}</b>。`,
+        foot: '1007 held-out 17 任务 0.8749，低于 Pipeline 表内 0.8768；非同口径。',
       },
       {
-        verdict: 'sensitive',
-        label: '敏感性',
-        scope: 'n=29 · 小队列',
-        index: '04',
+        cls: 'violet',
+        index: '主张 04',
         title: '1007 的均值优势集中于 NAT-TNBC。',
-        body: `20 任务 Δ <b>${signed(delta20, 4)}</b>；NAT-TNBC 贡献 <b>${signed(natDelta, 4)}</b>（n=29）；移除三个 NAT 任务后，17 任务 Δ <b>${signed(delta17, 4)}</b>。`,
-        metrics: [
-          { value: signed(delta20, 4), label: '20 任务 Δ' },
-          { value: signed(natDelta, 4), label: 'NAT-TNBC Δ' },
-          { value: signed(delta17, 4), label: '17 任务 Δ' }
-        ],
-        boundary: '验证集 0.9000，held-out 0.7167；不要引用 0.9000 作为测试结果。'
+        body: `20 任务 Δ <b>${signed(delta20, 4)}</b>；NAT-TNBC 贡献 <b>${signed(natDelta, 4)}</b>（n=29）；17 任务 Δ <b>${signed(delta17, 4)}</b>。`,
+        foot: '验证集 0.9000，held-out 0.7167；不要引用 0.9000 作为测试结果。',
       }
     ];
     wrap.innerHTML = claims.map((claim) => `
-      <article class="evidence-row evidence-row-${claim.verdict}">
-        <div class="evidence-row-index">${claim.index}</div>
-        <div class="evidence-row-main">
-          <div class="evidence-row-meta">
-            <span class="verdict verdict-${claim.verdict}"><i></i>${claim.label}</span>
-            <span class="evidence-scope">${claim.scope}</span>
-          </div>
-          <h3>${claim.title}</h3>
-          <p>${claim.body}</p>
-        </div>
-        <div class="evidence-row-metrics">
-          ${claim.metrics.map((metric) => `<div class="evidence-metric"><b>${metric.value}</b><span>${metric.label}</span></div>`).join('')}
-        </div>
-        <div class="evidence-row-boundary"><span>边界</span>${claim.boundary}</div>
+      <article class="claim ${claim.cls}">
+        <div class="claim-top"><span class="claim-index">${claim.index}</span><span>证据 + 边界</span></div>
+        <h3>${claim.title}</h3>
+        <p>${claim.body}</p>
+        <div class="claim-foot">${claim.foot}</div>
       </article>`).join('');
 
-    const rail = $('#boundary-rail');
-    if (rail) {
-      const boundaries = [
-        { num: '01', title: '计时是沿用值', body: '2.08 s / 4.51 s 沿用 BRIGHT-Flash；不是新测，阶段拆分亦同。' },
-        { num: '02', title: 'AUC 取验证集最佳 epoch', body: '0.8622 是 best_validation；held-out 为 0.8577（20）/ 0.8749（17）。' },
-        { num: '03', title: '不是同 checkpoint 消融', body: '1007 用 ep6；Pipeline S1 为 encoder_ep_3.pth；架构差异与 checkpoint 差异混合。' }
-      ];
-      rail.innerHTML = boundaries.map((item) => `
-        <div class="boundary-rail-item">
-          <span class="boundary-rail-num">${item.num}</span>
-          <div><h4>${item.title}</h4><p>${item.body}</p></div>
-        </div>`).join('');
+    const context = $('#context-text');
+    if (context) {
+      context.innerHTML = `<b>EAGLE 是效率对手：</b>${e.timing.modelTime.toFixed(2)} s，20 任务 ${fmt(e.mean20)}，17 任务 ${fmt(e.mean17)}，Top-2 ${e.top2_20}/20。比 Pipeline 快 <b>${(p.timing.modelTime / e.timing.modelTime).toFixed(1)}×</b>，17 任务均值略高。诚实的叙述是：1007 代表最低计算量，Pipeline 代表 20× 基础模型组，EAGLE 是最接近的竞争者，BRIGHT 是精度上界。`;
     }
   }
 
