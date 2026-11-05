@@ -30,6 +30,9 @@
 
   const MODELS = DATA.models;
   const IDS = Object.keys(MODELS);
+  const MODEL_RANKS = Object.fromEntries(
+    Object.entries(MODELS).map(([id, model]) => [id, { rank20: model.rank20, rank17: model.rank17 }])
+  );
 
   const LIGHT_MODEL_COLORS = {
     'BRIGHT': '#6d5bd0',
@@ -41,7 +44,9 @@
     'UNIv2': '#0f766e',
     'Prov-Gigapath': '#9a3412',
     'Conchv1.5': '#7e22ce',
-    'CHIEF': '#be123c'
+    'CHIEF': '#be123c',
+    'BRIGHT-Flash-H-1030': '#4338ca',
+    'BRIGHT-Flash-V-1031': '#4d7c0f'
   };
   const MODEL_FULL_ZH = {
     'BRIGHT': 'BRIGHT（20×）',
@@ -53,7 +58,9 @@
     'UNIv2': 'UNIv2（20× 基础编码器）',
     'Prov-Gigapath': 'Prov-Gigapath（20× 基础编码器）',
     'Conchv1.5': 'Conchv1.5（20× 基础编码器）',
-    'CHIEF': 'CHIEF（20× 基础编码器）'
+    'CHIEF': 'CHIEF（20× 基础编码器）',
+    'BRIGHT-Flash-H-1030': 'BRIGHT-Flash-H-1030（H-optimus-1 教师 + ABMIL）',
+    'BRIGHT-Flash-V-1031': 'BRIGHT-Flash-V-1031（Virchow2 教师 + ABMIL）'
   };
   const ROLE_ZH = {
     'BRIGHT 20× + ABMIL': 'BRIGHT（20×）+ ABMIL',
@@ -62,7 +69,9 @@
     '5x CTransPath → CHIEF top-25 → Virchow2': '5× CTransPath → CHIEF Top-25 → Virchow2',
     '20x foundation encoder + ABMIL': '20× 基础编码器 + ABMIL',
     'BRIGHT-Flash ep3 + ABMIL': 'BRIGHT-Flash ep3 + ABMIL',
-    '20x CTransPath + ABMIL': '20× CTransPath + ABMIL'
+    '20x CTransPath + ABMIL': '20× CTransPath + ABMIL',
+    'H-optimus-1 20x teacher + ABMIL': 'H-optimus-1（20× 教师）+ ABMIL',
+    'Virchow2 20x teacher + ABMIL': 'Virchow2（20× 教师）+ ABMIL'
   };
   Object.entries(MODELS).forEach(([id, model]) => {
     if (LIGHT_MODEL_COLORS[id]) model.color = LIGHT_MODEL_COLORS[id];
@@ -70,6 +79,10 @@
     if (ROLE_ZH[model.role]) model.role = ROLE_ZH[model.role];
   });
   const FOUNDATION = ['Virchow2', 'UNIv2', 'Prov-Gigapath', 'Conchv1.5', 'CHIEF'];
+  /* 20× teacher variants: the AUCs are measured, the timing is inherited from
+     Pipeline. They are never mixed into an efficiency ratio or the shadow band. */
+  const TEACHERS = ['BRIGHT-Flash-H-1030', 'BRIGHT-Flash-V-1031'].filter((id) => MODELS[id]);
+  const TEACHER_NOTE = '计时沿用 Pipeline（非实测）';
   const DEFAULT_SELECTED = ['BRIGHT', 'BRIGHT-Flash-1007', 'BRIGHT-Flash-pipeline', 'EAGLE'];
   const OURS = ['BRIGHT-Flash-1007', 'BRIGHT-Flash-pipeline'];
   const CATEGORY_ORDER = ['IHC / receptor', 'Diagnosis / grading', 'Staging', 'Treatment response'];
@@ -95,7 +108,9 @@
     'UNIv2': [14, 4, 'start'],
     'Prov-Gigapath': [14, 5, 'start'],
     'Conchv1.5': [-13, -12, 'end'],
-    'CHIEF': [-13, -10, 'end']
+    'CHIEF': [-13, -10, 'end'],
+    'BRIGHT-Flash-H-1030': [13, -13, 'start'],
+    'BRIGHT-Flash-V-1031': [13, 16, 'start']
   };
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -378,7 +393,7 @@
       x: sx(fx1), y: M.top, width: sx(fx2) - sx(fx1), height: IH,
       fill: 'rgba(37,99,235,.045)', stroke: 'rgba(37,99,235,.18)', 'stroke-dasharray': '4 6'
     }, svg);
-    svgText(svg, (sx(fx1) + sx(fx2)) / 2, M.top + 15, '20× 基础编码器', {
+    svgText(svg, (sx(fx1) + sx(fx2)) / 2, M.top + 15, '20× 实测基础编码器', {
       'text-anchor': 'middle', class: 'annotation-text', fill: '#2563eb'
     });
 
@@ -388,6 +403,19 @@
       x1: M.left, y1: foundationY, x2: M.left + IW, y2: foundationY,
       stroke: 'rgba(37,99,235,.28)', 'stroke-dasharray': '3 5'
     }, svg);
+
+    // Teacher variants sit at the inherited Pipeline time: mark the column so
+    // nobody reads their position as a measurement.
+    if (TEACHERS.length) {
+      const teacherX = sx(timeOf(MODELS[TEACHERS[0]]));
+      svgEl('line', {
+        x1: teacherX, y1: M.top, x2: teacherX, y2: M.top + IH,
+        stroke: 'rgba(67,56,202,.30)', 'stroke-dasharray': '2 5'
+      }, svg);
+      svgText(svg, teacherX + 7, M.top + IH - 9, '教师变体 · 计时沿用', {
+        class: 'annotation-text', fill: '#4338ca'
+      });
+    }
 
     const fastest = IDS.reduce((a, b) => timeOf(MODELS[b]) < timeOf(MODELS[a]) ? b : a);
     const fastestX = sx(timeOf(MODELS[fastest]));
@@ -509,6 +537,14 @@
         body: `<b>${fmt(timeOf(b), 2)} s</b>，<b>${fmt(b.mean20)}</b> / <b>${fmt(b.mean17)}</b>；比 1007 慢 <b>${(timeOf(b) / timeOf(a)).toFixed(1)}×</b>，比 Pipeline 慢 <b>${(timeOf(b) / timeOf(p)).toFixed(1)}×</b>。`
       }
     ];
+    if (TEACHERS.length === 2) {
+      const [h, v] = TEACHERS.map((id) => MODELS[id]);
+      notes.push({
+        cls: 'coral',
+        title: '教师变体 · 只有精度，没有实测耗时',
+        body: `H-1030（H-optimus-1 教师 + ABMIL）<b>${fmt(h.mean20)}</b> / <b>${fmt(h.mean17)}</b>，Top-2 <b>${h.top2_20}/20</b>；V-1031（Virchow2 教师 + ABMIL）<b>${fmt(v.mean20)}</b> / <b>${fmt(v.mean17)}</b>。两者耗时沿用 Pipeline，<b>不在效率轴上下结论</b>。`
+      });
+    }
     wrap.innerHTML = notes.map((note) => `
       <div class="note ${note.cls}">
         <div class="note-title"><span class="dot" aria-hidden="true"></span>${note.title}</div>
@@ -784,6 +820,13 @@
         body: `${modeLabel} <b>${fmt(timeOf(e), 2)} s</b>；比 Pipeline 快 <b>${(timeOf(p) / timeOf(e)).toFixed(1)}×</b>。`
       }
     ];
+    if (TEACHERS.length === 2) {
+      notes.push({
+        cls: 'coral',
+        title: '教师变体 · 时延栏位是借来的',
+        body: `H-1030 / V-1031 的 ${modeLabel} <b>${fmt(timeOf(MODELS[TEACHERS[0]]), 2)} s</b> 沿用 BRIGHT-Flash-pipeline，<b>未在 150 张切片上实测</b>；${TEACHER_NOTE}，因此本图的阶段拆分对它们不成立。`
+      });
+    }
     wrap.innerHTML = notes.map((note) => `
       <div class="note ${note.cls}">
         <div class="note-title"><span class="dot" aria-hidden="true"></span>${note.title}</div>
@@ -1163,6 +1206,9 @@
     const delta20 = a.mean20 - p.mean20;
     const delta17 = a.mean17 - p.mean17;
     const natDelta = a.auc20['NAT-TNBC (2)'].auc - p.auc20['NAT-TNBC (2)'].auc;
+    const teacherClause = MODELS['BRIGHT-Flash-H-1030']
+      ? `加入教师编码器后，H-1030（H-optimus-1 + ABMIL）达 <b>${fmt(MODELS['BRIGHT-Flash-H-1030'].mean20)}</b>，高于 Pipeline <b>${signed(MODELS['BRIGHT-Flash-H-1030'].mean20 - p.mean20, 4)}</b>；所以“跨过 20× 组”只在效率上成立，精度上不成立。`
+      : '';
     const claims = [
       {
         cls: 'coral',
@@ -1174,9 +1220,9 @@
       {
         cls: 'cyan',
         index: '主张 02',
-        title: 'Pipeline：优于 20× 基础模型组的效率前沿。',
-        body: `仅模型 <b>${p.timing.modelTime.toFixed(2)} s</b>，均值 <b>${fmt(p.mean20)}</b>；五个 20× 基础编码器为 <b>${minFoundationTime}–${maxFoundationTime} s</b>、<b>${fmt(MODELS[worstFoundation].mean20)}–${fmt(MODELS[bestFoundation].mean20)}</b>。`,
-        foot: '不是全局 Pareto：1007/EAGLE 更快，BRIGHT 更准。',
+        title: 'Pipeline：优于五个实测 20× 基础编码器的效率前沿。',
+        body: `仅模型 <b>${p.timing.modelTime.toFixed(2)} s</b>，均值 <b>${fmt(p.mean20)}</b>；五个实测 20× 基础编码器为 <b>${minFoundationTime}–${maxFoundationTime} s</b>、<b>${fmt(MODELS[worstFoundation].mean20)}–${fmt(MODELS[bestFoundation].mean20)}</b>。${teacherClause}`,
+        foot: '不是全局 Pareto：1007/EAGLE 更快，BRIGHT 更准；H-1030 的 AUC 高于 Pipeline，但其计时未实测。',
       },
       {
         cls: 'amber',
@@ -1211,10 +1257,16 @@
     const wrap = $('#caveat-grid');
     if (!wrap) return;
     const a = MODELS['BRIGHT-Flash-1007'];
+    const rankLine = (key) => [...IDS]
+      .filter((id) => MODEL_RANKS[id])
+      .sort((x, y) => MODEL_RANKS[x][key] - MODEL_RANKS[y][key])
+      .slice(0, 3)
+      .map((id) => `${MODELS[id].short} 第 ${MODEL_RANKS[id][key]}`)
+      .join('，');
     const caveats = [
       {
-        title: '1007 的耗时是沿用值，不是实测。',
-        body: `2.08 s / 4.51 s 沿用 BRIGHT-Flash，阶段拆分亦同。`
+        title: '1007 与两个教师变体的耗时都是沿用值。',
+        body: `1007 沿用 BRIGHT-Flash 的 2.08 s / 4.51 s；H-1030、V-1031 沿用 Pipeline 的 6.23 s / 8.66 s。四者都不是新测，阶段拆分同样沿用。`
       },
       {
         title: '1007 的 AUC 是 best_validation，不是测试。',
@@ -1230,11 +1282,15 @@
       },
       {
         title: '我们的模型行没有 CI 或 p 值。',
-        body: `基线行带 95% CI；我们的模型差异仅为点估计。`
+        body: `基线行带 95% CI；1007、Pipeline、H-1030、V-1031 只给点估计，未做配对检验。`
+      },
+      {
+        title: 'V-1031 与 Virchow2 基线是同一编码器。',
+        body: `两者都用 Virchow2 + ABMIL；0.8505 与 0.8540 的差距来自抽取与训练协议差异，不能当作编码器优劣。`
       },
       {
         title: '排名随任务集变化。',
-        body: `20 任务：1007 第 2，Pipeline 第 3。17 任务：EAGLE 第 2，Pipeline 第 3，1007 第 5。`
+        body: `20 任务：${rankLine('rank20')}。17 任务：${rankLine('rank17')}。`
       }
     ];
     wrap.innerHTML = caveats.map((caveat, index) => `
@@ -1276,7 +1332,7 @@
     if (scatterSub) scatterSub.textContent = `${state.taskSet} 任务平均 AUC · ${state.timeMode === 'model' ? '仅模型' : '端到端'}耗时 · 对数横轴`;
     const scatterCap = $('#scatter-caption');
     if (scatterCap) {
-      scatterCap.innerHTML = `横轴：${state.timeMode === 'model' ? '仅模型' : '端到端'}耗时（秒，对数）；纵轴：${state.taskSet} 任务平均 AUC；气泡：checkpoint 体积。虚线为五个 20× 基础编码器中的最高均值（Virchow2，0.854）。1007 耗时沿用 BRIGHT-Flash。`;
+      scatterCap.innerHTML = `横轴：${state.timeMode === 'model' ? '仅模型' : '端到端'}耗时（秒，对数）；纵轴：${state.taskSet} 任务平均 AUC；气泡：checkpoint 体积。蓝色虚线为五个实测 20× 基础编码器中的最高均值（Virchow2，0.854）；紫色竖线为教师变体的沿用计时位置。1007 与 H-1030 / V-1031 的耗时均为沿用值。`;
     }
     const latencySub = $('#latency-sub');
     if (latencySub) latencySub.textContent = `${state.timeMode === 'model' ? '仅模型' : '端到端'}耗时，按阶段堆叠`;

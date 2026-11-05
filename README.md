@@ -41,4 +41,14 @@ git push -u origin main
 - `sources/model_summary.csv`：GPU 峰值 / 吞吐
 - `sources/1007_validation_test.json`：1007 验证与 held-out 测试汇总（已移除内部 NAS 路径）
 
+- `sources/model_summary_12models.csv`：12 模型汇总（2026-11-05 加入 H-1030 / V-1031）
+
 注意：1007 的 2.08 s / 4.51 s 是沿用 BRIGHT-Flash 的声明式假设，不是新测；AUC 为 `best_validation`；17 任务视图排除了三个 NAT 队列。
+
+## 2026-11-05 更新：12 个模型
+
+- 新增 **BRIGHT-Flash-H-1030**（H-optimus-1 20× 教师 + ABMIL，1536-D，mean AUC 20/17 = 0.8601 / 0.8841）与 **BRIGHT-Flash-V-1031**（Virchow2 20× 教师 + ABMIL，2560-D，0.8505 / 0.8736）。
+- 三者口径一致：`best_validation.macro_ovr_auc`，按验证集 macro-F1 选 checkpoint，任务等权平均。
+- **H-1030 / V-1031 没有实测计时**：模型耗时 6.23 s、端到端 8.66 s 与 GPU 峰值 14.63 GB 均沿用 BRIGHT-Flash-pipeline（用户指定），因此它们不进入效率比值、也不属于散点图阴影带（五个实测 20× 基础编码器），图中仅以紫色竖线标出"计时沿用"的位置。
+- 两个新模型无置信区间、无 p 值；V-1031 与 Virchow2 基线行使用同一 Virchow2 编码器，差距不能当作编码器优劣。
+- 生成方式：`python3 web/build_data.py`（读取 `visualizations/all_models_h1030_v1031/`），发布文件与 `web/github-pages/` 保持一致。
