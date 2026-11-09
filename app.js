@@ -24,7 +24,7 @@
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
   if (!DATA || !DATA.models) {
-    document.body.innerHTML = '<p style="padding:40px;color:#14202e">缺少数据包。请先运行 <code>python3 visualizations/interactive/build_data.py</code>。</p>';
+    document.body.innerHTML = '<p style="padding:40px;color:#2a1622">缺少数据包。请先运行 <code>python3 visualizations/interactive/build_data.py</code>。</p>';
     return;
   }
 
@@ -35,18 +35,18 @@
   );
 
   const LIGHT_MODEL_COLORS = {
-    'BRIGHT': '#6d5bd0',
-    'BRIGHT-Flash-1007': '#b4233d',
-    'BRIGHT-Flash-pipeline': '#0e7490',
-    'EAGLE': '#a16207',
+    'BRIGHT': '#6b1338',
+    'BRIGHT-Flash-1007': '#e0116f',
+    'BRIGHT-Flash-pipeline': '#f472a6',
+    'BRIGHT-Flash-H-1030': '#a3005c',
+    'BRIGHT-Flash-V-1031': '#c2557f',
+    'EAGLE': '#b45309',
     'Virchow2': '#2563eb',
-    'BRIGHT-Flash': '#c2410c',
-    'UNIv2': '#0f766e',
-    'Prov-Gigapath': '#9a3412',
+    'BRIGHT-Flash': '#b9a2b0',
+    'UNIv2': '#0e7490',
+    'Prov-Gigapath': '#4f46e5',
     'Conchv1.5': '#7e22ce',
-    'CHIEF': '#be123c',
-    'BRIGHT-Flash-H-1030': '#4338ca',
-    'BRIGHT-Flash-V-1031': '#4d7c0f'
+    'CHIEF': '#6b5a66'
   };
   const MODEL_FULL_ZH = {
     'BRIGHT': 'BRIGHT（20×）',
@@ -94,9 +94,9 @@
   };
   const CATEGORY_COLORS = {
     'IHC / receptor': '#b45309',
-    'Diagnosis / grading': '#0e7490',
-    'Staging': '#6d5bd0',
-    'Treatment response': '#be123c'
+    'Diagnosis / grading': '#e0116f',
+    'Staging': '#7b1d4f',
+    'Treatment response': '#c2185b'
   };
   const LABEL_OFFSETS = {
     'BRIGHT': [-12, -15, 'end'],
@@ -383,7 +383,7 @@
 
     svgEl('rect', {
       x: M.left, y: M.top, width: IW, height: IH, rx: 6,
-      fill: '#fbfdff', stroke: '#e3ebf4'
+      fill: '#fffbfd', stroke: '#f6e3ec'
     }, svg);
 
     // The five 20x foundation encoders form a comparison band.
@@ -391,17 +391,17 @@
     const fx2 = Math.max(...FOUNDATION.map((id) => timeOf(MODELS[id])));
     svgEl('rect', {
       x: sx(fx1), y: M.top, width: sx(fx2) - sx(fx1), height: IH,
-      fill: 'rgba(37,99,235,.045)', stroke: 'rgba(37,99,235,.18)', 'stroke-dasharray': '4 6'
+      fill: 'rgba(224, 17, 111,.045)', stroke: 'rgba(224, 17, 111,.18)', 'stroke-dasharray': '4 6'
     }, svg);
     svgText(svg, (sx(fx1) + sx(fx2)) / 2, M.top + 15, '20× 实测基础编码器', {
-      'text-anchor': 'middle', class: 'annotation-text', fill: '#2563eb'
+      'text-anchor': 'middle', class: 'annotation-text', fill: '#2b6cb0'
     });
 
     const bestFoundation = FOUNDATION.reduce((a, b) => meanOf(MODELS[b]) > meanOf(MODELS[a]) ? b : a);
     const foundationY = sy(meanOf(MODELS[bestFoundation]));
     svgEl('line', {
       x1: M.left, y1: foundationY, x2: M.left + IW, y2: foundationY,
-      stroke: 'rgba(37,99,235,.28)', 'stroke-dasharray': '3 5'
+      stroke: 'rgba(224, 17, 111,.28)', 'stroke-dasharray': '3 5'
     }, svg);
 
     // Teacher variants sit at the inherited Pipeline time: mark the column so
@@ -410,10 +410,10 @@
       const teacherX = sx(timeOf(MODELS[TEACHERS[0]]));
       svgEl('line', {
         x1: teacherX, y1: M.top, x2: teacherX, y2: M.top + IH,
-        stroke: 'rgba(67,56,202,.30)', 'stroke-dasharray': '2 5'
+        stroke: 'rgba(157, 23, 77,.30)', 'stroke-dasharray': '2 5'
       }, svg);
       svgText(svg, teacherX + 7, M.top + IH - 9, '教师变体 · 计时沿用', {
-        class: 'annotation-text', fill: '#4338ca'
+        class: 'annotation-text', fill: '#9d174d'
       });
     }
 
@@ -421,10 +421,10 @@
     const fastestX = sx(timeOf(MODELS[fastest]));
     svgEl('line', {
       x1: fastestX, y1: M.top, x2: fastestX, y2: M.top + IH,
-      stroke: 'rgba(180,35,61,.28)', 'stroke-dasharray': '3 5'
+      stroke: 'rgba(163, 0, 92,.28)', 'stroke-dasharray': '3 5'
     }, svg);
     svgText(svg, fastestX + 7, M.top + 15, `最快 · ${timeOf(MODELS[fastest]).toFixed(2)}s*`, {
-      class: 'annotation-text', fill: '#b4233d'
+      class: 'annotation-text', fill: '#a3005c'
     });
 
     // Grid and axes.
@@ -474,7 +474,7 @@
         cx: x, cy: y, r,
         fill: model.color,
         'fill-opacity': active ? .92 : .24,
-        stroke: active ? '#ffffff' : '#cbd5e1',
+        stroke: active ? '#ffffff' : '#ecd3df',
         'stroke-width': active ? 1.4 : 1,
         filter: active ? 'url(#scatter-glow)' : undefined
       }, g);
@@ -566,7 +566,7 @@
     const maxWeight = 4.5;
     const sx = (value) => M.left + (value / maxWeight) * IW;
 
-    svgEl('rect', { x: M.left, y: M.top, width: IW, height: IH, fill: '#fbfdff' }, svg);
+    svgEl('rect', { x: M.left, y: M.top, width: IW, height: IH, fill: '#fffbfd' }, svg);
     [0, 1, 2, 3, 4].forEach((value) => {
       const x = sx(value);
       svgEl('line', { x1: x, y1: M.top, x2: x, y2: M.top + IH, class: 'grid-line' }, svg);
@@ -584,7 +584,7 @@
 
       svgEl('circle', { cx: 18, cy: y, r: 3.3, fill: model.color, opacity }, g);
       svgText(g, M.left - 16, y + 3, model.short, {
-        'text-anchor': 'end', class: 'heat-label', opacity, fill: active ? '#14202e' : '#7a8a9b'
+        'text-anchor': 'end', class: 'heat-label', opacity, fill: active ? '#2a1622' : '#9c7b8b'
       });
       svgEl('rect', { x: M.left, y: y - 7, width: IW, height: 14, rx: 3, class: 'bar-track', opacity: .55 }, g);
 
@@ -604,7 +604,7 @@
       const totalW = sx(model.weights.gib) - M.left;
       const labelX = Math.min(M.left + totalW + 8, W - M.right + 6);
       svgText(g, labelX, y + 3, `${model.weights.gib.toFixed(2)}${id === 'BRIGHT-Flash-1007' ? '†' : ''}`, {
-        class: 'value-text', fill: active ? model.color : '#7a8a9b'
+        class: 'value-text', fill: active ? model.color : '#9c7b8b'
       });
     });
     svgEl('line', { x1: M.left, y1: M.top + IH, x2: M.left + IW, y2: M.top + IH, class: 'axis-line' }, svg);
@@ -659,7 +659,7 @@
       g.style.cursor = 'pointer';
       svgEl('circle', { cx: 14, cy: y, r: 3.2, fill: model.color, opacity }, g);
       svgText(g, M.left - 16, y + 3, model.short, {
-        'text-anchor': 'end', class: 'heat-label', opacity, fill: active ? '#14202e' : '#7a8a9b'
+        'text-anchor': 'end', class: 'heat-label', opacity, fill: active ? '#2a1622' : '#9c7b8b'
       });
       svgEl('rect', { x: M.left, y: y - 6, width: IW, height: 12, rx: 3, class: 'bar-track', opacity: .55 }, g);
       svgEl('rect', {
@@ -670,7 +670,7 @@
       const inside = gpuX > W - 100;
       svgText(g, inside ? gpuX - 8 : gpuX + 7, y + 3, model.timing.gpuPeakGB.toFixed(2), {
         'text-anchor': inside ? 'end' : 'start',
-        class: 'value-text', style: inside ? 'fill:#ffffff' : `fill:${active ? model.color : '#7a8a9b'}`
+        class: 'value-text', style: inside ? 'fill:#ffffff' : `fill:${active ? model.color : '#9c7b8b'}`
       });
     });
     svgEl('line', { x1: M.left, y1: M.top + IH, x2: M.left + IW, y2: M.top + IH, class: 'axis-line' }, svg);
@@ -690,10 +690,10 @@
     const s2 = model.timing.s2 || 0;
     const compute = Math.max(0, model.timing.modelTotal - io - s2);
     return [
-      { label: '预处理', value: prepare, color: '#94a3b8' },
+      { label: '预处理', value: prepare, color: '#b9a2b0' },
       { label: 'I/O', value: io, color: '#6366f1' },
-      { label: 'S2', value: s2, color: '#d97706' },
-      { label: '计算', value: compute, color: '#0f766e' },
+      { label: 'S2', value: s2, color: '#b45309' },
+      { label: '计算', value: compute, color: '#9d174d' },
       { label: '', value: 0, color: 'transparent', totalHint: total }
     ].filter((segment) => segment.value > 0.0001);
   }
@@ -722,10 +722,10 @@
     const fastestX = sx(timeOf(MODELS[fastestId]));
     svgEl('line', {
       x1: fastestX, y1: M.top, x2: fastestX, y2: M.top + IH,
-      stroke: 'rgba(180,35,61,.35)', 'stroke-dasharray': '3 5'
+      stroke: 'rgba(163, 0, 92,.35)', 'stroke-dasharray': '3 5'
     }, svg);
     svgText(svg, fastestX + 7, M.top + 14, `最快 · ${timeOf(MODELS[fastestId]).toFixed(2)}s*`, {
-      class: 'annotation-text', fill: '#b4233d'
+      class: 'annotation-text', fill: '#a3005c'
     });
 
     rows.forEach((id, index) => {
@@ -739,7 +739,7 @@
 
       svgEl('circle', { cx: 17, cy: y, r: 3.3, fill: model.color, opacity }, g);
       svgText(g, M.left - 16, y + 3, model.short, {
-        'text-anchor': 'end', class: 'heat-label', opacity, fill: active ? '#14202e' : '#7a8a9b'
+        'text-anchor': 'end', class: 'heat-label', opacity, fill: active ? '#2a1622' : '#9c7b8b'
       });
       let cursor = M.left;
       latencySegments(model).forEach((segment) => {
@@ -758,7 +758,7 @@
       });
       const totalX = Math.min(cursor + 7, W - 8);
       svgText(g, totalX, y + 3, `${timeOf(model).toFixed(2)}${id === 'BRIGHT-Flash-1007' ? '*' : ''}`, {
-        class: 'value-text', fill: active ? model.color : '#7a8a9b'
+        class: 'value-text', fill: active ? model.color : '#9c7b8b'
       });
     });
     svgEl('line', { x1: M.left, y1: M.top + IH, x2: M.left + IW, y2: M.top + IH, class: 'axis-line' }, svg);
@@ -863,7 +863,7 @@
     const ceilingX = state.taskSet === '20' ? brightY : brightY17;
     svgEl('line', {
       x1: ceilingX, y1: M.top, x2: ceilingX, y2: M.top + IH,
-      stroke: 'rgba(91,75,183,.42)', 'stroke-dasharray': '3 5'
+      stroke: 'rgba(123, 29, 79,.42)', 'stroke-dasharray': '3 5'
     }, svg);
 
     rows.forEach((id, index) => {
@@ -881,11 +881,11 @@
       g.style.cursor = 'pointer';
 
       svgText(g, 16, y + 3, String(rankOf(model)).padStart(2, '0'), {
-        class: 'muted-text', fill: active ? '#6b7c8f' : '#a8b5c3'
+        class: 'muted-text', fill: active ? '#8b6577' : '#c9aab8'
       });
       svgEl('circle', { cx: 44, cy: y, r: 3.2, fill: model.color, opacity }, g);
       svgText(g, 56, y + 3.5, model.short, {
-        class: 'heat-label', fill: active ? '#14202e' : '#7a8a9b', opacity
+        class: 'heat-label', fill: active ? '#2a1622' : '#9c7b8b', opacity
       });
 
       svgEl('rect', { x: M.left, y: y - 5, width: IW, height: 10, rx: 4, class: 'bar-track', opacity: .5 }, g);
@@ -895,16 +895,16 @@
       }, g);
       svgEl('circle', {
         cx: sx(meanOf(model)), cy: y, r: 4,
-        fill: active ? model.color : '#cbd5e1',
+        fill: active ? model.color : '#ecd3df',
         stroke: '#ffffff', 'stroke-width': 1
       }, g);
 
       const valueX = sx(meanOf(model)) + 10;
       svgText(g, valueX, y + 3.5, fmt(meanOf(model), 4), {
-        class: 'value-text', fill: active ? '#14202e' : '#6b7c8f'
+        class: 'value-text', fill: active ? '#2a1622' : '#8b6577'
       });
       svgText(g, W - 14, y + 3.5, `Top-2 ${top2Of(model)}`, {
-        'text-anchor': 'end', class: 'muted-text', fill: active ? '#6b7c8f' : '#8a98a8'
+        'text-anchor': 'end', class: 'muted-text', fill: active ? '#8b6577' : '#8a98a8'
       });
     });
     svgEl('line', { x1: M.left, y1: M.top + IH, x2: M.left + IW, y2: M.top + IH, class: 'axis-line' }, svg);
@@ -932,14 +932,14 @@
   }
 
   function absoluteColor(t) {
-    if (t < 0.55) return colorMix('#f1f5f9', '#99f6e4', t / 0.55);
-    return colorMix('#99f6e4', '#0f766e', (t - 0.55) / 0.45);
+    if (t < 0.55) return colorMix('#fbf0f6', '#ffd6e6', t / 0.55);
+    return colorMix('#ffd6e6', '#9d174d', (t - 0.55) / 0.45);
   }
 
   function deltaColor(delta) {
     const t = clamp(delta / 0.15, -1, 1);
-    if (t >= 0) return colorMix('#f8fafc', '#0f766e', t);
-    return colorMix('#f8fafc', '#b4233d', -t);
+    if (t >= 0) return colorMix('#fdf7fa', '#b8005a', t);
+    return colorMix('#fdf7fa', '#2b6cb0', -t);
   }
 
   function renderHeatmap() {
@@ -970,7 +970,7 @@
         fill: MODELS[id].color, opacity: .8
       }, svg);
     });
-    svgEl('line', { x1: 10, y1: top, x2: W - 10, y2: top, stroke: 'rgba(148,163,184,.22)' }, svg);
+    svgEl('line', { x1: 10, y1: top, x2: W - 10, y2: top, stroke: 'rgba(157, 23, 77,.22)' }, svg);
 
     let previousCategory = null;
     rows.forEach((task, rowIndex) => {
@@ -979,7 +979,7 @@
       const category = meta.category;
       if (previousCategory && category !== previousCategory) {
         svgEl('line', {
-          x1: 10, y1: y, x2: W - 10, y2: y, stroke: 'rgba(148,163,184,.18)', 'stroke-dasharray': '2 4'
+          x1: 10, y1: y, x2: W - 10, y2: y, stroke: 'rgba(157, 23, 77,.18)', 'stroke-dasharray': '2 4'
         }, svg);
       }
       if (category !== previousCategory) {
@@ -1025,8 +1025,8 @@
         rect.style.cursor = 'crosshair';
         const textValue = isDelta ? signed(delta, 3) : fmt(cell.auc, 3);
         const textFill = isDelta
-          ? (Math.abs(t) > 0.42 ? '#ffffff' : '#334155')
-          : (t > 0.72 ? '#ffffff' : '#14202e');
+          ? (Math.abs(t) > 0.42 ? '#ffffff' : '#4a2b3a')
+          : (t > 0.72 ? '#ffffff' : '#2a1622');
         if (colW >= 50) {
           svgText(svg, x + colW / 2, y + rowH / 2 + 3.5, textValue, {
             'text-anchor': 'middle', class: 'heat-text', fill: textFill
@@ -1035,17 +1035,17 @@
       });
     });
 
-    svgEl('line', { x1: labelW, y1: top, x2: labelW, y2: top + rows.length * rowH, stroke: 'rgba(148,163,184,.18)' }, svg);
+    svgEl('line', { x1: labelW, y1: top, x2: labelW, y2: top + rows.length * rowH, stroke: 'rgba(157, 23, 77,.18)' }, svg);
 
     const legend = $('#heatmap-legend');
     if (legend) {
       if (state.heatmapMode === 'delta') {
         legend.innerHTML = `<div class="legend-labels"><span>低于 BRIGHT</span><span>BRIGHT</span><span>高于 BRIGHT</span></div>
-          <div class="legend-bar" style="background:linear-gradient(90deg,#b4233d,#f8fafc 50%,#0f766e)"></div>
+          <div class="legend-bar" style="background:linear-gradient(90deg,#2b6cb0,#fdf7fa 50%,#b8005a)"></div>
           <div class="legend-scale"><span>−0.15</span><span>0</span><span>+0.15</span></div>`;
       } else {
         legend.innerHTML = `<div class="legend-labels"><span>AUC 较低</span><span>AUC 较高</span></div>
-          <div class="legend-bar" style="background:linear-gradient(90deg,#f1f5f9,#99f6e4,#0f766e)"></div>
+          <div class="legend-bar" style="background:linear-gradient(90deg,#fbf0f6,#ffd6e6,#9d174d)"></div>
           <div class="legend-scale"><span>${vmin.toFixed(2)}</span><span>${vmax.toFixed(2)}</span></div>`;
       }
     }
@@ -1093,8 +1093,8 @@
     const sx = (delta) => zeroX + (clamp(delta, -cap, cap) / cap) * (IW / 2);
 
     // Positive / negative background.
-    svgEl('rect', { x: zeroX, y: M.top - 10, width: IW / 2, height: IH + 10, fill: 'rgba(180,35,61,.035)' }, svg);
-    svgEl('rect', { x: M.left, y: M.top - 10, width: IW / 2, height: IH + 10, fill: 'rgba(14,116,144,.035)' }, svg);
+    svgEl('rect', { x: zeroX, y: M.top - 10, width: IW / 2, height: IH + 10, fill: 'rgba(43, 108, 176,.045)' }, svg);
+    svgEl('rect', { x: M.left, y: M.top - 10, width: IW / 2, height: IH + 10, fill: 'rgba(184, 0, 90,.045)' }, svg);
 
     [-cap, -cap / 2, 0, cap / 2, cap].forEach((value) => {
       const x = sx(value);
@@ -1115,7 +1115,7 @@
       const y = M.top + index * 24 + 12;
       const positive = row.delta >= 0;
       const clipped = Math.abs(row.delta) > cap;
-      const color = positive ? '#b4233d' : '#0e7490';
+      const color = positive ? '#b8005a' : '#2b6cb0';
       const meta = DATA.taskMeta[row.task];
       const g = svgEl('g', {}, svg);
       attachTip(g, registerTip(`<strong>${esc(meta.short)}</strong><br><span class="tt-muted">${esc(meta.batch || row.task)}</span>
@@ -1128,10 +1128,10 @@
       g.style.cursor = 'crosshair';
 
       svgText(g, M.left - 14, y + 3.5, meta.short, {
-        'text-anchor': 'end', class: 'heat-label', fill: row.task === 'NAT-TNBC (2)' ? '#b4233d' : '#334155'
+        'text-anchor': 'end', class: 'heat-label', fill: row.task === 'NAT-TNBC (2)' ? '#a3005c' : '#4a2b3a'
       });
       if (row.task === 'NAT-TNBC (2)') {
-        svgEl('circle', { cx: M.left - 8, cy: y, r: 2.4, fill: '#b4233d' }, g);
+        svgEl('circle', { cx: M.left - 8, cy: y, r: 2.4, fill: '#a3005c' }, g);
       }
 
       const x = sx(row.delta);

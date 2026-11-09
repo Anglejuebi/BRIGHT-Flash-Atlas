@@ -1,0 +1,69 @@
+==============================================================================
+A. 0.8622  (BRIGHT-Flash-1007, mean best_validation.macro_ovr_auc over 20 tasks)
+==============================================================================
+A1 batch_summary.json (原始运行)          n=20  val=0.8622426385790309  test=0.8577092943398806
+   -> PASS 与发布值逐位一致
+A2 1007_validation_test.json (发布)        val=0.8622426385790309  test=0.8577092943398806
+   -> PASS
+A3 perfomance.csv (历史总表)               rows=20  mean=0.8622426385790309
+   -> PASS
+A4 逐任务对比                              matched=20/20  mismatches=0
+   -> PASS
+
+A5 汇总表里的 1007 值
+   PASS  web/github-pages/sources/model_summary_12models.csv        0.862242639
+   PASS  visualizations/all_models_h1030_v1031/data/model_summary.csv 0.862242639
+   PASS  visualizations/time_auc_scatter/time_auc_summary.csv       0.862243
+   PASS  web/github-pages/sources/time_auc_summary.csv              0.862243
+
+==============================================================================
+B. 2.08 s  (BRIGHT-Flash-5x, model-only per-slide time, 150 slides)
+==============================================================================
+B1 model_summary.csv (聚合)               slides=150  failed=0  mean=2.0796428833  median=1.8915465260  load=0.660s
+   -> PASS
+B2 .history/summary_20260923090118.csv      rows=1200  Flash5x n=150  mean=2.03749  median=1.89850  std=1.029
+B2 .history/summary_20260923090240.csv      rows=1200  Flash5x n=150  mean=2.03749  median=1.89850  std=1.029
+   -> PASS 两份快照一致（同一运行的两次保存）
+
+B3 聚合表 vs 逐切片重算（8 个模型，系统性偏差）
+   BRIGHT                     n=150  agg= 32.9735  slide= 32.7962  Δ=+0.1773
+   BRIGHT-Flash-5x            n=150  agg=  2.0796  slide=  2.0375  Δ=+0.0422
+   BRIGHT-Flash-pipeline      n=150  agg=  6.2313  slide=  6.1333  Δ=+0.0980
+   CHIEF                      n=150  agg= 12.5763  slide= 12.4525  Δ=+0.1238
+   Conchv1.5                  n=144  agg= 36.3074  slide= 33.7937  Δ=+2.5137
+   Prov-Gigapath              n=150  agg= 29.1396  slide= 29.0709  Δ=+0.0688
+   UNIv2                      n=150  agg= 26.0429  slide= 25.9920  Δ=+0.0509
+   Virchow2                   n=150  agg= 25.6768  slide= 25.5661  Δ=+0.1107
+
+B4 分量自洽 io+infer+s2+write ≈ total_s    150/150  平均偏差=0.01748s
+   -> PASS
+
+B5 time_per_slide_breakdown.json          model_total=2.0796428833  end_to_end=4.5096428833  prepare=2.43
+   -> PASS
+   -> PASS 1007 的耗时与 BRIGHT-Flash 逐位相同 = True（说明是沿用，不是独立测量）
+
+==============================================================================
+RESULT: ALL CHECKS PASS
+==============================================================================
+
+文件 SHA-256:
+  1743f994102c596c9369fab97088067b536b59a2e9bb5209bce41488ef5f9c18  files/.history/summary_20260923090118.csv
+  1743f994102c596c9369fab97088067b536b59a2e9bb5209bce41488ef5f9c18  files/.history/summary_20260923090240.csv
+  492e1f7f7e1e10888105dab98ab4daa9de995c3c881a4fb3c1b90a0ba03d3212  files/data/batch_summary.json
+  5e80dd2cb92bc5fb7069da309c169bcb11c098dfc1761960863d5996956022d3  files/docs/project_reading/2026-10-25/data_audit.json
+  c212e9c8ec4ac0f076a5b7841fc9e6b0ea2eee9d25f74201f67bf01ed542bdae  files/docs/project_reading/2026-10-25/web_audit.json
+  e387d7619beac524912c4df591a26d1bcceff62b9cc74482eaa96e9dcba3384e  files/speed_bench/model_summary.csv
+  40b11dce5c7738b4f1886283b71fcd65588ffd51d70824a825cd134a57d92e4f  files/visualizations/all_models_h1030_v1031/data/model_summary.csv
+  a43f19f93d65d31ee829b609515b8d3c71058a83f898b44aed237620e7074e17  files/visualizations/data/BRIGHT-Flash-1007_import_audit.json
+  9049f1d8f17d2ff4000b0f8b56b5cd4508462dc6fd77138ea39dfe65abb46dad  files/visualizations/data/BRIGHT-Flash-1007_metric_check.md
+  0c37228d6710697ccfe8108dd586517ec348bd6ddf3a3b026282ea21c9d5f486  files/visualizations/data/perfomance.csv
+  9cb7a7e18b8605175540e704a69642c7effbe7c859417d048917dd9027f8880a  files/visualizations/paper_figures/figure1_time_auc_7models_data.csv
+  faa6c37917cd08e08869bc9449217a2ef9ea2389d565bb7996db105317802fbf  files/visualizations/paper_figures/figure2_time_composition_7models_data.csv
+  308c3c3dc4e02b45f4129a19a317d93465d56f57a45ff934dfc89728309a4d16  files/visualizations/time_auc_scatter/time_auc_summary.csv
+  ea3e90b94a87dda59073fe01ac7011ca024763efa6ced176c94ba66aa9b83531  files/visualizations/time_breakdown/time_per_slide_breakdown.csv
+  9b5605fa5f7abf10c4bac79887e8fb06b1f88757686751ffe9ed51d5413cfc6a  files/visualizations/time_breakdown/time_per_slide_breakdown.json
+  b28cf175258926c5a5b91be6dfbab7bd958b2e9fa82674c7eb8fa6fca04093bf  files/web/data.json
+  19c374d919b97ac05e522c504f124d3cb4751d37b5943c93154f12fad4086204  files/web/github-pages/sources/1007_validation_test.json
+  40b11dce5c7738b4f1886283b71fcd65588ffd51d70824a825cd134a57d92e4f  files/web/github-pages/sources/model_summary_12models.csv
+  5ae20caed51435e8821bbb2e7fbaa1e7c94dee8f759fe4024eb6867fb1f0b9a6  files/web/github-pages/sources/time_auc_summary.csv
+  02a26c5a97fd5a593addb56887184bd0aff7e417a9fbaf27e0e01c523b06dcc6  files/web/github-pages/sources/time_per_slide_breakdown.csv

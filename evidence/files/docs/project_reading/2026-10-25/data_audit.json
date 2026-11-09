@@ -1,0 +1,334 @@
+{
+  "clinical_selection": {
+    "data_rows": 23608,
+    "eligible_rows": 22000,
+    "ineligible_rows": 1608,
+    "eligible_compound_rows": 0,
+    "expanded_eligible_slide_ids": 22000,
+    "unique_eligible_slide_ids": 21986,
+    "label_conflicts": 0
+  },
+  "clinical_observed_labels": {
+    "N-stage": {
+      "N0": 9492,
+      "N+": 4526
+    },
+    "pTNM-stage": {
+      "Ⅰ": 4208,
+      "Ⅱ": 6698,
+      "Ⅲ": 1343
+    },
+    "ER": {
+      "1": 6105,
+      "0": 1755
+    },
+    "PR": {
+      "1": 4875,
+      "0": 2998
+    },
+    "PD-L1": {},
+    "Molecular Subtyping": {
+      "Luminal-A": 1684,
+      "TNBC": 849,
+      "Luminal-B": 2329,
+      "HER2": 1819
+    },
+    "NAT-pCR (all)": {
+      "0": 2104,
+      "1": 631
+    },
+    "NAT-pCR (Her2)": {
+      "1": 366,
+      "0": 431
+    },
+    "NAT-pCR (HR+)": {
+      "0": 1403,
+      "1": 215
+    },
+    "NAT-pCR (TNBC)": {
+      "1": 94,
+      "0": 204
+    },
+    "HER2(2)": {
+      "0": 5055,
+      "1": 1819
+    },
+    "HER2(3)": {
+      "1": 3428,
+      "0": 1627,
+      "2": 1819
+    },
+    "Ki-67": {
+      "0": 2517,
+      "1": 5146
+    },
+    "AR": {
+      "1": 7044,
+      "0": 664
+    },
+    "CK5/6": {
+      "0": 6531,
+      "1": 1297
+    },
+    "EGFR": {
+      "0": 5121,
+      "1": 2435
+    },
+    "Histological Diagnosis (2)": {
+      "B0": 3640,
+      "B1": 16312
+    },
+    "Histological Diagnosis (10)": {
+      "M5": 507,
+      "M0": 14695,
+      "M1": 1383,
+      "M2": 773,
+      "M3": 645,
+      "M6": 409,
+      "M8": 333,
+      "M4": 532,
+      "M9": 186,
+      "M7": 343
+    },
+    "Histopathological Subtyping (3)": {
+      "0": 10799,
+      "2": 1169,
+      "1": 710
+    },
+    "Histopathological Subtyping (6)": {
+      "0": 10799,
+      "2": 384,
+      "1": 710,
+      "4": 233,
+      "5": 182,
+      "3": 370
+    },
+    "TILs": {
+      "0": 10595,
+      "1": 531
+    },
+    "Nottingham Grading": {
+      "Ⅱ": 6559,
+      "Ⅲ": 2168,
+      "Ⅰ": 553
+    }
+  },
+  "manifests": {
+    "data/extraction_results.csv": {
+      "rows": 21949,
+      "status_counts": {
+        "ok": 21941,
+        "incomplete_teacher_tiles": 7,
+        "error": 1
+      },
+      "unique_slide_ids": 21949
+    },
+    "data/student_extraction_results.csv": {
+      "rows": 21986,
+      "status_counts": {
+        "ok": 21985,
+        "empty": 1
+      },
+      "unique_slide_ids": 21986
+    }
+  },
+  "s2_checkpoint": {
+    "format_version": 4,
+    "checkpoint_type": "standalone_s2_sngp_weighted_pooling",
+    "epoch": 11,
+    "classes": {
+      "n_classes": 10,
+      "index_to_name": [
+        "M0",
+        "M1",
+        "M2",
+        "M3",
+        "M4",
+        "M5",
+        "M6",
+        "M7",
+        "M8",
+        "M9"
+      ],
+      "name_to_index": {
+        "M0": 0,
+        "M1": 1,
+        "M2": 2,
+        "M3": 3,
+        "M4": 4,
+        "M5": 5,
+        "M6": 6,
+        "M7": 7,
+        "M8": 8,
+        "M9": 9
+      }
+    },
+    "s1": {
+      "target_mag": 5,
+      "patch_size": 224,
+      "seg_model_name": "grandqc",
+      "encoder_name": "bright_student",
+      "encoder_display_name": "Distilled BRIGHT Student (DINOv2 ViT-B/14)",
+      "student_feature_dim": 1536,
+      "feature_source": "production_s1_cache",
+      "external_h5_root_at_training": null
+    },
+    "sngp": {
+      "hidden_dims": [
+        512,
+        256
+      ],
+      "spec_norm_bound": 2.0,
+      "gp_num_inducing": 2048,
+      "gp_random_feature_gain": 1.0,
+      "dropout": 0.0
+    },
+    "routing": {
+      "aggregation": "class_conditional_weighted_mean",
+      "temperature": 0.6943255713073281,
+      "pooling_temperature": 0.6943255713073281,
+      "routing_probability_temperature": 1.0,
+      "training_start_temperature": 1.0,
+      "training_final_temperature": 0.5,
+      "mean_field_factor": 0.0,
+      "pooling_warmup_epochs": 2,
+      "pooling_evidence": "standardized_class_margin",
+      "standardize_pooling_evidence": true,
+      "uncertainty_weight": 0.0,
+      "top_n": 20,
+      "gumbel": false,
+      "covariance_mode": "per_slide_dynamic",
+      "score_source": "predicted_class_margin_minus_uncertainty"
+    },
+    "frozen_models": {
+      "s1_encoder": {
+        "filename": "student_ep_3.pth",
+        "size_bytes": 822345985,
+        "mtime_ns": 1788095424138802055
+      },
+      "student": {
+        "filename": "student_ep_3.pth",
+        "size_bytes": 822345985,
+        "mtime_ns": 1788095424138802055
+      },
+      "segmentation": {
+        "filename": "Tissue_Detection_MPP10.pth",
+        "size_bytes": 26640273,
+        "mtime_ns": 1787993634991474961
+      }
+    }
+  },
+  "batch_summary": {
+    "feature_source": "5x",
+    "completed": 20,
+    "failed": [],
+    "validation_mean_auc": 0.8622426385790309,
+    "heldout_mean_auc": 0.8577092943398806
+  },
+  "weight_audit": [
+    {
+      "name": "bright_student",
+      "env_var": "BRIGHT_STUDENT_WEIGHTS",
+      "path": "<workspace>/BRIGHT-Flash-Pipeline/trident/patch_encoder_models/model_zoo/BRIGHT-Flash-5x/encoder_ep_3.pth",
+      "exists": true,
+      "size_bytes": 346385511,
+      "purpose": "S1 BRIGHT-Flash-5x feature extractor (5x, 1536-D DINOv2 ViT-B/14)"
+    },
+    {
+      "name": "bright_teacher",
+      "env_var": "BRIGHT_TEACHER_WEIGHTS",
+      "path": "<workspace>/BRIGHT-Flash-Pipeline/trident/patch_encoder_models/model_zoo/BRIGHT/teacher_backbone_ep_28.pth",
+      "exists": true,
+      "size_bytes": 2530389569,
+      "purpose": "S3 BRIGHT feature extractor (20x, 2560-D ViT-Huge + LoRA)"
+    },
+    {
+      "name": "s2_sngp",
+      "env_var": "BRIGHT_S2_PRETRAINED_CHECKPOINT",
+      "path": "<workspace>/BRIGHT-Flash-Pipeline/trident/SNGP_scorer_mode/epoch_011.ckpt",
+      "exists": true,
+      "size_bytes": 63737125,
+      "purpose": "frozen S2 SN-MLP+GP routing checkpoint (format-4, 10-class M0-M9, Top-20 class-margin routing)"
+    },
+    {
+      "name": "grandqc",
+      "env_var": "BRIGHT_SEG_WEIGHTS",
+      "path": "<workspace>/BRIGHT-Flash-Pipeline/trident/segmentation_models/model_zoo/Tissue_Detection_MPP10.pth",
+      "exists": true,
+      "size_bytes": 26640273,
+      "purpose": "GrandQC tissue segmentation weights (shared by every stage)"
+    },
+    {
+      "name": "virchow2",
+      "env_var": "BRIGHT_WEIGHTS_VIRCHOW2",
+      "path": "<workspace>/BRIGHT-Flash-Pipeline/trident/patch_encoder_models/model_zoo/virchow2/pytorch_model.bin",
+      "exists": true,
+      "size_bytes": 2525130534,
+      "purpose": "Virchow2 patch encoder (20x, 2560-D)"
+    },
+    {
+      "name": "uni_v2",
+      "env_var": "BRIGHT_WEIGHTS_UNI_V2",
+      "path": "<workspace>/BRIGHT-Flash-Pipeline/trident/patch_encoder_models/model_zoo/uni_v2/pytorch_model.bin",
+      "exists": true,
+      "size_bytes": 2725669217,
+      "purpose": "UNI2-h patch encoder (20x, 1536-D)"
+    },
+    {
+      "name": "gigapath",
+      "env_var": "BRIGHT_WEIGHTS_GIGAPATH",
+      "path": "<workspace>/BRIGHT-Flash-Pipeline/trident/patch_encoder_models/model_zoo/gigapath/pytorch_model.bin",
+      "exists": true,
+      "size_bytes": 4540023137,
+      "purpose": "Prov-GigaPath patch encoder (20x, 1536-D)"
+    },
+    {
+      "name": "conch_v15",
+      "env_var": "BRIGHT_WEIGHTS_CONCH_V15",
+      "path": "<workspace>/BRIGHT-Flash-Pipeline/trident/patch_encoder_models/model_zoo/conchv1_5/pytorch_model_vision.bin",
+      "exists": true,
+      "size_bytes": 1226956806,
+      "purpose": "CONCH v1.5 patch encoder (20x)"
+    },
+    {
+      "name": "chief_ctranspath",
+      "env_var": "BRIGHT_WEIGHTS_CHIEF",
+      "path": "<workspace>/BRIGHT-Flash-Pipeline/trident/patch_encoder_models/model_zoo/chief/CHIEF_CTransPath.pth",
+      "exists": true,
+      "size_bytes": 111292151,
+      "purpose": "CHIEF (CTransPath backbone) patch encoder (20x, 768-D)"
+    },
+    {
+      "name": "eagle_ctranspath",
+      "env_var": "BRIGHT_WEIGHTS_EAGLE_CTRANSPATH",
+      "path": "<workspace>/BRIGHT-Flash-Pipeline/speed_bench/EAGLE-main/CTransPath/ctranspath.pth",
+      "exists": true,
+      "size_bytes": 111292151,
+      "purpose": "EAGLE stage 1: STAMP CTransPath encoder (xiyuewang-ctranspath-7c998680, 2 mpp / 224 px, 768-D)"
+    },
+    {
+      "name": "eagle_chief_head",
+      "env_var": "BRIGHT_WEIGHTS_EAGLE_CHIEF_HEAD",
+      "path": "<workspace>/BRIGHT-Flash-Pipeline/speed_bench/EAGLE-main/CHIEF/CHIEF_pretraining.pth",
+      "exists": true,
+      "size_bytes": 4808050,
+      "purpose": "EAGLE stage 2: CHIEF attention head (size=small, 768->512->256)"
+    },
+    {
+      "name": "dinov2_source",
+      "env_var": "BRIGHT_DINOV2_PATH",
+      "path": "<workspace>/BRIGHT-Flash-Pipeline/trident/patch_encoder_models/model_zoo/dinov2/models/inject_lora.py",
+      "exists": true,
+      "size_bytes": 6790,
+      "purpose": "DINOv2 source added to sys.path so that 'dinov2.models.inject_lora' resolves"
+    },
+    {
+      "name": "ctranspath_source",
+      "env_var": "-",
+      "path": "<workspace>/BRIGHT-Flash-Pipeline/trident/patch_encoder_models/model_zoo/ctranspath/ctran.py",
+      "exists": true,
+      "size_bytes": 2082,
+      "purpose": "CTransPath model definition required by CHIEF; also needs the external package(s) timm_ctp"
+    }
+  ]
+}

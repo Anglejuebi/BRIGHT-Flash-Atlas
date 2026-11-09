@@ -1,0 +1,1749 @@
+{
+  "mode": "batch",
+  "feature_source": "5x",
+  "feature_contract": {
+    "path_column": "student_h5",
+    "dataset": "bright_flash_feature",
+    "feature_dim": 1536,
+    "leading_metadata_columns": 2
+  },
+  "output_root": "<nas-home>/Desktop/Data/C1-TMUCIH-BRIGHT-Flash-Student-5x-ep6/results/run_20261008_005212",
+  "tasks_requested": [
+    "N-stage",
+    "pTNM-stage",
+    "ER",
+    "PR",
+    "Molecular Subtyping",
+    "NAT-pCR (all)",
+    "NAT-pCR (HR+)",
+    "NAT-pCR (TNBC)",
+    "HER2(2)",
+    "HER2(3)",
+    "Ki-67",
+    "AR",
+    "CK5/6",
+    "EGFR",
+    "Histological Diagnosis (2)",
+    "Histological Diagnosis (10)",
+    "Histopathological Subtyping (3)",
+    "Histopathological Subtyping (6)",
+    "TILs",
+    "Nottingham Grading"
+  ],
+  "tasks_completed": [
+    "ER",
+    "PR",
+    "NAT-pCR (all)",
+    "NAT-pCR (HR+)",
+    "NAT-pCR (TNBC)",
+    "pTNM-stage",
+    "Molecular Subtyping",
+    "N-stage",
+    "HER2(2)",
+    "HER2(3)",
+    "Ki-67",
+    "AR",
+    "EGFR",
+    "CK5/6",
+    "Histopathological Subtyping (3)",
+    "Histopathological Subtyping (6)",
+    "Histological Diagnosis (10)",
+    "Histological Diagnosis (2)",
+    "Nottingham Grading",
+    "TILs"
+  ],
+  "tasks_failed": [],
+  "epochs_by_task": {
+    "N-stage": 20,
+    "pTNM-stage": 20,
+    "ER": 20,
+    "PR": 20,
+    "Molecular Subtyping": 20,
+    "NAT-pCR (all)": 20,
+    "NAT-pCR (HR+)": 20,
+    "NAT-pCR (TNBC)": 20,
+    "HER2(2)": 20,
+    "HER2(3)": 20,
+    "Ki-67": 20,
+    "AR": 20,
+    "CK5/6": 20,
+    "EGFR": 20,
+    "Histological Diagnosis (2)": 20,
+    "Histological Diagnosis (10)": 20,
+    "Histopathological Subtyping (3)": 20,
+    "Histopathological Subtyping (6)": 20,
+    "TILs": 20,
+    "Nottingham Grading": 20
+  },
+  "results": [
+    {
+      "task": "ER",
+      "run_dir": "<nas-home>/Desktop/Data/C1-TMUCIH-BRIGHT-Flash-Student-5x-ep6/results/run_20261008_005212/ER",
+      "feature_source": "5x",
+      "feature_contract": {
+        "path_column": "student_h5",
+        "dataset": "bright_flash_feature",
+        "feature_dim": 1536,
+        "leading_metadata_columns": 2
+      },
+      "completed_epochs": 20,
+      "best_epoch": 6,
+      "best_validation": {
+        "accuracy": 0.8753180661577609,
+        "macro_f1": 0.8213520358464835,
+        "weighted_f1": 0.8755679088906833,
+        "balanced_accuracy": 0.8226527570789866,
+        "macro_ovr_auc": 0.9273751862891207,
+        "per_class_auc": [
+          0.9273751862891207,
+          0.9273751862891207
+        ],
+        "confusion_matrix": [
+          [
+            128,
+            48
+          ],
+          [
+            50,
+            560
+          ]
+        ],
+        "n": 786,
+        "loss": 0.07387327706789733
+      },
+      "held_out_test": {
+        "accuracy": 0.8627700127064803,
+        "macro_f1": 0.8015966386554622,
+        "weighted_f1": 0.8624900430311896,
+        "balanced_accuracy": 0.8003784779050737,
+        "macro_ovr_auc": 0.9206219312602292,
+        "per_class_auc": [
+          0.9206219312602292,
+          0.9206219312602292
+        ],
+        "confusion_matrix": [
+          [
+            121,
+            55
+          ],
+          [
+            53,
+            558
+          ]
+        ],
+        "n": 787,
+        "loss": 0.07644439723014597
+      },
+      "status": "completed",
+      "gpu": "logical:2/visible:2",
+      "worker_exit_code": 0
+    },
+    {
+      "task": "PR",
+      "run_dir": "<nas-home>/Desktop/Data/C1-TMUCIH-BRIGHT-Flash-Student-5x-ep6/results/run_20261008_005212/PR",
+      "feature_source": "5x",
+      "feature_contract": {
+        "path_column": "student_h5",
+        "dataset": "bright_flash_feature",
+        "feature_dim": 1536,
+        "leading_metadata_columns": 2
+      },
+      "completed_epochs": 20,
+      "best_epoch": 8,
+      "best_validation": {
+        "accuracy": 0.795425667090216,
+        "macro_f1": 0.7800626621883164,
+        "weighted_f1": 0.793874594479928,
+        "balanced_accuracy": 0.7764647501711157,
+        "macro_ovr_auc": 0.856735112936345,
+        "per_class_auc": [
+          0.856735112936345,
+          0.856735112936345
+        ],
+        "confusion_matrix": [
+          [
+            209,
+            91
+          ],
+          [
+            70,
+            417
+          ]
+        ],
+        "n": 787,
+        "loss": 0.11718398786793088
+      },
+      "held_out_test": {
+        "accuracy": 0.8487928843710292,
+        "macro_f1": 0.8376709253934166,
+        "weighted_f1": 0.8477670726206669,
+        "balanced_accuracy": 0.8336652977412731,
+        "macro_ovr_auc": 0.8975633127994525,
+        "per_class_auc": [
+          0.8975633127994525,
+          0.8975633127994525
+        ],
+        "confusion_matrix": [
+          [
+            231,
+            69
+          ],
+          [
+            50,
+            437
+          ]
+        ],
+        "n": 787,
+        "loss": 0.10208331236075192
+      },
+      "status": "completed",
+      "gpu": "logical:3/visible:3",
+      "worker_exit_code": 0
+    },
+    {
+      "task": "NAT-pCR (all)",
+      "run_dir": "<nas-home>/Desktop/Data/C1-TMUCIH-BRIGHT-Flash-Student-5x-ep6/results/run_20261008_005212/NAT-pCR (all)",
+      "feature_source": "5x",
+      "feature_contract": {
+        "path_column": "student_h5",
+        "dataset": "bright_flash_feature",
+        "feature_dim": 1536,
+        "leading_metadata_columns": 2
+      },
+      "completed_epochs": 20,
+      "best_epoch": 20,
+      "best_validation": {
+        "accuracy": 0.7472527472527473,
+        "macro_f1": 0.6638231042421431,
+        "weighted_f1": 0.7540007330844873,
+        "balanced_accuracy": 0.6746031746031746,
+        "macro_ovr_auc": 0.7431594860166288,
+        "per_class_auc": [
+          0.7431594860166288,
+          0.7431594860166288
+        ],
+        "confusion_matrix": [
+          [
+            170,
+            40
+          ],
+          [
+            29,
+            34
+          ]
+        ],
+        "n": 273,
+        "loss": 0.124428150026578
+      },
+      "held_out_test": {
+        "accuracy": 0.7472527472527473,
+        "macro_f1": 0.619953596287703,
+        "weighted_f1": 0.7383901481349278,
+        "balanced_accuracy": 0.6134920634920635,
+        "macro_ovr_auc": 0.7786848072562358,
+        "per_class_auc": [
+          0.7786848072562358,
+          0.7786848072562358
+        ],
+        "confusion_matrix": [
+          [
+            181,
+            29
+          ],
+          [
+            40,
+            23
+          ]
+        ],
+        "n": 273,
+        "loss": 0.11402542703365395
+      },
+      "status": "completed",
+      "gpu": "logical:3/visible:3",
+      "worker_exit_code": 0
+    },
+    {
+      "task": "NAT-pCR (HR+)",
+      "run_dir": "<nas-home>/Desktop/Data/C1-TMUCIH-BRIGHT-Flash-Student-5x-ep6/results/run_20261008_005212/NAT-pCR (HR+)",
+      "feature_source": "5x",
+      "feature_contract": {
+        "path_column": "student_h5",
+        "dataset": "bright_flash_feature",
+        "feature_dim": 1536,
+        "leading_metadata_columns": 2
+      },
+      "completed_epochs": 20,
+      "best_epoch": 13,
+      "best_validation": {
+        "accuracy": 0.8333333333333334,
+        "macro_f1": 0.6640294953529456,
+        "weighted_f1": 0.8377499551936912,
+        "balanced_accuracy": 0.6737012987012987,
+        "macro_ovr_auc": 0.7435064935064936,
+        "per_class_auc": [
+          0.7435064935064936,
+          0.7435064935064936
+        ],
+        "confusion_matrix": [
+          [
+            125,
+            15
+          ],
+          [
+            12,
+            10
+          ]
+        ],
+        "n": 162,
+        "loss": 0.10188651320607243
+      },
+      "held_out_test": {
+        "accuracy": 0.8159509202453987,
+        "macro_f1": 0.6567939359910163,
+        "weighted_f1": 0.8274216938853544,
+        "balanced_accuracy": 0.6826241134751774,
+        "macro_ovr_auc": 0.7856221792392005,
+        "per_class_auc": [
+          0.7856221792392005,
+          0.7856221792392005
+        ],
+        "confusion_matrix": [
+          [
+            122,
+            19
+          ],
+          [
+            11,
+            11
+          ]
+        ],
+        "n": 163,
+        "loss": 0.08403372892599618
+      },
+      "status": "completed",
+      "gpu": "logical:3/visible:3",
+      "worker_exit_code": 0
+    },
+    {
+      "task": "NAT-pCR (TNBC)",
+      "run_dir": "<nas-home>/Desktop/Data/C1-TMUCIH-BRIGHT-Flash-Student-5x-ep6/results/run_20261008_005212/NAT-pCR (TNBC)",
+      "feature_source": "5x",
+      "feature_contract": {
+        "path_column": "student_h5",
+        "dataset": "bright_flash_feature",
+        "feature_dim": 1536,
+        "leading_metadata_columns": 2
+      },
+      "completed_epochs": 20,
+      "best_epoch": 10,
+      "best_validation": {
+        "accuracy": 0.8275862068965517,
+        "macro_f1": 0.8043184885290149,
+        "weighted_f1": 0.8299129787333055,
+        "balanced_accuracy": 0.8138888888888889,
+        "macro_ovr_auc": 0.9,
+        "per_class_auc": [
+          0.9,
+          0.9
+        ],
+        "confusion_matrix": [
+          [
+            17,
+            3
+          ],
+          [
+            2,
+            7
+          ]
+        ],
+        "n": 29,
+        "loss": 0.09952895107487385
+      },
+      "held_out_test": {
+        "accuracy": 0.7241379310344828,
+        "macro_f1": 0.6777777777777778,
+        "weighted_f1": 0.7241379310344828,
+        "balanced_accuracy": 0.6777777777777778,
+        "macro_ovr_auc": 0.7166666666666667,
+        "per_class_auc": [
+          0.7166666666666667,
+          0.7166666666666667
+        ],
+        "confusion_matrix": [
+          [
+            16,
+            4
+          ],
+          [
+            4,
+            5
+          ]
+        ],
+        "n": 29,
+        "loss": 0.28673609631842456
+      },
+      "status": "completed",
+      "gpu": "logical:3/visible:3",
+      "worker_exit_code": 0
+    },
+    {
+      "task": "pTNM-stage",
+      "run_dir": "<nas-home>/Desktop/Data/C1-TMUCIH-BRIGHT-Flash-Student-5x-ep6/results/run_20261008_005212/pTNM-stage",
+      "feature_source": "5x",
+      "feature_contract": {
+        "path_column": "student_h5",
+        "dataset": "bright_flash_feature",
+        "feature_dim": 1536,
+        "leading_metadata_columns": 2
+      },
+      "completed_epochs": 20,
+      "best_epoch": 15,
+      "best_validation": {
+        "accuracy": 0.6006519967400163,
+        "macro_f1": 0.47956561287177,
+        "weighted_f1": 0.5854613757362754,
+        "balanced_accuracy": 0.4747649498520292,
+        "macro_ovr_auc": 0.6964997019972833,
+        "per_class_auc": [
+          0.7383931676323064,
+          0.6625723938223939,
+          0.6885335445371495
+        ],
+        "confusion_matrix": [
+          [
+            248,
+            167,
+            6
+          ],
+          [
+            176,
+            471,
+            25
+          ],
+          [
+            28,
+            88,
+            18
+          ]
+        ],
+        "n": 1227,
+        "loss": 0.3475523419631152
+      },
+      "held_out_test": {
+        "accuracy": 0.5836734693877551,
+        "macro_f1": 0.4650947288565326,
+        "weighted_f1": 0.5661679314338083,
+        "balanced_accuracy": 0.4565722456600607,
+        "macro_ovr_auc": 0.6865098183879369,
+        "per_class_auc": [
+          0.7123881778754683,
+          0.6275837031060911,
+          0.719557574182251
+        ],
+        "confusion_matrix": [
+          [
+            221,
+            199,
+            1
+          ],
+          [
+            171,
+            476,
+            23
+          ],
+          [
+            23,
+            93,
+            18
+          ]
+        ],
+        "n": 1225,
+        "loss": 0.34686548817399127
+      },
+      "status": "completed",
+      "gpu": "logical:1/visible:1",
+      "worker_exit_code": 0
+    },
+    {
+      "task": "Molecular Subtyping",
+      "run_dir": "<nas-home>/Desktop/Data/C1-TMUCIH-BRIGHT-Flash-Student-5x-ep6/results/run_20261008_005212/Molecular Subtyping",
+      "feature_source": "5x",
+      "feature_contract": {
+        "path_column": "student_h5",
+        "dataset": "bright_flash_feature",
+        "feature_dim": 1536,
+        "leading_metadata_columns": 2
+      },
+      "completed_epochs": 20,
+      "best_epoch": 16,
+      "best_validation": {
+        "accuracy": 0.6302395209580839,
+        "macro_f1": 0.6293234248299496,
+        "weighted_f1": 0.6275791270069891,
+        "balanced_accuracy": 0.6250525730265695,
+        "macro_ovr_auc": 0.8583781091707832,
+        "per_class_auc": [
+          0.9189880952380952,
+          0.7468501800601846,
+          0.8452041785375118,
+          0.9224699828473414
+        ],
+        "confusion_matrix": [
+          [
+            132,
+            33,
+            3,
+            0
+          ],
+          [
+            49,
+            145,
+            31,
+            8
+          ],
+          [
+            10,
+            59,
+            96,
+            17
+          ],
+          [
+            0,
+            18,
+            19,
+            48
+          ]
+        ],
+        "n": 668,
+        "loss": 0.3806029157220349
+      },
+      "held_out_test": {
+        "accuracy": 0.6437125748502994,
+        "macro_f1": 0.649319638644623,
+        "weighted_f1": 0.644107473604476,
+        "balanced_accuracy": 0.6429633581725857,
+        "macro_ovr_auc": 0.8701080424623316,
+        "per_class_auc": [
+          0.89975,
+          0.7506092447338563,
+          0.8913987247320581,
+          0.9386742003834123
+        ],
+        "confusion_matrix": [
+          [
+            121,
+            39,
+            8,
+            0
+          ],
+          [
+            62,
+            138,
+            22,
+            11
+          ],
+          [
+            4,
+            47,
+            120,
+            11
+          ],
+          [
+            1,
+            17,
+            16,
+            51
+          ]
+        ],
+        "n": 668,
+        "loss": 0.3455756445016273
+      },
+      "status": "completed",
+      "gpu": "logical:2/visible:2",
+      "worker_exit_code": 0
+    },
+    {
+      "task": "N-stage",
+      "run_dir": "<nas-home>/Desktop/Data/C1-TMUCIH-BRIGHT-Flash-Student-5x-ep6/results/run_20261008_005212/N-stage",
+      "feature_source": "5x",
+      "feature_contract": {
+        "path_column": "student_h5",
+        "dataset": "bright_flash_feature",
+        "feature_dim": 1536,
+        "leading_metadata_columns": 2
+      },
+      "completed_epochs": 20,
+      "best_epoch": 12,
+      "best_validation": {
+        "accuracy": 0.6911554921540656,
+        "macro_f1": 0.6271191854269205,
+        "weighted_f1": 0.6817870135451028,
+        "balanced_accuracy": 0.6224525874802569,
+        "macro_ovr_auc": 0.7009004482469057,
+        "per_class_auc": [
+          0.7009004482469057,
+          0.7009004482469057
+        ],
+        "confusion_matrix": [
+          [
+            775,
+            174
+          ],
+          [
+            259,
+            194
+          ]
+        ],
+        "n": 1402,
+        "loss": 0.1471482767018034
+      },
+      "held_out_test": {
+        "accuracy": 0.675231977159172,
+        "macro_f1": 0.6057931167546969,
+        "weighted_f1": 0.6644854868584794,
+        "balanced_accuracy": 0.602118438598618,
+        "macro_ovr_auc": 0.6846354336656192,
+        "per_class_auc": [
+          0.6846354336656192,
+          0.6846354336656192
+        ],
+        "confusion_matrix": [
+          [
+            767,
+            182
+          ],
+          [
+            273,
+            179
+          ]
+        ],
+        "n": 1401,
+        "loss": 0.14829206647621274
+      },
+      "status": "completed",
+      "gpu": "logical:0/visible:0",
+      "worker_exit_code": 0
+    },
+    {
+      "task": "HER2(2)",
+      "run_dir": "<nas-home>/Desktop/Data/C1-TMUCIH-BRIGHT-Flash-Student-5x-ep6/results/run_20261008_005212/HER2(2)",
+      "feature_source": "5x",
+      "feature_contract": {
+        "path_column": "student_h5",
+        "dataset": "bright_flash_feature",
+        "feature_dim": 1536,
+        "leading_metadata_columns": 2
+      },
+      "completed_epochs": 20,
+      "best_epoch": 19,
+      "best_validation": {
+        "accuracy": 0.8049490538573508,
+        "macro_f1": 0.767083291164862,
+        "weighted_f1": 0.8112372310553816,
+        "balanced_accuracy": 0.7900119682297899,
+        "macro_ovr_auc": 0.8603089979327603,
+        "per_class_auc": [
+          0.8603089979327603,
+          0.8603089979327603
+        ],
+        "confusion_matrix": [
+          [
+            415,
+            90
+          ],
+          [
+            44,
+            138
+          ]
+        ],
+        "n": 687,
+        "loss": 0.10884486473112244
+      },
+      "held_out_test": {
+        "accuracy": 0.7918486171761281,
+        "macro_f1": 0.7544864986442414,
+        "weighted_f1": 0.7995162161285675,
+        "balanced_accuracy": 0.7811010771406811,
+        "macro_ovr_auc": 0.8497007942552497,
+        "per_class_auc": [
+          0.8497007942552497,
+          0.8497007942552497
+        ],
+        "confusion_matrix": [
+          [
+            406,
+            99
+          ],
+          [
+            44,
+            138
+          ]
+        ],
+        "n": 687,
+        "loss": 0.11197255533304235
+      },
+      "status": "completed",
+      "gpu": "logical:3/visible:3",
+      "worker_exit_code": 0
+    },
+    {
+      "task": "HER2(3)",
+      "run_dir": "<nas-home>/Desktop/Data/C1-TMUCIH-BRIGHT-Flash-Student-5x-ep6/results/run_20261008_005212/HER2(3)",
+      "feature_source": "5x",
+      "feature_contract": {
+        "path_column": "student_h5",
+        "dataset": "bright_flash_feature",
+        "feature_dim": 1536,
+        "leading_metadata_columns": 2
+      },
+      "completed_epochs": 20,
+      "best_epoch": 11,
+      "best_validation": {
+        "accuracy": 0.6031976744186046,
+        "macro_f1": 0.5861665361486726,
+        "weighted_f1": 0.6000733654918704,
+        "balanced_accuracy": 0.5964165211692444,
+        "macro_ovr_auc": 0.7630684714403366,
+        "per_class_auc": [
+          0.7160151913526147,
+          0.7145054295009929,
+          0.8586847934674021
+        ],
+        "confusion_matrix": [
+          [
+            71,
+            71,
+            21
+          ],
+          [
+            69,
+            208,
+            66
+          ],
+          [
+            8,
+            38,
+            136
+          ]
+        ],
+        "n": 688,
+        "loss": 0.33875880242035344
+      },
+      "held_out_test": {
+        "accuracy": 0.6322674418604651,
+        "macro_f1": 0.6172300372318906,
+        "weighted_f1": 0.6311138948387724,
+        "balanced_accuracy": 0.6248652228369269,
+        "macro_ovr_auc": 0.7925888504932712,
+        "per_class_auc": [
+          0.7556529360210342,
+          0.7415811044914861,
+          0.8805325109672936
+        ],
+        "confusion_matrix": [
+          [
+            81,
+            62,
+            20
+          ],
+          [
+            65,
+            220,
+            58
+          ],
+          [
+            10,
+            38,
+            134
+          ]
+        ],
+        "n": 688,
+        "loss": 0.31618837366045754
+      },
+      "status": "completed",
+      "gpu": "logical:1/visible:1",
+      "worker_exit_code": 0
+    },
+    {
+      "task": "Ki-67",
+      "run_dir": "<nas-home>/Desktop/Data/C1-TMUCIH-BRIGHT-Flash-Student-5x-ep6/results/run_20261008_005212/Ki-67",
+      "feature_source": "5x",
+      "feature_contract": {
+        "path_column": "student_h5",
+        "dataset": "bright_flash_feature",
+        "feature_dim": 1536,
+        "leading_metadata_columns": 2
+      },
+      "completed_epochs": 20,
+      "best_epoch": 7,
+      "best_validation": {
+        "accuracy": 0.8342036553524804,
+        "macro_f1": 0.8096730583744676,
+        "weighted_f1": 0.8330440271317017,
+        "balanced_accuracy": 0.8056636402939905,
+        "macro_ovr_auc": 0.9027391760854796,
+        "per_class_auc": [
+          0.9027391760854796,
+          0.9027391760854796
+        ],
+        "confusion_matrix": [
+          [
+            182,
+            70
+          ],
+          [
+            57,
+            457
+          ]
+        ],
+        "n": 766,
+        "loss": 0.0958323702959322
+      },
+      "held_out_test": {
+        "accuracy": 0.8107049608355091,
+        "macro_f1": 0.7817513730190699,
+        "weighted_f1": 0.8089407637284143,
+        "balanced_accuracy": 0.7770289049471929,
+        "macro_ovr_auc": 0.8882712618121178,
+        "per_class_auc": [
+          0.8882712618121178,
+          0.8882712618121178
+        ],
+        "confusion_matrix": [
+          [
+            171,
+            81
+          ],
+          [
+            64,
+            450
+          ]
+        ],
+        "n": 766,
+        "loss": 0.10328816697740072
+      },
+      "status": "completed",
+      "gpu": "logical:2/visible:2",
+      "worker_exit_code": 0
+    },
+    {
+      "task": "AR",
+      "run_dir": "<nas-home>/Desktop/Data/C1-TMUCIH-BRIGHT-Flash-Student-5x-ep6/results/run_20261008_005212/AR",
+      "feature_source": "5x",
+      "feature_contract": {
+        "path_column": "student_h5",
+        "dataset": "bright_flash_feature",
+        "feature_dim": 1536,
+        "leading_metadata_columns": 2
+      },
+      "completed_epochs": 20,
+      "best_epoch": 17,
+      "best_validation": {
+        "accuracy": 0.9454545454545454,
+        "macro_f1": 0.8072659658156333,
+        "weighted_f1": 0.9424873060144462,
+        "balanced_accuracy": 0.7779356060606061,
+        "macro_ovr_auc": 0.9292355371900827,
+        "per_class_auc": [
+          0.9292355371900827,
+          0.9292355371900827
+        ],
+        "confusion_matrix": [
+          [
+            38,
+            28
+          ],
+          [
+            14,
+            690
+          ]
+        ],
+        "n": 770,
+        "loss": 0.0438329183876491
+      },
+      "held_out_test": {
+        "accuracy": 0.940337224383917,
+        "macro_f1": 0.7585375816993465,
+        "weighted_f1": 0.9321847740393174,
+        "balanced_accuracy": 0.7064474532559639,
+        "macro_ovr_auc": 0.8892757360842467,
+        "per_class_auc": [
+          0.8892757360842467,
+          0.8892757360842467
+        ],
+        "confusion_matrix": [
+          [
+            28,
+            38
+          ],
+          [
+            8,
+            697
+          ]
+        ],
+        "n": 771,
+        "loss": 0.05409561050750029
+      },
+      "status": "completed",
+      "gpu": "logical:0/visible:0",
+      "worker_exit_code": 0
+    },
+    {
+      "task": "EGFR",
+      "run_dir": "<nas-home>/Desktop/Data/C1-TMUCIH-BRIGHT-Flash-Student-5x-ep6/results/run_20261008_005212/EGFR",
+      "feature_source": "5x",
+      "feature_contract": {
+        "path_column": "student_h5",
+        "dataset": "bright_flash_feature",
+        "feature_dim": 1536,
+        "leading_metadata_columns": 2
+      },
+      "completed_epochs": 20,
+      "best_epoch": 4,
+      "best_validation": {
+        "accuracy": 0.8095238095238095,
+        "macro_f1": 0.767947887179837,
+        "weighted_f1": 0.802767722142914,
+        "balanced_accuracy": 0.7542584528688525,
+        "macro_ovr_auc": 0.8515144723360656,
+        "per_class_auc": [
+          0.8515144723360656,
+          0.8515144723360656
+        ],
+        "confusion_matrix": [
+          [
+            466,
+            46
+          ],
+          [
+            98,
+            146
+          ]
+        ],
+        "n": 756,
+        "loss": 0.11376027781591767
+      },
+      "held_out_test": {
+        "accuracy": 0.832010582010582,
+        "macro_f1": 0.8013518797832523,
+        "weighted_f1": 0.8290169713553881,
+        "balanced_accuracy": 0.7923123719262295,
+        "macro_ovr_auc": 0.8839091316598361,
+        "per_class_auc": [
+          0.8839091316598361,
+          0.8839091316598361
+        ],
+        "confusion_matrix": [
+          [
+            463,
+            49
+          ],
+          [
+            78,
+            166
+          ]
+        ],
+        "n": 756,
+        "loss": 0.1012850717978494
+      },
+      "status": "completed",
+      "gpu": "logical:1/visible:1",
+      "worker_exit_code": 0
+    },
+    {
+      "task": "CK5/6",
+      "run_dir": "<nas-home>/Desktop/Data/C1-TMUCIH-BRIGHT-Flash-Student-5x-ep6/results/run_20261008_005212/CK5／6",
+      "feature_source": "5x",
+      "feature_contract": {
+        "path_column": "student_h5",
+        "dataset": "bright_flash_feature",
+        "feature_dim": 1536,
+        "leading_metadata_columns": 2
+      },
+      "completed_epochs": 20,
+      "best_epoch": 13,
+      "best_validation": {
+        "accuracy": 0.9182630906768838,
+        "macro_f1": 0.8392238392238391,
+        "weighted_f1": 0.9145198838685429,
+        "balanced_accuracy": 0.8123748380256803,
+        "macro_ovr_auc": 0.9182118035104253,
+        "per_class_auc": [
+          0.9182118035104253,
+          0.9182118035104253
+        ],
+        "confusion_matrix": [
+          [
+            634,
+            19
+          ],
+          [
+            45,
+            85
+          ]
+        ],
+        "n": 783,
+        "loss": 0.06978589215236984
+      },
+      "held_out_test": {
+        "accuracy": 0.9044585987261147,
+        "macro_f1": 0.813640118890482,
+        "weighted_f1": 0.9006468742074658,
+        "balanced_accuracy": 0.7916911332941867,
+        "macro_ovr_auc": 0.9195184967704052,
+        "per_class_auc": [
+          0.9195184967704052,
+          0.9195184967704052
+        ],
+        "confusion_matrix": [
+          [
+            629,
+            26
+          ],
+          [
+            49,
+            81
+          ]
+        ],
+        "n": 785,
+        "loss": 0.07282366128172864
+      },
+      "status": "completed",
+      "gpu": "logical:3/visible:3",
+      "worker_exit_code": 0
+    },
+    {
+      "task": "Histopathological Subtyping (3)",
+      "run_dir": "<nas-home>/Desktop/Data/C1-TMUCIH-BRIGHT-Flash-Student-5x-ep6/results/run_20261008_005212/Histopathological Subtyping (3)",
+      "feature_source": "5x",
+      "feature_contract": {
+        "path_column": "student_h5",
+        "dataset": "bright_flash_feature",
+        "feature_dim": 1536,
+        "leading_metadata_columns": 2
+      },
+      "completed_epochs": 20,
+      "best_epoch": 13,
+      "best_validation": {
+        "accuracy": 0.8998422712933754,
+        "macro_f1": 0.7101554933582123,
+        "weighted_f1": 0.8926028043041458,
+        "balanced_accuracy": 0.6613338148549416,
+        "macro_ovr_auc": 0.8872007294971397,
+        "per_class_auc": [
+          0.8583678092986604,
+          0.912845494016732,
+          0.8903888851760268
+        ],
+        "confusion_matrix": [
+          [
+            1044,
+            17,
+            19
+          ],
+          [
+            36,
+            34,
+            1
+          ],
+          [
+            54,
+            0,
+            63
+          ]
+        ],
+        "n": 1268,
+        "loss": 0.10686796061431907
+      },
+      "held_out_test": {
+        "accuracy": 0.8919558359621451,
+        "macro_f1": 0.6939103665735166,
+        "weighted_f1": 0.8869220257742901,
+        "balanced_accuracy": 0.6614822840174953,
+        "macro_ovr_auc": 0.8599767026016871,
+        "per_class_auc": [
+          0.8566784869976359,
+          0.8621200889547813,
+          0.8611315318526439
+        ],
+        "confusion_matrix": [
+          [
+            1032,
+            15,
+            33
+          ],
+          [
+            34,
+            33,
+            4
+          ],
+          [
+            48,
+            3,
+            66
+          ]
+        ],
+        "n": 1268,
+        "loss": 0.13140160390906258
+      },
+      "status": "completed",
+      "gpu": "logical:1/visible:1",
+      "worker_exit_code": 0
+    },
+    {
+      "task": "Histopathological Subtyping (6)",
+      "run_dir": "<nas-home>/Desktop/Data/C1-TMUCIH-BRIGHT-Flash-Student-5x-ep6/results/run_20261008_005212/Histopathological Subtyping (6)",
+      "feature_source": "5x",
+      "feature_contract": {
+        "path_column": "student_h5",
+        "dataset": "bright_flash_feature",
+        "feature_dim": 1536,
+        "leading_metadata_columns": 2
+      },
+      "completed_epochs": 20,
+      "best_epoch": 8,
+      "best_validation": {
+        "accuracy": 0.8721389108129439,
+        "macro_f1": 0.5676869053467121,
+        "weighted_f1": 0.8718978222112022,
+        "balanced_accuracy": 0.5571472057300261,
+        "macro_ovr_auc": 0.8868885372439803,
+        "per_class_auc": [
+          0.8706377500495147,
+          0.9032926656931556,
+          0.7643783992120252,
+          0.9668863985937156,
+          0.9485530546623794,
+          0.8675829552530914
+        ],
+        "confusion_matrix": [
+          [
+            1001,
+            41,
+            28,
+            3,
+            1,
+            6
+          ],
+          [
+            24,
+            47,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            20,
+            1,
+            16,
+            0,
+            0,
+            1
+          ],
+          [
+            5,
+            0,
+            1,
+            31,
+            0,
+            0
+          ],
+          [
+            13,
+            0,
+            3,
+            2,
+            5,
+            0
+          ],
+          [
+            10,
+            3,
+            0,
+            0,
+            0,
+            5
+          ]
+        ],
+        "n": 1267,
+        "loss": 0.16810216165211161
+      },
+      "held_out_test": {
+        "accuracy": 0.8602999210734017,
+        "macro_f1": 0.5318686576631516,
+        "weighted_f1": 0.8607234087910365,
+        "balanced_accuracy": 0.5543901879070979,
+        "macro_ovr_auc": 0.8976387777162899,
+        "per_class_auc": [
+          0.8611655773420479,
+          0.8644189552027887,
+          0.8022354503019142,
+          0.9814326521643595,
+          0.925730462742905,
+          0.9508495685437238
+        ],
+        "confusion_matrix": [
+          [
+            989,
+            41,
+            37,
+            6,
+            2,
+            5
+          ],
+          [
+            29,
+            38,
+            3,
+            0,
+            0,
+            1
+          ],
+          [
+            15,
+            1,
+            21,
+            0,
+            1,
+            0
+          ],
+          [
+            2,
+            0,
+            0,
+            35,
+            0,
+            0
+          ],
+          [
+            14,
+            0,
+            8,
+            0,
+            1,
+            0
+          ],
+          [
+            12,
+            0,
+            0,
+            0,
+            0,
+            6
+          ]
+        ],
+        "n": 1267,
+        "loss": 0.15803649647042844
+      },
+      "status": "completed",
+      "gpu": "logical:3/visible:3",
+      "worker_exit_code": 0
+    },
+    {
+      "task": "Histological Diagnosis (10)",
+      "run_dir": "<nas-home>/Desktop/Data/C1-TMUCIH-BRIGHT-Flash-Student-5x-ep6/results/run_20261008_005212/Histological Diagnosis (10)",
+      "feature_source": "5x",
+      "feature_contract": {
+        "path_column": "student_h5",
+        "dataset": "bright_flash_feature",
+        "feature_dim": 1536,
+        "leading_metadata_columns": 2
+      },
+      "completed_epochs": 20,
+      "best_epoch": 13,
+      "best_validation": {
+        "accuracy": 0.9060131379484588,
+        "macro_f1": 0.651547273205049,
+        "weighted_f1": 0.9021285354163185,
+        "balanced_accuracy": 0.6413302440736682,
+        "macro_ovr_auc": 0.9838493628584916,
+        "per_class_auc": [
+          0.9945848182703987,
+          0.9873296648796731,
+          0.9886175864093845,
+          0.996826044386423,
+          0.9973255745606301,
+          0.9823142950126108,
+          0.9931158599511691,
+          0.9476334492665961,
+          0.9699461210252577,
+          0.9808002148227712
+        ],
+        "confusion_matrix": [
+          [
+            1458,
+            2,
+            4,
+            0,
+            0,
+            0,
+            2,
+            0,
+            0,
+            3
+          ],
+          [
+            25,
+            90,
+            12,
+            0,
+            0,
+            0,
+            0,
+            10,
+            1,
+            0
+          ],
+          [
+            10,
+            0,
+            61,
+            0,
+            0,
+            1,
+            0,
+            2,
+            2,
+            1
+          ],
+          [
+            2,
+            1,
+            0,
+            57,
+            0,
+            2,
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            40,
+            10,
+            0,
+            0,
+            1,
+            2
+          ],
+          [
+            0,
+            3,
+            1,
+            1,
+            2,
+            36,
+            8,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            1,
+            8,
+            27,
+            0,
+            4,
+            0
+          ],
+          [
+            4,
+            6,
+            9,
+            0,
+            0,
+            2,
+            0,
+            7,
+            6,
+            0
+          ],
+          [
+            1,
+            1,
+            2,
+            2,
+            0,
+            14,
+            3,
+            4,
+            6,
+            0
+          ],
+          [
+            5,
+            0,
+            2,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            11
+          ]
+        ],
+        "n": 1979,
+        "loss": 0.14950371492345457
+      },
+      "held_out_test": {
+        "accuracy": 0.898433552299141,
+        "macro_f1": 0.6171620879373946,
+        "weighted_f1": 0.8972228277542582,
+        "balanced_accuracy": 0.611438222253309,
+        "macro_ovr_auc": 0.974052108159194,
+        "per_class_auc": [
+          0.9943792629373056,
+          0.9863102126286124,
+          0.9870198150955248,
+          0.996923955613577,
+          0.9919277415309861,
+          0.978622569359694,
+          0.9878048780487805,
+          0.9454105549674883,
+          0.9679061945248996,
+          0.9042158968850699
+        ],
+        "confusion_matrix": [
+          [
+            1451,
+            4,
+            5,
+            1,
+            0,
+            1,
+            1,
+            2,
+            1,
+            3
+          ],
+          [
+            20,
+            94,
+            11,
+            0,
+            0,
+            1,
+            0,
+            11,
+            1,
+            0
+          ],
+          [
+            7,
+            1,
+            62,
+            0,
+            0,
+            3,
+            0,
+            0,
+            2,
+            2
+          ],
+          [
+            0,
+            0,
+            1,
+            58,
+            0,
+            2,
+            3,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            2,
+            0,
+            36,
+            11,
+            1,
+            0,
+            0,
+            3
+          ],
+          [
+            0,
+            0,
+            1,
+            1,
+            6,
+            30,
+            7,
+            0,
+            6,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            1,
+            0,
+            13,
+            22,
+            0,
+            4,
+            0
+          ],
+          [
+            2,
+            13,
+            7,
+            0,
+            0,
+            1,
+            2,
+            7,
+            2,
+            0
+          ],
+          [
+            1,
+            1,
+            2,
+            0,
+            1,
+            10,
+            4,
+            4,
+            10,
+            0
+          ],
+          [
+            1,
+            0,
+            7,
+            0,
+            1,
+            2,
+            0,
+            0,
+            0,
+            8
+          ]
+        ],
+        "n": 1979,
+        "loss": 0.17483784440010208
+      },
+      "status": "completed",
+      "gpu": "logical:0/visible:0",
+      "worker_exit_code": 0
+    },
+    {
+      "task": "Histological Diagnosis (2)",
+      "run_dir": "<nas-home>/Desktop/Data/C1-TMUCIH-BRIGHT-Flash-Student-5x-ep6/results/run_20261008_005212/Histological Diagnosis (2)",
+      "feature_source": "5x",
+      "feature_contract": {
+        "path_column": "student_h5",
+        "dataset": "bright_flash_feature",
+        "feature_dim": 1536,
+        "leading_metadata_columns": 2
+      },
+      "completed_epochs": 20,
+      "best_epoch": 1,
+      "best_validation": {
+        "accuracy": 0.9689223057644111,
+        "macro_f1": 0.9466509438845048,
+        "weighted_f1": 0.9685421894251108,
+        "balanced_accuracy": 0.9361764844597462,
+        "macro_ovr_auc": 0.9909985783682902,
+        "per_class_auc": [
+          0.9909985783682902,
+          0.9909985783682902
+        ],
+        "confusion_matrix": [
+          [
+            322,
+            42
+          ],
+          [
+            20,
+            1611
+          ]
+        ],
+        "n": 1995,
+        "loss": 0.024005646945005524
+      },
+      "held_out_test": {
+        "accuracy": 0.9603811434302909,
+        "macro_f1": 0.9319399528626948,
+        "weighted_f1": 0.9598736590369203,
+        "balanced_accuracy": 0.9213560978898403,
+        "macro_ovr_auc": 0.9908936155868672,
+        "per_class_auc": [
+          0.9908936155868672,
+          0.9908936155868672
+        ],
+        "confusion_matrix": [
+          [
+            313,
+            51
+          ],
+          [
+            28,
+            1602
+          ]
+        ],
+        "n": 1994,
+        "loss": 0.025679025651750766
+      },
+      "status": "completed",
+      "gpu": "logical:2/visible:2",
+      "worker_exit_code": 0
+    },
+    {
+      "task": "Nottingham Grading",
+      "run_dir": "<nas-home>/Desktop/Data/C1-TMUCIH-BRIGHT-Flash-Student-5x-ep6/results/run_20261008_005212/Nottingham Grading",
+      "feature_source": "5x",
+      "feature_contract": {
+        "path_column": "student_h5",
+        "dataset": "bright_flash_feature",
+        "feature_dim": 1536,
+        "leading_metadata_columns": 2
+      },
+      "completed_epochs": 20,
+      "best_epoch": 9,
+      "best_validation": {
+        "accuracy": 0.7961165048543689,
+        "macro_f1": 0.7093218400808529,
+        "weighted_f1": 0.7985866211262781,
+        "balanced_accuracy": 0.714080403713499,
+        "macro_ovr_auc": 0.8993541011532339,
+        "per_class_auc": [
+          0.9526897414512093,
+          0.8426919622810957,
+          0.9026805997273967
+        ],
+        "confusion_matrix": [
+          [
+            31,
+            24,
+            0
+          ],
+          [
+            20,
+            545,
+            90
+          ],
+          [
+            0,
+            55,
+            162
+          ]
+        ],
+        "n": 927,
+        "loss": 0.11296691430564468
+      },
+      "held_out_test": {
+        "accuracy": 0.7976318622174381,
+        "macro_f1": 0.7135286150367747,
+        "weighted_f1": 0.8011345576600408,
+        "balanced_accuracy": 0.7264838694798925,
+        "macro_ovr_auc": 0.9088790138645798,
+        "per_class_auc": [
+          0.9550031204493447,
+          0.8619616796490286,
+          0.9096722414953659
+        ],
+        "confusion_matrix": [
+          [
+            32,
+            23,
+            0
+          ],
+          [
+            22,
+            541,
+            94
+          ],
+          [
+            0,
+            49,
+            168
+          ]
+        ],
+        "n": 929,
+        "loss": 0.11015358230341436
+      },
+      "status": "completed",
+      "gpu": "logical:3/visible:3",
+      "worker_exit_code": 0
+    },
+    {
+      "task": "TILs",
+      "run_dir": "<nas-home>/Desktop/Data/C1-TMUCIH-BRIGHT-Flash-Student-5x-ep6/results/run_20261008_005212/TILs",
+      "feature_source": "5x",
+      "feature_contract": {
+        "path_column": "student_h5",
+        "dataset": "bright_flash_feature",
+        "feature_dim": 1536,
+        "leading_metadata_columns": 2
+      },
+      "completed_epochs": 20,
+      "best_epoch": 3,
+      "best_validation": {
+        "accuracy": 0.960431654676259,
+        "macro_f1": 0.765162132585866,
+        "weighted_f1": 0.9588910667307726,
+        "balanced_accuracy": 0.7462183975626704,
+        "macro_ovr_auc": 0.9449284658007733,
+        "per_class_auc": [
+          0.9449284658007733,
+          0.9449284658007733
+        ],
+        "confusion_matrix": [
+          [
+            1041,
+            18
+          ],
+          [
+            26,
+            27
+          ]
+        ],
+        "n": 1112,
+        "loss": 0.030714647596918828
+      },
+      "held_out_test": {
+        "accuracy": 0.956989247311828,
+        "macro_f1": 0.7705080969925456,
+        "weighted_f1": 0.9577307230586244,
+        "balanced_accuracy": 0.7802232911482276,
+        "macro_ovr_auc": 0.9590692060561955,
+        "per_class_auc": [
+          0.9590692060561955,
+          0.9590692060561955
+        ],
+        "confusion_matrix": [
+          [
+            1037,
+            26
+          ],
+          [
+            22,
+            31
+          ]
+        ],
+        "n": 1116,
+        "loss": 0.026663956993662564
+      },
+      "status": "completed",
+      "gpu": "logical:1/visible:1",
+      "worker_exit_code": 0
+    }
+  ],
+  "updated_at": "2026-10-08T04:27:07+0800"
+}

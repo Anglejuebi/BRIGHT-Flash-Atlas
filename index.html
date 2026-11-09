@@ -6,7 +6,7 @@
   <meta name="color-scheme" content="light">
   <meta name="description" content="BRIGHT-Flash 交互式计算效率 × 精度图谱：1007、Pipeline、EAGLE、BRIGHT、五个 20× 基础编码器，以及 H-1030 / V-1031 两个 20× 教师编码器变体在 20 项临床任务上的比较。">
   <title>BRIGHT-Flash · 计算效率 × 精度图谱</title>
-  <link rel="stylesheet" href="styles.css?v=20261105-teachers">
+  <link rel="stylesheet" href="styles.css?v=20261109-pink">
 </head>
 <body>
   <div id="progress" aria-hidden="true"></div>
@@ -24,6 +24,7 @@
         <a href="#latency">时延</a>
         <a href="#scoreboard">性能</a>
         <a href="#evidence">结论</a>
+        <a href="#pack">证据</a>
       </div>
       <div class="nav-badge"><span class="live-dot" aria-hidden="true"></span> 交互图表</div>
     </nav>
@@ -125,6 +126,25 @@
         <span>12 个模型 · 20 项任务 · 10 个实测计时 · 点估计</span>
         <span class="scroll-cue"><span class="line" aria-hidden="true"></span> 向下滚动查看</span>
       </div>
+
+      <div class="hl-strip" aria-label="三个关键数字">
+        <div class="hl-box">
+          <span class="hl-kicker">运算速度</span>
+          <div class="hl-value">2.08<em>秒/张</em></div>
+          <p class="hl-note">5× 单次前向 · 150 张切片 · 仅模型推理*</p>
+        </div>
+        <div class="hl-box deep">
+          <span class="hl-kicker">运算效率</span>
+          <div class="hl-value">+15.9<em>倍</em></div>
+          <p class="hl-note">相对 BRIGHT（32.97 s）的加速</p>
+        </div>
+        <div class="hl-box blue">
+          <span class="hl-kicker">性能差</span>
+          <div class="hl-value">−0.0032<em>AUC</em></div>
+          <p class="hl-note">20 任务平均 · best_validation · 点估计</p>
+        </div>
+      </div>
+      <p class="hl-foot">* 1007 的 2.08 s 沿用 BRIGHT-Flash，证据包见页面底部「证据与附件」。</p>
     </div>
   </header>
 
@@ -640,6 +660,97 @@
         </div>
       </details>
     </section>
+    <!-- 07 -->
+    <section class="section" id="pack">
+      <div class="section-head reveal">
+        <div class="section-kicker"><span class="num">07</span> 证据与附件</div>
+        <h2>每个数字，都可复核。</h2>
+        <p class="lede">
+          0.8622 与 2.08 s 的证据包随本站发布：<strong>26 份文件、1.96 MiB</strong>，
+          逐文件 SHA-256，并附带可在本地复跑的复核脚本。发布副本已脱敏（切片号 → S001…、机器路径 → 占位符），
+          数值列未改动；脱敏后的复核结果仍为 <code>ALL CHECKS PASS</code>。
+        </p>
+      </div>
+
+      <div class="claims-grid pack-claims">
+        <article class="claim coral">
+          <div class="claim-top"><span class="claim-index">A · 强</span><span>证据充分</span></div>
+          <h3>0.8622 · 20 任务平均 val AUC</h3>
+          <p>7 类文件互证，20/20 逐任务零差异；可由原始运行输出 <code>batch_summary.json</code> 重算到双精度（1e-12）。</p>
+          <div class="claim-foot">缺口：该次运行的 <code>test_predictions.csv</code> 未保留，无法从预测独立重算；epoch 选择指标无记录。</div>
+        </article>
+        <article class="claim amber">
+          <div class="claim-top"><span class="claim-index">B · 中</span><span>可复核，有口径缺口</span></div>
+          <h3>2.08 s · 单张切片仅模型耗时</h3>
+          <p>3 类文件互证；逐切片快照 1,200 行与聚合表同向，分量自洽 150/150 通过。</p>
+          <div class="claim-foot">缺口：聚合值比唯一幸存的逐切片快照高 2.1%（+0.042 s），原始 <code>summary.json</code> 已丢失。</div>
+        </article>
+      </div>
+
+      <div class="pack-actions">
+        <a class="btn primary" href="evidence/README.md">证据索引 README <span class="arrow">↗</span></a>
+        <a class="btn ghost" href="evidence/MANIFEST.sha256">SHA-256 清单</a>
+        <a class="btn ghost" href="evidence/verify_evidence.py">复核脚本</a>
+        <a class="btn ghost" href="evidence/verify_output_published.txt">复核输出</a>
+        <a class="btn ghost" href="evidence/REDACTION.md">脱敏说明</a>
+      </div>
+
+      <details class="panel method-panel pack-panel" open>
+        <summary>A 组 · 0.8622 的证据 <span class="tag">10 份</span></summary>
+        <p class="panel-sub">BRIGHT-Flash-1007 的 20 任务平均 best_validation AUC</p>
+        <div class="table-scroll"><table class="pack-table"><thead><tr><th class="pack-file">文件</th><th>说明</th><th>大小</th><th>SHA-256</th></tr></thead><tbody>
+<tr><td class="pack-file"><a href="evidence/files/data/batch_summary.json">data/batch_summary.json</a></td><td class="pack-desc">原始运行输出（run_20261008_005212，20 任务，feature_source=5x）</td><td class="pack-size">40 KB</td><td class="pack-hash"><code>c8b92bfe61edbea6</code></td></tr>
+<tr><td class="pack-file"><a href="evidence/files/web/github-pages/sources/1007_validation_test.json">web/github-pages/sources/1007_validation_test.json</a></td><td class="pack-desc">发布用汇总 + 20 任务明细（val / held-out test）</td><td class="pack-size">8 KB</td><td class="pack-hash"><code>19c374d919b97ac0</code></td></tr>
+<tr><td class="pack-file"><a href="evidence/files/visualizations/data/perfomance.csv">visualizations/data/perfomance.csv</a></td><td class="pack-desc">历史总表；1007 的 20 行可重算均值</td><td class="pack-size">14 KB</td><td class="pack-hash"><code>0c37228d6710697c</code></td></tr>
+<tr><td class="pack-file"><a href="evidence/files/visualizations/data/BRIGHT-Flash-1007_metric_check.md">visualizations/data/BRIGHT-Flash-1007_metric_check.md</a></td><td class="pack-desc">当时的逐任务校验记录（20/20 一致）</td><td class="pack-size">2 KB</td><td class="pack-hash"><code>34e19d96c4f3760f</code></td></tr>
+<tr><td class="pack-file"><a href="evidence/files/visualizations/data/BRIGHT-Flash-1007_import_audit.json">visualizations/data/BRIGHT-Flash-1007_import_audit.json</a></td><td class="pack-desc">导入审计：来源与写入校验</td><td class="pack-size">25 KB</td><td class="pack-hash"><code>999e95fda0bc8ba4</code></td></tr>
+<tr><td class="pack-file"><a href="evidence/files/docs/project_reading/2026-10-25/data_audit.json">docs/project_reading/2026-10-25/data_audit.json</a></td><td class="pack-desc">独立阅读审计（数据侧）</td><td class="pack-size">9 KB</td><td class="pack-hash"><code>fd79ae553c18a6c0</code></td></tr>
+<tr><td class="pack-file"><a href="evidence/files/docs/project_reading/2026-10-25/web_audit.json">docs/project_reading/2026-10-25/web_audit.json</a></td><td class="pack-desc">独立阅读审计（网页侧）</td><td class="pack-size">1 KB</td><td class="pack-hash"><code>c212e9c8ec4ac0f0</code></td></tr>
+<tr><td class="pack-file"><a href="evidence/files/web/data.json">web/data.json</a></td><td class="pack-desc">站点数据包，内嵌同一数值</td><td class="pack-size">76 KB</td><td class="pack-hash"><code>b28cf175258926c5</code></td></tr>
+<tr><td class="pack-file"><a href="evidence/files/visualizations/all_models_h1030_v1031/data/model_summary.csv">visualizations/all_models_h1030_v1031/data/model_summary.csv</a></td><td class="pack-desc">12 模型汇总，1007 = 0.862242639</td><td class="pack-size">1 KB</td><td class="pack-hash"><code>40b11dce5c7738b4</code></td></tr>
+<tr><td class="pack-file"><a href="evidence/files/web/github-pages/sources/model_summary_12models.csv">web/github-pages/sources/model_summary_12models.csv</a></td><td class="pack-desc">站点 12 模型汇总副本</td><td class="pack-size">1 KB</td><td class="pack-hash"><code>40b11dce5c7738b4</code></td></tr>
+</tbody></table></div>
+      </details>
+      <details class="panel method-panel pack-panel">
+        <summary>B 组 · 2.08 s 的证据 <span class="tag">10 份</span></summary>
+        <p class="panel-sub">BRIGHT-Flash-5x 单张切片仅模型耗时（150 张）</p>
+        <div class="table-scroll"><table class="pack-table"><thead><tr><th class="pack-file">文件</th><th>说明</th><th>大小</th><th>SHA-256</th></tr></thead><tbody>
+<tr><td class="pack-file"><a href="evidence/files/speed_bench/model_summary.csv">speed_bench/model_summary.csv</a></td><td class="pack-desc">聚合基准表（8 模型 × 150 张切片）</td><td class="pack-size">3 KB</td><td class="pack-hash"><code>e387d7619beac524</code></td></tr>
+<tr><td class="pack-file"><a href="evidence/files/.history/summary_20260923090118.csv">.history/summary_20260923090118.csv</a></td><td class="pack-desc">逐切片原始表（1,200 行 = 8 模型 × 150 张）</td><td class="pack-size">892 KB</td><td class="pack-hash"><code>07c305d98299ceb4</code></td></tr>
+<tr><td class="pack-file"><a href="evidence/files/.history/summary_20260923090240.csv">.history/summary_20260923090240.csv</a></td><td class="pack-desc">同一运行的第二次保存（与上一份同哈希）</td><td class="pack-size">892 KB</td><td class="pack-hash"><code>07c305d98299ceb4</code></td></tr>
+<tr><td class="pack-file"><a href="evidence/files/visualizations/time_breakdown/time_per_slide_breakdown.csv">visualizations/time_breakdown/time_per_slide_breakdown.csv</a></td><td class="pack-desc">派生表：model_total 2.0796428833 s</td><td class="pack-size">2 KB</td><td class="pack-hash"><code>ea3e90b94a87dda5</code></td></tr>
+<tr><td class="pack-file"><a href="evidence/files/visualizations/time_breakdown/time_per_slide_breakdown.json">visualizations/time_breakdown/time_per_slide_breakdown.json</a></td><td class="pack-desc">派生表（JSON 重排）</td><td class="pack-size">5 KB</td><td class="pack-hash"><code>e23b928328a3bced</code></td></tr>
+<tr><td class="pack-file"><a href="evidence/files/visualizations/time_auc_scatter/time_auc_summary.csv">visualizations/time_auc_scatter/time_auc_summary.csv</a></td><td class="pack-desc">耗时 / AUC 汇总</td><td class="pack-size">0 KB</td><td class="pack-hash"><code>308c3c3dc4e02b45</code></td></tr>
+<tr><td class="pack-file"><a href="evidence/files/visualizations/paper_figures/figure1_time_auc_7models_data.csv">visualizations/paper_figures/figure1_time_auc_7models_data.csv</a></td><td class="pack-desc">论文图 1 数据</td><td class="pack-size">1 KB</td><td class="pack-hash"><code>9cb7a7e18b860517</code></td></tr>
+<tr><td class="pack-file"><a href="evidence/files/visualizations/paper_figures/figure2_time_composition_7models_data.csv">visualizations/paper_figures/figure2_time_composition_7models_data.csv</a></td><td class="pack-desc">论文图 2 数据</td><td class="pack-size">1 KB</td><td class="pack-hash"><code>faa6c37917cd08e0</code></td></tr>
+<tr><td class="pack-file"><a href="evidence/files/web/github-pages/sources/time_per_slide_breakdown.csv">web/github-pages/sources/time_per_slide_breakdown.csv</a></td><td class="pack-desc">站点时延拆解副本</td><td class="pack-size">2 KB</td><td class="pack-hash"><code>02a26c5a97fd5a59</code></td></tr>
+<tr><td class="pack-file"><a href="evidence/files/web/github-pages/sources/time_auc_summary.csv">web/github-pages/sources/time_auc_summary.csv</a></td><td class="pack-desc">站点耗时汇总副本</td><td class="pack-size">0 KB</td><td class="pack-hash"><code>5ae20caed51435e8</code></td></tr>
+</tbody></table></div>
+      </details>
+      <details class="panel method-panel pack-panel">
+        <summary>元数据与复核 <span class="tag">6 份</span></summary>
+        <p class="panel-sub">清单、脚本、两次复核输出与脱敏说明</p>
+        <div class="table-scroll"><table class="pack-table"><thead><tr><th class="pack-file">文件</th><th>说明</th><th>大小</th><th>SHA-256</th></tr></thead><tbody>
+<tr><td class="pack-file"><a href="evidence/README.md">README.md</a></td><td class="pack-desc">证据索引：A 组 / B 组复核表、结论与缺口</td><td class="pack-size">8 KB</td><td class="pack-hash"><code>31cd2bbd59a6bd41</code></td></tr>
+<tr><td class="pack-file"><a href="evidence/MANIFEST.sha256">MANIFEST.sha256</a></td><td class="pack-desc">全部发布副本的 SHA-256（可自行校验）</td><td class="pack-size">3 KB</td><td class="pack-hash"><code>c6e3b5d04000baa0</code></td></tr>
+<tr><td class="pack-file"><a href="evidence/verify_evidence.py">verify_evidence.py</a></td><td class="pack-desc">复核脚本（只读 evidence/files/）</td><td class="pack-size">8 KB</td><td class="pack-hash"><code>cea92717ba288656</code></td></tr>
+<tr><td class="pack-file"><a href="evidence/verify_output.txt">verify_output.txt</a></td><td class="pack-desc">原始证据上的复核输出（ALL CHECKS PASS）</td><td class="pack-size">5 KB</td><td class="pack-hash"><code>f366384f33e9671d</code></td></tr>
+<tr><td class="pack-file"><a href="evidence/verify_output_published.txt">verify_output_published.txt</a></td><td class="pack-desc">脱敏后发布副本上的复核输出（ALL CHECKS PASS）</td><td class="pack-size">5 KB</td><td class="pack-hash"><code>d9d22887992c7e63</code></td></tr>
+<tr><td class="pack-file"><a href="evidence/REDACTION.md">REDACTION.md</a></td><td class="pack-desc">脱敏说明：替换了什么、没替换什么</td><td class="pack-size">2 KB</td><td class="pack-hash"><code>fa42557686f7781a</code></td></tr>
+</tbody></table></div>
+      </details>
+
+      <div class="pack-note">
+        <h4>本地复核</h4>
+        <pre><code>cd evidence &amp;&amp; python3 verify_evidence.py      # 输出 ALL CHECKS PASS
+shasum -a 256 -c MANIFEST.sha256               # 逐文件校验</code></pre>
+        <p>
+          脱敏只作用于两类字段：① 切片号替换为 <code>S001…S150</code> 顺序代号（两份逐切片表映射一致，行数与全部计时列原样保留）；
+          ② 机器根路径替换为 <code>&lt;workspace&gt;</code>、<code>&lt;nas-home&gt;</code>、<code>&lt;bench-host&gt;</code>、<code>&lt;home&gt;</code>、<code>&lt;project-root&gt;</code>。
+          原始哈希清单仍在证据包内，可用于与未脱敏原件比对。
+        </p>
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -652,12 +763,13 @@
       <span>12 个模型</span>
       <span>20 项任务</span>
       <span>10 个实测计时</span>
+      <a href="#pack">证据 25 份</a>
     </div>
   </footer>
 
   <div class="tooltip" id="tooltip" role="status" aria-live="polite"></div>
 
-  <script src="data.js?v=20261105-teachers"></script>
-  <script src="app.js?v=20261105-teachers"></script>
+  <script src="data.js?v=20261109-pink"></script>
+  <script src="app.js?v=20261109-pink"></script>
 </body>
 </html>

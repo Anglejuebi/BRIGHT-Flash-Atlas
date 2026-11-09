@@ -1,0 +1,718 @@
+{
+  "model": "BRIGHT-Flash-1007",
+  "source": "<project-root>\\batch_summary.json",
+  "source_sha256": "492e1f7f7e1e10888105dab98ab4daa9de995c3c881a4fb3c1b90a0ba03d3212",
+  "metric": "best_validation.macro_ovr_auc",
+  "auc_precision": "exact JSON decimal text; no rounding in performance CSV",
+  "tasks": [
+    {
+      "source_task": "ER",
+      "csv_task": "ER (2)",
+      "best_epoch": 6,
+      "validation_n": 786,
+      "class_count": 2,
+      "auc_text": "0.9273751862891207",
+      "source_pointer": "results/0/best_validation/macro_ovr_auc",
+      "per_class_mean": 0.9273751862891207
+    },
+    {
+      "source_task": "PR",
+      "csv_task": "PR (2)",
+      "best_epoch": 8,
+      "validation_n": 787,
+      "class_count": 2,
+      "auc_text": "0.856735112936345",
+      "source_pointer": "results/1/best_validation/macro_ovr_auc",
+      "per_class_mean": 0.856735112936345
+    },
+    {
+      "source_task": "NAT-pCR (all)",
+      "csv_task": "NAT-ALL (2)",
+      "best_epoch": 20,
+      "validation_n": 273,
+      "class_count": 2,
+      "auc_text": "0.7431594860166288",
+      "source_pointer": "results/2/best_validation/macro_ovr_auc",
+      "per_class_mean": 0.7431594860166288
+    },
+    {
+      "source_task": "NAT-pCR (HR+)",
+      "csv_task": "NAT-HR+ (2)",
+      "best_epoch": 13,
+      "validation_n": 162,
+      "class_count": 2,
+      "auc_text": "0.7435064935064936",
+      "source_pointer": "results/3/best_validation/macro_ovr_auc",
+      "per_class_mean": 0.7435064935064936
+    },
+    {
+      "source_task": "NAT-pCR (TNBC)",
+      "csv_task": "NAT-TNBC (2)",
+      "best_epoch": 10,
+      "validation_n": 29,
+      "class_count": 2,
+      "auc_text": "0.9",
+      "source_pointer": "results/4/best_validation/macro_ovr_auc",
+      "per_class_mean": 0.9
+    },
+    {
+      "source_task": "pTNM-stage",
+      "csv_task": "pTNM (3)",
+      "best_epoch": 15,
+      "validation_n": 1227,
+      "class_count": 3,
+      "auc_text": "0.6964997019972833",
+      "source_pointer": "results/5/best_validation/macro_ovr_auc",
+      "per_class_mean": 0.6964997019972833
+    },
+    {
+      "source_task": "Molecular Subtyping",
+      "csv_task": "Mole. Sub. (4)",
+      "best_epoch": 16,
+      "validation_n": 668,
+      "class_count": 4,
+      "auc_text": "0.8583781091707832",
+      "source_pointer": "results/6/best_validation/macro_ovr_auc",
+      "per_class_mean": 0.8583781091707833
+    },
+    {
+      "source_task": "N-stage",
+      "csv_task": "N stage (2)",
+      "best_epoch": 12,
+      "validation_n": 1402,
+      "class_count": 2,
+      "auc_text": "0.7009004482469057",
+      "source_pointer": "results/7/best_validation/macro_ovr_auc",
+      "per_class_mean": 0.7009004482469057
+    },
+    {
+      "source_task": "HER2(2)",
+      "csv_task": "HER2 (2)",
+      "best_epoch": 19,
+      "validation_n": 687,
+      "class_count": 2,
+      "auc_text": "0.8603089979327603",
+      "source_pointer": "results/8/best_validation/macro_ovr_auc",
+      "per_class_mean": 0.8603089979327603
+    },
+    {
+      "source_task": "HER2(3)",
+      "csv_task": "HER2 (3)",
+      "best_epoch": 11,
+      "validation_n": 688,
+      "class_count": 3,
+      "auc_text": "0.7630684714403366",
+      "source_pointer": "results/9/best_validation/macro_ovr_auc",
+      "per_class_mean": 0.7630684714403366
+    },
+    {
+      "source_task": "Ki-67",
+      "csv_task": "Ki-67 (2)",
+      "best_epoch": 7,
+      "validation_n": 766,
+      "class_count": 2,
+      "auc_text": "0.9027391760854796",
+      "source_pointer": "results/10/best_validation/macro_ovr_auc",
+      "per_class_mean": 0.9027391760854796
+    },
+    {
+      "source_task": "AR",
+      "csv_task": "AR (2)",
+      "best_epoch": 17,
+      "validation_n": 770,
+      "class_count": 2,
+      "auc_text": "0.9292355371900827",
+      "source_pointer": "results/11/best_validation/macro_ovr_auc",
+      "per_class_mean": 0.9292355371900827
+    },
+    {
+      "source_task": "EGFR",
+      "csv_task": "EGFR (2)",
+      "best_epoch": 4,
+      "validation_n": 756,
+      "class_count": 2,
+      "auc_text": "0.8515144723360656",
+      "source_pointer": "results/12/best_validation/macro_ovr_auc",
+      "per_class_mean": 0.8515144723360656
+    },
+    {
+      "source_task": "CK5/6",
+      "csv_task": "CK5/6 (2)",
+      "best_epoch": 13,
+      "validation_n": 783,
+      "class_count": 2,
+      "auc_text": "0.9182118035104253",
+      "source_pointer": "results/13/best_validation/macro_ovr_auc",
+      "per_class_mean": 0.9182118035104253
+    },
+    {
+      "source_task": "Histopathological Subtyping (3)",
+      "csv_task": "IBC Sub. (3)",
+      "best_epoch": 13,
+      "validation_n": 1268,
+      "class_count": 3,
+      "auc_text": "0.8872007294971397",
+      "source_pointer": "results/14/best_validation/macro_ovr_auc",
+      "per_class_mean": 0.8872007294971397
+    },
+    {
+      "source_task": "Histopathological Subtyping (6)",
+      "csv_task": "Histo. Sub. (6)",
+      "best_epoch": 8,
+      "validation_n": 1267,
+      "class_count": 6,
+      "auc_text": "0.8868885372439803",
+      "source_pointer": "results/15/best_validation/macro_ovr_auc",
+      "per_class_mean": 0.8868885372439803
+    },
+    {
+      "source_task": "Histological Diagnosis (10)",
+      "csv_task": "Histo. Diag. (10)",
+      "best_epoch": 13,
+      "validation_n": 1979,
+      "class_count": 10,
+      "auc_text": "0.9838493628584916",
+      "source_pointer": "results/16/best_validation/macro_ovr_auc",
+      "per_class_mean": 0.9838493628584913
+    },
+    {
+      "source_task": "Histological Diagnosis (2)",
+      "csv_task": "Can. Det. (2)",
+      "best_epoch": 1,
+      "validation_n": 1995,
+      "class_count": 2,
+      "auc_text": "0.9909985783682902",
+      "source_pointer": "results/17/best_validation/macro_ovr_auc",
+      "per_class_mean": 0.9909985783682902
+    },
+    {
+      "source_task": "Nottingham Grading",
+      "csv_task": "Grading (3)",
+      "best_epoch": 9,
+      "validation_n": 927,
+      "class_count": 3,
+      "auc_text": "0.8993541011532339",
+      "source_pointer": "results/18/best_validation/macro_ovr_auc",
+      "per_class_mean": 0.8993541011532339
+    },
+    {
+      "source_task": "TILs",
+      "csv_task": "TILs (2)",
+      "best_epoch": 3,
+      "validation_n": 1112,
+      "class_count": 2,
+      "auc_text": "0.9449284658007733",
+      "source_pointer": "results/19/best_validation/macro_ovr_auc",
+      "per_class_mean": 0.9449284658007733
+    }
+  ],
+  "task_count": 20,
+  "mean_auc": 0.8622426385790309,
+  "retained_csv_rows": 226,
+  "final_csv_rows": 246,
+  "performance_csv": "<project-root>\\visualizations\\data\\perfomance.csv",
+  "performance_csv_sha256": "0c37228d6710697ccfe8108dd586517ec348bd6ddf3a3b026282ea21c9d5f486",
+  "original_csv_backup": "<project-root>\\visualizations\\data\\perfomance_before_BRIGHT-Flash-1007.csv",
+  "old_rows_unchanged": true,
+  "timing_source": "BRIGHT-Flash",
+  "timing_basis": "shared timing/profile by explicit user instruction; not a new measurement",
+  "timing_tables": [
+    {
+      "file": "visualizations\\time_auc_scatter\\time_per_slide.csv",
+      "seconds": "2.08"
+    },
+    {
+      "file": "visualizations\\time_auc_scatter\\time_per_slide_end_to_end.csv",
+      "seconds": "4.51"
+    }
+  ],
+  "benchmark_source_sha256": "e387d7619beac524912c4df591a26d1bcceff62b9cc74482eaa96e9dcba3384e",
+  "checks": [
+    "20 completed unique tasks",
+    "task-name/class-count mapping",
+    "epoch counts",
+    "macro AUC/per-class mean consistency",
+    "confusion matrix/sample count/accuracy consistency",
+    "exact CSV/JSON AUC equality",
+    "last row in each task block",
+    "existing CSV rows preserved",
+    "radar AUC equality",
+    "20/40 Top-k totals",
+    "scatter AUC/timing equality",
+    "shared phase totals"
+  ],
+  "validation_scope": "JSON internal consistency and import/render accuracy; raw validation predictions were not supplied",
+  "figures": [
+    {
+      "path": "visualizations\\radar\\auc_radar.png",
+      "sha256": "dd4f0883c407f442a92b41854bddb9996d5b32d4719ebb6ae072b7a18027dd26"
+    },
+    {
+      "path": "visualizations\\radar\\auc_radar_percentage.png",
+      "sha256": "dd4f0883c407f442a92b41854bddb9996d5b32d4719ebb6ae072b7a18027dd26"
+    },
+    {
+      "path": "visualizations\\radar\\four_way\\BRIGHT_variants_with_BRIGHT-Flash-1007.png",
+      "sha256": "29b9e154529ea193bdab3a01a57364fe2b06a3a02f3a0b3d450a6ef583cc4a66"
+    },
+    {
+      "path": "visualizations\\radar\\pairwise\\auc_radar.png",
+      "sha256": "63d2c3bec07015c03cd820cf525517c9f91f21c1316120183efe0c6e7c3954b1"
+    },
+    {
+      "path": "visualizations\\radar\\pairwise\\BRIGHT-Flash-1007_vs_BRIGHT-Flash-pipeline_absolute.png",
+      "sha256": "30d7f86c288808391acff8d925c678cc81ca65ae7b67e6942e51d92b844d8fc1"
+    },
+    {
+      "path": "visualizations\\radar\\pairwise\\BRIGHT-Flash-1007_vs_BRIGHT-Flash_absolute.png",
+      "sha256": "75595ddaf09f71bd6915be3b011ceb86bb7ccdaf1a298df56f6ee7300246d0e9"
+    },
+    {
+      "path": "visualizations\\radar\\pairwise\\BRIGHT-Flash-1007_vs_BRIGHT_absolute.png",
+      "sha256": "0412075359f3b0433f5019bcc8ddf8a882947edb2cd4745fbee961dc283c988b"
+    },
+    {
+      "path": "visualizations\\radar\\pairwise\\BRIGHT-Flash-1007_vs_CHIEF_absolute.png",
+      "sha256": "e8a212196db458b3743a9fe6e2ea549b66b2264bb70fbbe36b7b01afb079c50d"
+    },
+    {
+      "path": "visualizations\\radar\\pairwise\\BRIGHT-Flash-1007_vs_Conchv1.5_absolute.png",
+      "sha256": "05cbd898960b499b7de8ecad1924c2e981af7b81676e311a5db86c8951b3a059"
+    },
+    {
+      "path": "visualizations\\radar\\pairwise\\BRIGHT-Flash-1007_vs_EAGLE_absolute.png",
+      "sha256": "efa982f3fde47ec284f96d75c31cba9bea11e11d21d95f07f0294fb742f9a87f"
+    },
+    {
+      "path": "visualizations\\radar\\pairwise\\BRIGHT-Flash-1007_vs_Prov-Gigapath_absolute.png",
+      "sha256": "16ad2444a5feba269c86be1c4d9d5e14f0db9d20da2f95656e355b77eecedbc8"
+    },
+    {
+      "path": "visualizations\\radar\\pairwise\\BRIGHT-Flash-1007_vs_UNIv2_absolute.png",
+      "sha256": "06bd4ef246cd2811a6a8f8d258b777a623080074da06d47a0c73d78ac6c7483d"
+    },
+    {
+      "path": "visualizations\\radar\\pairwise\\BRIGHT-Flash-1007_vs_Virchow2_absolute.png",
+      "sha256": "300dec757f12a20a969da86df5c14f0698f6df4380001b7a0fb47d12ec36695d"
+    },
+    {
+      "path": "visualizations\\radar\\pairwise\\BRIGHT-Flash-pipeline_vs_BRIGHT-Flash_absolute.png",
+      "sha256": "4061904e493d4f0bb27cbe7a833f5802be957c91012bc4eac1984a99e8d11d2d"
+    },
+    {
+      "path": "visualizations\\radar\\pairwise\\BRIGHT-Flash-pipeline_vs_BRIGHT_absolute.png",
+      "sha256": "4af0613a26e559e097484a283015065c9fac72c8f909572fd2a8d5cb3d8e2fb8"
+    },
+    {
+      "path": "visualizations\\radar\\pairwise\\BRIGHT-Flash-pipeline_vs_CHIEF_absolute.png",
+      "sha256": "1c3c218759e5f3fe8668c0a21a7c50fea3c23cbb1f921cf3cf211612c39f3727"
+    },
+    {
+      "path": "visualizations\\radar\\pairwise\\BRIGHT-Flash-pipeline_vs_Conchv1.5_absolute.png",
+      "sha256": "8ced227d2650431069b94ed3b3bc0ebb76eb18343ff72b4af5d69a6fe12eff51"
+    },
+    {
+      "path": "visualizations\\radar\\pairwise\\BRIGHT-Flash-pipeline_vs_EAGLE_absolute.png",
+      "sha256": "1fde7e7155334cd1ecc388d2dcbd1ccce749c7e4b9e341bacefc38f2c75f58b6"
+    },
+    {
+      "path": "visualizations\\radar\\pairwise\\BRIGHT-Flash-pipeline_vs_Prov-Gigapath_absolute.png",
+      "sha256": "9e951b6e6feadb40d54c7f1bda26eac629d6cad1ffafee6016d2da7d6de11603"
+    },
+    {
+      "path": "visualizations\\radar\\pairwise\\BRIGHT-Flash-pipeline_vs_UNIv2_absolute.png",
+      "sha256": "0368ec86ab9af8c7843116aa56645872243a69a7f47ca97620d4040f2317fcfa"
+    },
+    {
+      "path": "visualizations\\radar\\pairwise\\BRIGHT-Flash-pipeline_vs_Virchow2_absolute.png",
+      "sha256": "2964b9f86cd4e18f2877ceac49a42a1f5c88a950129365bb7885157c6f22f490"
+    },
+    {
+      "path": "visualizations\\radar\\three_way\\BRIGHT_vs_BRIGHT-Flash-pipeline_vs_BRIGHT-Flash.png",
+      "sha256": "26879de60009d6bc91118b39384670db4200b0b2ad4ee4b1985f66eb119263a1"
+    },
+    {
+      "path": "visualizations\\time_auc_scatter\\time_auc_scatter.png",
+      "sha256": "415770666fe3aa51f59d7429e49f3cb7a4ff8ac00a9bac98ceb40da2e3864c22"
+    },
+    {
+      "path": "visualizations\\time_auc_scatter\\time_auc_scatter_end_to_end.png",
+      "sha256": "028bf8acf783229cdcc39300e4fc9b7a39d9389afee601bed9d64a3829938188"
+    },
+    {
+      "path": "visualizations\\time_breakdown\\time_per_slide_breakdown.png",
+      "sha256": "f94769c6b29ec010ea31e1b4b50bea6dd794bd8c4a6d52e592bab4c9a93a5f62"
+    },
+    {
+      "path": "visualizations\\time_breakdown\\time_per_slide_composition.png",
+      "sha256": "03f1fdb5c385821322ab38e3294b17cce577d3294c2c3f86d732119bfbbb4aa3"
+    },
+    {
+      "path": "visualizations\\topk_histogram\\top1_top2_counts.png",
+      "sha256": "3c9d09f59ba5969cf6c57463654f3d232245fe0e8886986b04f89d2f45a118ed"
+    }
+  ],
+  "render_commands": [
+    [
+      "<home>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "visualizations.radar.plot_auc_radar",
+      "--output",
+      "<project-root>\\visualizations\\radar\\auc_radar_percentage.png",
+      "--summary-output",
+      "<project-root>\\visualizations\\radar\\auc_radar_percentage_summary.json",
+      "--scale-mode",
+      "per-task"
+    ],
+    [
+      "<home>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "visualizations.radar.plot_auc_radar",
+      "--output",
+      "<project-root>\\visualizations\\radar\\auc_radar.png",
+      "--summary-output",
+      "<project-root>\\visualizations\\radar\\auc_radar_summary.json",
+      "--scale-mode",
+      "per-task"
+    ],
+    [
+      "<home>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "visualizations.radar.plot_auc_radar",
+      "--output",
+      "<project-root>\\visualizations\\radar\\four_way\\BRIGHT_variants_with_BRIGHT-Flash-1007.png",
+      "--summary-output",
+      "<project-root>\\visualizations\\radar\\four_way\\BRIGHT_variants_with_BRIGHT-Flash-1007_summary.json",
+      "--scale-mode",
+      "absolute",
+      "--models",
+      "BRIGHT",
+      "BRIGHT-Flash-pipeline",
+      "BRIGHT-Flash",
+      "BRIGHT-Flash-1007"
+    ],
+    [
+      "<home>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "visualizations.radar.plot_auc_radar",
+      "--output",
+      "<project-root>\\visualizations\\radar\\pairwise\\auc_radar.png",
+      "--summary-output",
+      "<project-root>\\visualizations\\radar\\pairwise\\auc_radar_summary.json",
+      "--scale-mode",
+      "absolute",
+      "--models",
+      "BRIGHT",
+      "Virchow2",
+      "UNIv2",
+      "Conchv1.5",
+      "Prov-Gigapath",
+      "CHIEF",
+      "BRIGHT-Flash-pipeline",
+      "EAGLE",
+      "BRIGHT-Flash",
+      "BRIGHT-Flash-1007"
+    ],
+    [
+      "<home>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "visualizations.radar.plot_auc_radar",
+      "--output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-1007_vs_BRIGHT-Flash-pipeline_absolute.png",
+      "--summary-output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-1007_vs_BRIGHT-Flash-pipeline_absolute.json",
+      "--scale-mode",
+      "absolute",
+      "--models",
+      "BRIGHT-Flash-1007",
+      "BRIGHT-Flash-pipeline"
+    ],
+    [
+      "<home>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "visualizations.radar.plot_auc_radar",
+      "--output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-1007_vs_BRIGHT-Flash_absolute.png",
+      "--summary-output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-1007_vs_BRIGHT-Flash_absolute.json",
+      "--scale-mode",
+      "absolute",
+      "--models",
+      "BRIGHT-Flash-1007",
+      "BRIGHT-Flash"
+    ],
+    [
+      "<home>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "visualizations.radar.plot_auc_radar",
+      "--output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-1007_vs_BRIGHT_absolute.png",
+      "--summary-output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-1007_vs_BRIGHT_absolute.json",
+      "--scale-mode",
+      "absolute",
+      "--models",
+      "BRIGHT-Flash-1007",
+      "BRIGHT"
+    ],
+    [
+      "<home>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "visualizations.radar.plot_auc_radar",
+      "--output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-1007_vs_CHIEF_absolute.png",
+      "--summary-output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-1007_vs_CHIEF_absolute.json",
+      "--scale-mode",
+      "absolute",
+      "--models",
+      "BRIGHT-Flash-1007",
+      "CHIEF"
+    ],
+    [
+      "<home>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "visualizations.radar.plot_auc_radar",
+      "--output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-1007_vs_Conchv1.5_absolute.png",
+      "--summary-output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-1007_vs_Conchv1.5_absolute.json",
+      "--scale-mode",
+      "absolute",
+      "--models",
+      "BRIGHT-Flash-1007",
+      "Conchv1.5"
+    ],
+    [
+      "<home>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "visualizations.radar.plot_auc_radar",
+      "--output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-1007_vs_EAGLE_absolute.png",
+      "--summary-output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-1007_vs_EAGLE_absolute.json",
+      "--scale-mode",
+      "absolute",
+      "--models",
+      "BRIGHT-Flash-1007",
+      "EAGLE"
+    ],
+    [
+      "<home>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "visualizations.radar.plot_auc_radar",
+      "--output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-1007_vs_Prov-Gigapath_absolute.png",
+      "--summary-output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-1007_vs_Prov-Gigapath_absolute.json",
+      "--scale-mode",
+      "absolute",
+      "--models",
+      "BRIGHT-Flash-1007",
+      "Prov-Gigapath"
+    ],
+    [
+      "<home>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "visualizations.radar.plot_auc_radar",
+      "--output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-1007_vs_UNIv2_absolute.png",
+      "--summary-output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-1007_vs_UNIv2_absolute.json",
+      "--scale-mode",
+      "absolute",
+      "--models",
+      "BRIGHT-Flash-1007",
+      "UNIv2"
+    ],
+    [
+      "<home>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "visualizations.radar.plot_auc_radar",
+      "--output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-1007_vs_Virchow2_absolute.png",
+      "--summary-output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-1007_vs_Virchow2_absolute.json",
+      "--scale-mode",
+      "absolute",
+      "--models",
+      "BRIGHT-Flash-1007",
+      "Virchow2"
+    ],
+    [
+      "<home>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "visualizations.radar.plot_auc_radar",
+      "--output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-pipeline_vs_BRIGHT-Flash_absolute.png",
+      "--summary-output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-pipeline_vs_BRIGHT-Flash_absolute.json",
+      "--scale-mode",
+      "absolute",
+      "--models",
+      "BRIGHT-Flash-pipeline",
+      "BRIGHT-Flash"
+    ],
+    [
+      "<home>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "visualizations.radar.plot_auc_radar",
+      "--output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-pipeline_vs_BRIGHT_absolute.png",
+      "--summary-output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-pipeline_vs_BRIGHT_absolute.json",
+      "--scale-mode",
+      "absolute",
+      "--models",
+      "BRIGHT-Flash-pipeline",
+      "BRIGHT"
+    ],
+    [
+      "<home>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "visualizations.radar.plot_auc_radar",
+      "--output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-pipeline_vs_CHIEF_absolute.png",
+      "--summary-output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-pipeline_vs_CHIEF_absolute.json",
+      "--scale-mode",
+      "absolute",
+      "--models",
+      "BRIGHT-Flash-pipeline",
+      "CHIEF"
+    ],
+    [
+      "<home>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "visualizations.radar.plot_auc_radar",
+      "--output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-pipeline_vs_Conchv1.5_absolute.png",
+      "--summary-output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-pipeline_vs_Conchv1.5_absolute.json",
+      "--scale-mode",
+      "absolute",
+      "--models",
+      "BRIGHT-Flash-pipeline",
+      "Conchv1.5"
+    ],
+    [
+      "<home>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "visualizations.radar.plot_auc_radar",
+      "--output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-pipeline_vs_EAGLE_absolute.png",
+      "--summary-output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-pipeline_vs_EAGLE_absolute.json",
+      "--scale-mode",
+      "absolute",
+      "--models",
+      "BRIGHT-Flash-pipeline",
+      "EAGLE"
+    ],
+    [
+      "<home>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "visualizations.radar.plot_auc_radar",
+      "--output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-pipeline_vs_Prov-Gigapath_absolute.png",
+      "--summary-output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-pipeline_vs_Prov-Gigapath_absolute.json",
+      "--scale-mode",
+      "absolute",
+      "--models",
+      "BRIGHT-Flash-pipeline",
+      "Prov-Gigapath"
+    ],
+    [
+      "<home>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "visualizations.radar.plot_auc_radar",
+      "--output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-pipeline_vs_UNIv2_absolute.png",
+      "--summary-output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-pipeline_vs_UNIv2_absolute.json",
+      "--scale-mode",
+      "absolute",
+      "--models",
+      "BRIGHT-Flash-pipeline",
+      "UNIv2"
+    ],
+    [
+      "<home>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "visualizations.radar.plot_auc_radar",
+      "--output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-pipeline_vs_Virchow2_absolute.png",
+      "--summary-output",
+      "<project-root>\\visualizations\\radar\\pairwise\\BRIGHT-Flash-pipeline_vs_Virchow2_absolute.json",
+      "--scale-mode",
+      "absolute",
+      "--models",
+      "BRIGHT-Flash-pipeline",
+      "Virchow2"
+    ],
+    [
+      "<home>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "visualizations.radar.plot_auc_radar",
+      "--output",
+      "<project-root>\\visualizations\\radar\\three_way\\BRIGHT_vs_BRIGHT-Flash-pipeline_vs_BRIGHT-Flash.png",
+      "--summary-output",
+      "<project-root>\\visualizations\\radar\\three_way\\BRIGHT_vs_BRIGHT-Flash-pipeline_vs_BRIGHT-Flash_summary.json",
+      "--scale-mode",
+      "absolute",
+      "--models",
+      "BRIGHT",
+      "BRIGHT-Flash-pipeline",
+      "BRIGHT-Flash"
+    ],
+    [
+      "<home>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "visualizations.topk_histogram.plot_topk_counts",
+      "--ranking-json",
+      "<project-root>\\visualizations\\topk_histogram\\top1_top2_rankings.json",
+      "--y-max",
+      "14"
+    ],
+    [
+      "<home>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "visualizations.time_auc_scatter.plot_time_auc_scatter",
+      "--time-input",
+      "<project-root>\\visualizations\\time_auc_scatter\\time_per_slide.csv",
+      "--output",
+      "<project-root>\\visualizations\\time_auc_scatter\\time_auc_scatter.png",
+      "--summary-output",
+      "<project-root>\\visualizations\\time_auc_scatter\\time_auc_summary.csv"
+    ],
+    [
+      "<home>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "visualizations.time_auc_scatter.plot_time_auc_scatter",
+      "--time-input",
+      "<project-root>\\visualizations\\time_auc_scatter\\time_per_slide_end_to_end.csv",
+      "--output",
+      "<project-root>\\visualizations\\time_auc_scatter\\time_auc_scatter_end_to_end.png",
+      "--summary-output",
+      "<project-root>\\visualizations\\time_auc_scatter\\time_auc_summary_end_to_end.csv"
+    ],
+    [
+      "<home>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "visualizations.time_breakdown.plot_time_breakdown",
+      "--model-summary",
+      "<project-root>\\visualizations\\time_breakdown\\model_summary_for_plots.csv",
+      "--segmentation-s",
+      "2.43",
+      "--segmentation-only-s",
+      "1.33",
+      "--output",
+      "<project-root>\\visualizations\\time_breakdown\\time_per_slide_breakdown.png",
+      "--share-output",
+      "<project-root>\\visualizations\\time_breakdown\\time_per_slide_composition.png",
+      "--title",
+      "Per-slide runtime by pipeline phase\n1007 shares BRIGHT-Flash timing"
+    ]
+  ]
+}

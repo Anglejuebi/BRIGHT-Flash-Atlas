@@ -1,0 +1,20 @@
+{
+  "rebuild_validation": "passed",
+  "models": 10,
+  "tasks20": 20,
+  "tasks17": 17,
+  "existing_model_payloads_equal": true,
+  "mean1007_20": 0.8622426385790309,
+  "test1007_20": 0.8577092943398806,
+  "broken_local_html_references": {
+    "web/index.html": [
+      "../data/perfomance.csv",
+      "../../visualizations_17_tasks/data/perfomance.csv",
+      "../time_auc_scatter/time_auc_summary.csv",
+      "../time_breakdown/time_per_slide_breakdown.csv",
+      "../../speed_bench/model_summary.csv",
+      "../../batch_summary.json"
+    ],
+    "web/github-pages/index.html": []
+  }
+}

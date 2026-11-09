@@ -1,0 +1,8 @@
+﻿source_model,label,color,time_s,mean_validation_auc,task_count,timing_basis
+BRIGHT-Flash-1007,BRIGHT-Flash,#D35375,2.08,0.8622426385790309,20,inherited from BRIGHT-Flash; not newly measured
+CHIEF,CHIEF,#8996A8,12.58,0.83395,20,existing measured benchmark
+BRIGHT,BRIGHT,#D35375,47.825614618711796,0.86545,20,derived from raw benchmark: original BRIGHT I/O + original BRIGHT compute/overhead + Virchow2 compute/overhead; not newly measured
+Virchow2,Virchow2,#456F91,25.68,0.8539999999999999,20,existing measured benchmark
+UNIv2,UNIv2,#5C849E,26.04,0.84895,20,existing measured benchmark
+Prov-Gigapath,GigaPath,#6F839B,29.14,0.8432999999999999,20,existing measured benchmark
+Conchv1.5,Conch v1.5,#7C82A3,36.31,0.8387,20,existing measured benchmark

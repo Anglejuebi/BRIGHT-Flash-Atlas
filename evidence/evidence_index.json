@@ -1,0 +1,138 @@
+{
+  "source": "BRIGHT-Flash-Pipeline/BRIGHT-Flash-ex",
+  "publishedAt": "2026-11-09T15:39:04+08:00",
+  "redacted": true,
+  "verification": "RESULT: ALL CHECKS PASS",
+  "files": [
+    {
+      "path": "MANIFEST.sha256",
+      "bytes": 2808,
+      "sha256": "c6e3b5d04000baa08843faf4d4fe40e15d45a8134184b5eb6043fc458bf23f5f"
+    },
+    {
+      "path": "README.md",
+      "bytes": 7960,
+      "sha256": "31cd2bbd59a6bd41ee470101cd928604713173de9a9534193a6f4a46c2c63fb8"
+    },
+    {
+      "path": "REDACTION.md",
+      "bytes": 1549,
+      "sha256": "fa42557686f7781a823cf68639d7eee5b3a7f25f891db3d600ac05e9492e148f"
+    },
+    {
+      "path": "files/.history/summary_20260923090118.csv",
+      "bytes": 913555,
+      "sha256": "07c305d98299ceb438318865af16bf25c3396c8bb98cc50664ef9aa15bb0b0f9"
+    },
+    {
+      "path": "files/.history/summary_20260923090240.csv",
+      "bytes": 913555,
+      "sha256": "07c305d98299ceb438318865af16bf25c3396c8bb98cc50664ef9aa15bb0b0f9"
+    },
+    {
+      "path": "files/data/batch_summary.json",
+      "bytes": 41344,
+      "sha256": "c8b92bfe61edbea6355aff52ab838d7ef2b15a7c97eadcf6dd3ee1627ca6e54d"
+    },
+    {
+      "path": "files/docs/project_reading/2026-10-25/data_audit.json",
+      "bytes": 9100,
+      "sha256": "fd79ae553c18a6c0e47860f3cef0d33ec928c4b484f162416e7accd648fc4e2f"
+    },
+    {
+      "path": "files/docs/project_reading/2026-10-25/web_audit.json",
+      "bytes": 587,
+      "sha256": "c212e9c8ec4ac0f076a5b7841fc9e6b0ea2eee9d25f74201f67bf01ed542bdae"
+    },
+    {
+      "path": "files/speed_bench/model_summary.csv",
+      "bytes": 2619,
+      "sha256": "e387d7619beac524912c4df591a26d1bcceff62b9cc74482eaa96e9dcba3384e"
+    },
+    {
+      "path": "files/visualizations/all_models_h1030_v1031/data/model_summary.csv",
+      "bytes": 1451,
+      "sha256": "40b11dce5c7738b4f1886283b71fcd65588ffd51d70824a825cd134a57d92e4f"
+    },
+    {
+      "path": "files/visualizations/data/BRIGHT-Flash-1007_import_audit.json",
+      "bytes": 25745,
+      "sha256": "999e95fda0bc8ba426792bd13b2e35c40130bceadc02dd9a0fd55edd806f63db"
+    },
+    {
+      "path": "files/visualizations/data/BRIGHT-Flash-1007_metric_check.md",
+      "bytes": 2433,
+      "sha256": "34e19d96c4f3760f109013882eea9822a7fa714936d79361eb68ae0dd0d46b76"
+    },
+    {
+      "path": "files/visualizations/data/perfomance.csv",
+      "bytes": 14494,
+      "sha256": "0c37228d6710697ccfe8108dd586517ec348bd6ddf3a3b026282ea21c9d5f486"
+    },
+    {
+      "path": "files/visualizations/paper_figures/figure1_time_auc_7models_data.csv",
+      "bytes": 756,
+      "sha256": "9cb7a7e18b8605175540e704a69642c7effbe7c859417d048917dd9027f8880a"
+    },
+    {
+      "path": "files/visualizations/paper_figures/figure2_time_composition_7models_data.csv",
+      "bytes": 1281,
+      "sha256": "faa6c37917cd08e08869bc9449217a2ef9ea2389d565bb7996db105317802fbf"
+    },
+    {
+      "path": "files/visualizations/time_auc_scatter/time_auc_summary.csv",
+      "bytes": 346,
+      "sha256": "308c3c3dc4e02b45f4129a19a317d93465d56f57a45ff934dfc89728309a4d16"
+    },
+    {
+      "path": "files/visualizations/time_breakdown/time_per_slide_breakdown.csv",
+      "bytes": 2024,
+      "sha256": "ea3e90b94a87dda59073fe01ac7011ca024763efa6ced176c94ba66aa9b83531"
+    },
+    {
+      "path": "files/visualizations/time_breakdown/time_per_slide_breakdown.json",
+      "bytes": 5349,
+      "sha256": "e23b928328a3bcedb83e9222b39c10f417c848c0249614f4e902223326a403c6"
+    },
+    {
+      "path": "files/web/data.json",
+      "bytes": 78287,
+      "sha256": "b28cf175258926c5a5b91be6dfbab7bd958b2e9fa82674c7eb8fa6fca04093bf"
+    },
+    {
+      "path": "files/web/github-pages/sources/1007_validation_test.json",
+      "bytes": 8630,
+      "sha256": "19c374d919b97ac05e522c504f124d3cb4751d37b5943c93154f12fad4086204"
+    },
+    {
+      "path": "files/web/github-pages/sources/model_summary_12models.csv",
+      "bytes": 1451,
+      "sha256": "40b11dce5c7738b4f1886283b71fcd65588ffd51d70824a825cd134a57d92e4f"
+    },
+    {
+      "path": "files/web/github-pages/sources/time_auc_summary.csv",
+      "bytes": 422,
+      "sha256": "5ae20caed51435e8821bbb2e7fbaa1e7c94dee8f759fe4024eb6867fb1f0b9a6"
+    },
+    {
+      "path": "files/web/github-pages/sources/time_per_slide_breakdown.csv",
+      "bytes": 2442,
+      "sha256": "02a26c5a97fd5a593addb56887184bd0aff7e417a9fbaf27e0e01c523b06dcc6"
+    },
+    {
+      "path": "verify_evidence.py",
+      "bytes": 8043,
+      "sha256": "cea92717ba2886562f36f1ffc775fa32a1d27cc64dfe2b39692dd18fe9e84ec6"
+    },
+    {
+      "path": "verify_output.txt",
+      "bytes": 5277,
+      "sha256": "f366384f33e9671d7e3d18635e67852a13ce14eb3f1dac9c14c01800d2fc99de"
+    },
+    {
+      "path": "verify_output_published.txt",
+      "bytes": 5277,
+      "sha256": "d9d22887992c7e63157bc1c09b6731bf98fbf3d9b1bcc025ccce8e8ac8e8fb47"
+    }
+  ]
+}
