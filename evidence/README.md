@@ -125,3 +125,15 @@ cd BRIGHT-Flash-ex && shasum -a 256 -c MANIFEST.sha256
 ```
 
 两份 `.history` 快照、两份 `model_summary` 表的哈希分别相同，说明它们确实是同一内容的两处副本（不是两次不同的测量）。
+
+
+---
+
+## 发布备注 · 2026-11-09（BRIGHT 耗时重算）
+
+本站把 BRIGHT 的单张模型耗时按用户口径重算为
+`I/O 11.74 s +（BRIGHT 推理 21.04 s + Virchow2 推理 14.74 s）= 47.71 s`（端到端 50.14 s）。
+
+本证据包中的 `files/speed_bench/model_summary.csv` 与 `files/visualizations/time_breakdown/…`
+是**修订前**的测量快照（BRIGHT 33.0 s），保留原样，用于核对这两个推理分量各自的来源。
+`BRIGHT-Flash-5x` 的 2.08 s 与 1007 的 0.8622 不受该修订影响，A/B 两组复核结论不变。

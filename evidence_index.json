@@ -1,18 +1,18 @@
 {
   "source": "BRIGHT-Flash-Pipeline/BRIGHT-Flash-ex",
-  "publishedAt": "2026-11-09T15:39:04+08:00",
+  "publishedAt": "2026-11-09T18:10:23+08:00",
   "redacted": true,
   "verification": "RESULT: ALL CHECKS PASS",
   "files": [
     {
       "path": "MANIFEST.sha256",
       "bytes": 2808,
-      "sha256": "c6e3b5d04000baa08843faf4d4fe40e15d45a8134184b5eb6043fc458bf23f5f"
+      "sha256": "a33f01bb71d1e66b48ecf56ff0f71806f33fce8a0cc4c05365a439d7e9c05be5"
     },
     {
       "path": "README.md",
-      "bytes": 7960,
-      "sha256": "31cd2bbd59a6bd41ee470101cd928604713173de9a9534193a6f4a46c2c63fb8"
+      "bytes": 8519,
+      "sha256": "4fcb99168a0ac92cd84b5966d9dedb83ce414d3362ba606aceeb4ad410d1a98b"
     },
     {
       "path": "REDACTION.md",

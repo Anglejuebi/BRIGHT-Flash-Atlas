@@ -1265,8 +1265,8 @@
       .join('，');
     const caveats = [
       {
-        title: '1007 与两个教师变体的耗时都是沿用值。',
-        body: `1007 沿用 BRIGHT-Flash 的 2.08 s / 4.51 s；H-1030、V-1031 沿用 Pipeline 的 6.23 s / 8.66 s。四者都不是新测，阶段拆分同样沿用。`
+        title: '1007 与两个教师变体沿用计时；BRIGHT 为按口径重算。',
+        body: `1007 沿用 BRIGHT-Flash 的 2.08 s / 4.51 s；H-1030、V-1031 沿用 Pipeline 的 6.23 s / 8.66 s。BRIGHT 的 47.71 s = I/O 11.74 s +（推理 21.04 s + Virchow2 推理 14.74 s），是同一 150 张运行上两个分量的合计，不是单次实测。`
       },
       {
         title: '1007 的 AUC 是 best_validation，不是测试。',
