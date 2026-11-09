@@ -264,10 +264,10 @@ h1 em {
 }
 .btn:hover { transform: translateY(-2px); border-color: var(--line-strong); }
 .btn.primary {
-  background: linear-gradient(120deg, rgba(255, 92, 122, 0.95), rgba(251, 191, 36, 0.9));
-  color: #100811;
+  background: linear-gradient(120deg, #e0116f, #ff6aa8);
+  color: #ffffff;
   border-color: transparent;
-  box-shadow: 0 12px 35px rgba(255, 92, 122, 0.2);
+  box-shadow: 0 12px 35px rgba(224, 17, 111, 0.22);
 }
 .btn.ghost { background: rgba(255, 255, 255, 0.025); color: var(--muted); }
 .btn .arrow { font-family: var(--mono); font-size: 14px; }
@@ -792,7 +792,7 @@ th, td { padding: 10px 12px; text-align: right; border-bottom: 1px solid rgba(15
 th {
   position: sticky;
   top: 0;
-  background: #0a1321;
+  background: #2a1622;
   color: var(--dim);
   font-family: var(--mono);
   font-size: 9px;
@@ -1132,12 +1132,12 @@ h1 em {
 .hero-sub { color: var(--muted); }
 .hero-sub strong { color: var(--text); }
 .btn.primary {
-  background: var(--text);
+  background: var(--pink);
   color: #ffffff;
-  border-color: var(--text);
-  box-shadow: 0 10px 26px rgba(42, 22, 34, 0.14);
+  border-color: var(--pink);
+  box-shadow: 0 10px 26px rgba(224, 17, 111, 0.24);
 }
-.btn.primary:hover { background: #1f3045; }
+.btn.primary:hover { background: #a3005c; }
 .btn.ghost {
   background: #ffffff;
   color: var(--muted);
